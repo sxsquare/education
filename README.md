@@ -1,1 +1,1 @@
-# education
+# S² Education
