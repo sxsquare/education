@@ -239,6 +239,11 @@ document.addEventListener("DOMContentLoaded", () => {
   typeLetter();
 });
 
+        /*---- Go to Home ----*/
+function goHome() {
+    window.location.replace("index.html");
+}
+     
         /*---- © current year ----*/
 document.addEventListener('DOMContentLoaded', () => {
   const year = document.getElementById('current-year');
@@ -272,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </svg>
         <h1 class="thanks logo-color">Thank You!</h1>
         <p class="card-p" id="typing-text">The Form Was Submitted Successfully.</p>
-        <div class="back-btn-container"><button class="back-btn" onclick="window.location.href='index.html'"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
+        <div class="back-btn-container"><button class="back-btn" onclick="goHome()"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
     </div>
 
             <!-- Footer -->
