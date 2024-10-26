@@ -594,3 +594,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentYear = new Date().getFullYear();
   year.textContent = currentYear;
 });
+
+     /*---- improve history behaviour ----*/
+window.addEventListener('load', function() {
+  history.pushState(null, null, window.location.href);
+  window.onpopstate = function() {
+    history.go(1);
+  };
+});
