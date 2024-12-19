@@ -1,0 +1,120 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+   <meta charset="UTF-8"> 
+   <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   <meta name="theme-color" content="#000000">
+   <title>Fee Submission</title>
+   <link rel="icon" href="icon.png" type="image/png">
+   <link rel="shortcut icon" href="icon.png" type="image/png">
+   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+   <link rel="manifest" href="site.webmanifest">
+   <link rel="preload" href="https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"> 
+   <link rel="preload" href="https://fonts.gstatic.com/s/materialsymbolsoutlined/v138/kJF1B7cus1bS3U-6KKG9r2Vhetw3yGlrzCQ.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
+   <link rel="stylesheet" href="fs.css">
+   <script src="fs.js"></script>
+   <script src="pwa.js"></script>
+  </head>
+  <body>
+           <!-- navbar -->
+   <nav class="navbar">
+    <span class="fa fa-bell-o" id="bell-icon"></span>
+    <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
+    <span class="material-symbols-outlined" id="menu-icon">expand_circle_down</span>
+   </nav>
+           <!-- menubar -->
+   <div id="my_menubar" class="menubar">
+    <div class="text-options">
+     <div class="menu-option" id="home" onclick="history.back()">Home</div>
+     <div class="menu-option material-symbols-outlined" id="fee-submission" onclick="location.reload()">payments</div>
+     <div class="menu-option" id="feedback">Feedback</div>
+     <div class="menu-option" id="contact-us">Contact Us</div>
+    </div>
+   </div>
+
+          <!-- Front-page -->
+  <div id="page-wrapper">
+   <div id="payment-box">
+    <div class="upi-logo-box">
+     <img id="upi-logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000055123.png" alt="upi-logo">
+    </div>
+    <div class="upi_texts_div">
+     <div id="upi-heading">FEE SUBMISSION</div>
+    </div>
+    <div id="content">
+    <div id="name-box" class="inp-name-box">
+     <div class="person material-symbols-outlined">person</div>
+     <input id="inp_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter Parent's Name *" required>
+     <span id="name-check-icon" class="material-symbols-outlined">check_circle</span>
+     <span id="name-error-icon" class="material-symbols-outlined">error</span>
+    </div>
+    <p id="name-error-msg"></p>
+
+    <div id="am-box" class="inp-am-box">
+     <div class="inr material-symbols-outlined">currency_rupee</div>
+     <input id="inp_am" type="number" min="1" max="100000" step="0.01" placeholder="Enter Amount *" required>
+     <span id="am-check-icon" class="material-symbols-outlined">check_circle</span>
+     <span id="am-error-icon" class="material-symbols-outlined">error</span>
+    </div>
+    <p id="am-error-msg"></p>
+    
+    <button id="qr-btn" class="qr-btn">GENERATE QR CODE</button>
+    </div>
+    <div id="payment-summary">
+     <p id="timer-text">Time remaining - <span id="timer">02:00</span></p>
+     <div class="text-content">
+      <p id="final-name-text" class="row">
+       <span class="left">Name:</span>
+       <span class="right" id="final-name"></span>
+      </p>
+      <p id="final-am-text" class="row">
+       <span class="left">Total Amount:</span>
+       <span class="right" id="final-am"></span>
+      </p>
+     </div>
+     <img id="qr-img" src="" alt="UPI QR Code">
+     <button id="mark-paid-btn" class="mark-paid-btn">Mark as Paid</button>
+
+    </div>
+
+           <!-- loading -->
+    <div id="loading-bg">
+     <img id="loading" src="https://media3.giphy.com/media/tneMJXxY0TH1LJCfCd/giphy.gif?cid=6c09b952uxugqmlr2qv7ep7k9942rivzy932fa2yol9lbafp&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="loading_gif">
+    </div>
+   </div>
+  </div>
+   
+          <!-- Status bar -->
+  <div id="status-bar">
+   <div id="status-bar-content">
+    <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043166.png" alt="internet_indicator">
+    <p id="internet-msg"></p>
+   </div>
+  </div>
+  
+      <!-- Ad-blocker -->
+<div class="adblock-container hidden" id="adblockContainer">
+    <div class="adblock-message">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h2>Ad-Blocker Detected!</h2>
+        <p>It seems an ad blocker is preventing your form from being submitted. This isn't for ads, but to ensure the form works properly with our submission service. <span>Please disable your ad blocker temporarily and refresh page to submit the form.</span> We appreciate your understanding!</p>
+    </div>
+</div>
+
+       <!-- footer -->
+  <div class="footer">
+   <p>© 2020 - <span id="current-year"></span><br>All Rights Reserved<br>Designed by - <span class="logo-color">SXS</span> <span class="logo-color">Web Consultancy</span></p>
+  </div>
+ </body>
+</html>

@@ -10,29 +10,58 @@
    <link rel="shortcut icon" href="icon.png" type="image/png">
    <link rel="apple-touch-icon" href="apple-touch-icon.png">
    <link rel="manifest" href="site.webmanifest">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> 
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+   <link rel="preload" href="https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"> 
+   <link rel="preload" href="https://fonts.gstatic.com/s/materialsymbolsoutlined/v138/kJF1B7cus1bS3U-6KKG9r2Vhetw3yGlrzCQ.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
    <link rel="stylesheet" href="styles.css">
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+   <script>
+    window.embeddedChatbotConfig = {
+      chatbotId: "9YRSDWYGQFngIG3W6Ahqp",
+      domain: "www.chatbase.co"
+    }
+   </script>
+   <script src="https://www.chatbase.co/embed.min.js" chatbotId="9YRSDWYGQFngIG3W6Ahqp" domain="www.chatbase.co" defer></script>
    <script src="script.js"></script>
    <script src="pwa.js"></script>
   </head>
   <body>
            <!-- navbar -->
    <nav class="navbar">
-    <ul class="nav-list">
-     <li class="nav-list"><img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo" onclick="window.location.href='upi://pay?pa=8573903780@ybl&pn=SXS%20EDUCATION&am=10&tn=Thanks&cu=INR'"></li>
-    </ul>
-   </nav> 
+    <span class="fa fa-bell-o" id="bell-icon"></span>
+    <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
+    <span class="material-symbols-outlined" id="menu-icon">expand_circle_down</span>
+   </nav>
+           <!-- menubar -->
+   <div id="my_menubar" class="menubar">
+    <div class="text-options">
+     <div class="menu-option material-symbols-outlined" id="home" onclick="location.reload()">Home</div>
+     <div class="menu-option" id="fee-submission" onclick="window.location.href='fs.html'">Fee Submission</div>
+     <div class="menu-option" id="feedback">Feedback</div>
+     <div class="menu-option" id="contact-us">Contact Us</div>
+    </div>
+   </div>
+
+
            <!-- Front-page -->
-               <!-- G-i -->
-   <div class="g-i-container" id="g_i_container">
-    <div id="welcome-box">
+   <div id="welcome-box">
+    <div id="welcome-icon-box">
      <span class="fa fa-smile-o logo-color" id="welcome-icon"></span>
     </div>
     <div class="welcome_texts_div">
-     <div id="welcome_note"><span class="welcome">Welcome</span><br>to<br>SXS Tuition Form</div>
+     <div id="welcome">WELCOME</div>
+    </div>
+   </div>
+   
+               <!-- G-i -->
+   <div class="g-i-container" id="g_i_container">
+    <div class="reg_texts_div">
+     <div id="reg">REGISTER AS A STUDENT</div>
     </div>
     <div id="general-instruction-heading">General Instructions</div>
     <div id="scroll-box">
@@ -89,7 +118,7 @@
       <p class="checkbox-error">Please Click Checkbox!</p>
      </div>
      <div class="thanks-msg">
-      <h2>Thank You for choosing<br><span class="logo-color">S²</span> <span class="logo-color">Education</span> for your Academic<br>Journey.</h2>
+      <h2>Thanks For Trusting Us!</h2>
      </div>
      <div class="btn-container">
       <button id="start-disabled-btn">Let's Start</button>
@@ -102,16 +131,15 @@
         <!-- form-parent-conatiner -->
   <div class="container">
     <div class="session" id="academic-session"></div>
-    <h1 class="heading">SXS Tuition Form</h1>
+    <h1 class="heading">Student's<br>Registration Form</h1>
     <div class="gi-btn">See General Instructions</div>
 
-  <form action="https://formsubmit.co/a3188ad3f7e82ad320d331e16ad9fee0" method="POST" enctype="multipart/form-data" id="form">
+  <form action="https://formsubmit.co/379222391c104d12d8c343be26ae92e9" method="POST" enctype="multipart/form-data" id="form">
             <!-- Hidden-inputs -->
     <input type="hidden" name="_template" value="table">
     <input type="hidden" name="_subject" id="subject">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_next" value="https://sxsquare.github.io/education/thanks.html">
-    <input type="hidden" name="_cc" id="cc" value="c2F1cmFiaHNyaXZhc3RhdmFiaW5uaUBnbWFpbC5jb20=">
             <!-- Visible-inputs -->
    <div class="input-fields">
     <input name="First Name" id="inp_student_first_name" type="text" pattern="[A-Za-z]+" placeholder="Enter student's first name" required>
@@ -184,6 +212,27 @@
    <div class="input-fields">
     <input name="Time Schedule" id="inp_time_schedule" type="text" pattern="^([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm) - ([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm)$" placeholder="eg: 09:00 AM - 11:00 AM" required>
     <label class="float-label inp_text_imp" for="inp_time_schedule">Time Schedule :</label>
+   </div>
+   <div class="select-fields">
+    <span class="option-label">Tuition Mode :</span>
+    <label class="select-label inp_text_imp" for="opt_tuition_mode">Tuition Mode :</label>
+    <select name="Tuition Mode" id="opt_tuition_mode" required>
+     <option class="select-option" value="">Select</option>
+     <option value="Online">Online</option>
+     <option value="Offline">Offline</option>
+     <option value="Hybrid">Hybrid</option>
+    </select>
+   </div>
+   <div class="select-fields">
+    <span class="option-label">Tuition Type :</span>
+    <label class="select-label inp_text_imp" for="opt_tuition_type">Tuition Type :</label>
+    <select name="Tuition Type" id="opt_tuition_type" required>
+     <option class="select-option" value="">Select</option>
+     <option value="Batch Classes">Batch Classes</option>
+     <option value="Regular Tuition">Regular Tuition</option>
+     <option value="Weekend Classes">Weekend Classes</option>
+     <option value="Crash Course">Crash Course</option>
+    </select>
    </div>
    <div class="input-fields">
     <input name="School Name" id="inp_school_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter school name" required>
@@ -355,17 +404,72 @@
 
     <div class="btn-container">
      <button id="submit-disabled-btn" type="button">Proceed</button>
-     <button class="form-submit-btn" type="submit" onclick="validateCaptcha()">Submit</button>
+     <button class="form-submit-btn" type="button" onclick="validateCaptcha()">Submit</button>
+    </div>
+    <p id="submit-error">Please fix all the errors before submitting the form!</p>
+    <div id="form-error">
+     <p>Something Went Wrong, please check the following:</p>
+     <ol>
+      <li>Ensure your email address is valid and entered correctly.</li>
+      <li>Verify your internet connection is stable.</li>
+      <li>If everything is correct, please try submitting the form again, and it will successfully process.</li>
+     </ol>
     </div>
   </form>
   </div>
   <div class="alert-bar">To select, please click in blank area or on arrow <span class="material-icons arrow-icon">keyboard_arrow_down</span></div>
   <div class="review-bar">Please review all details once again before final submission.</div>
 
+  <div id="v-box-bg">
+   <div id="v-box">
+    <div class="v-header">
+     <span class="fa fa-lock" id="v-lock"></span>
+     <span class="fa fa-unlock-alt" id="v-unlock"></span>
+     <h2>OTP Verification</h2>
+    </div>
+    <div class="v-body">
+     <p id="v-note">Kindly check your <b>email account</b> below for the OTP we just sent you to verify.</p>
+     <div class="mail-box">
+      <span class="fa fa-eye" id="v-eye"></span>
+      <span class="fa fa-eye-slash" id="v-eye-slash"></span>
+      <p id="mask-mail"></p>
+      <span class="fa fa-pencil" id="edit-btn"></span>
+      <span class="fa fa-question-circle-o" id="q-mark"></span>
+      <div class="q-msg">If you entered a wrong email address by mistake then you need to fill a new form due to some security reasons!</div>
+     </div>
+     <div id="edit-q">
+      <div class="edit-q-content">
+       <div id="q">
+        <h3>Email Correction</h3>
+        <p class="q-content">Do you want to edit your email address?</p>
+        <div class="ans-btns">
+         <button id="edit-yes">Yes</button>
+         <button id="edit-no">No</button>
+        </div>
+       </div>
+       <div id="edit-inp">
+        <span class="fa fa-close" id="quite-edit"></span>
+        <div class="c-email-field">
+         <input name="Corrected E-mail" id="inp_c_email" type="email" placeholder="Enter a valid email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+         <label class="float-label inp_text_imp c-email-label" for="inp_c_email">Corrected E-mail :</label>
+        </div>
+        <p id="c-email-msg"></p>
+        <button id="otp-btn" type="button">Send OTP</button>
+       </div>
+      </div>
+     </div>
+     <input name="OTP" id="inp_otp" type="tel" maxlength="6" minlength="6" autocomplete="off" pattern="^\d{6}$" value="" placeholder="Enter OTP" required>
+     <p id="otp-msg"></p>
+     <img id="otp-verify-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verification_gif">
+    </div>
+   </div>
+  </div>
+
+
         <!-- Status bar -->
   <div id="status-bar">
    <div id="status-bar-content">
-    <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043166.png" alt="no_internet">
+    <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043166.png" alt="internet_indicator">
     <p id="internet-msg"></p>
    </div>
   </div>
@@ -373,6 +477,11 @@
        <!-- loading -->
   <div id="loading-bg">
    <img id="loading" src="https://media3.giphy.com/media/tneMJXxY0TH1LJCfCd/giphy.gif?cid=6c09b952uxugqmlr2qv7ep7k9942rivzy932fa2yol9lbafp&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="loading_gif">
+   <svg id="loading-error" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="8" x2="12" y2="12"></line>
+    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+   </svg>
    <p class="back-note">Please do not press back or close the page.</p>
    <p class="wait-note">Due to slow internet, form submission may take longer. Please wait...</p>
   </div>
@@ -386,7 +495,7 @@
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
         </svg>
         <h2>Ad-Blocker Detected!</h2>
-        <p>It seems an ad blocker is preventing your form from being submitted. This isn't for ads, but to ensure the form works properly with our submission service. <span>Please disable your ad blocker temporarily and refresh page to submit the form.</span> We appreciate your understanding!</p>
+        <p>It seems an ad blocker is preventing the form from working properly. <b>This isn't for ads</b> but to ensure the form can be filled out and submitted successfully. <span>Please disable your ad blocker temporarily and refresh the page to proceed.</span> We appreciate your understanding!</p>
     </div>
 </div>
 
