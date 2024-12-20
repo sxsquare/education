@@ -164,6 +164,7 @@ body {
   font-size: 1.5rem;
   margin: 0;
   color: #fff;
+  line-height: 2.2rem;
   font-family: 'Chakra Petch', Sans-Serif;
 }
 
@@ -226,20 +227,20 @@ body {
           /*---- Type-msg ----*/
 document.addEventListener("DOMContentLoaded", () => {
   const textElement = document.getElementById("typing-text");
-  const text = textElement.textContent;
+  const text = "The Form has been Submitted Successfully.\nWe will reply to you soon.";
   const check = document.getElementById('check');
-  textElement.textContent = "";
+  textElement.innerHTML = "";
       
     let index = 0;
     function typeLetter() {
-      if (index < text.length) {
-        textElement.textContent += text.charAt(index);
-        index++;
+    textElement.innerHTML += text.charAt(index) === '\n' ? '<br>' : text.charAt(index);
+      if (++index < text.length) {
         setTimeout(typeLetter, 50);
       } else {
         check.style.animation = 'breathing 2s linear infinite';
       }
     }
+    
   typeLetter();
 });
 
@@ -280,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </g>
         </svg>
         <h1 class="thanks logo-color">Thank You!</h1>
-        <p class="card-p" id="typing-text">The Form Was Submitted Successfully.</p>
+        <p class="card-p" id="typing-text"></p>
         <div class="back-btn-container"><button class="back-btn" onclick="goHome()"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
     </div>
 

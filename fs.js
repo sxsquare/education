@@ -41,16 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function validateInputs() {
   const name = document.getElementById('inp_name').value.trim();
-  const pattern = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
+  const pattern = /^[A-Za-z]+(?: [A-Za-z]+)*\s*$/;
   const am = document.getElementById('inp_am').value.trim();
 
   let isNameValid = false;
   let isAmValid = false;
 
   // Validate Name
-  if (pattern.test(name)) {
+  if (pattern.test(name) && nameInput.checkValidity()) {
     nameInputBox.style.marginBottom = '1.5rem';
-    nameInput.style.border = '.1rem solid #00cc00';
+    nameInput.classList.remove('invalid');
+    nameInput.classList.add('valid');
     nameCheckIcon.style.display = 'block';
     nameErrorIcon.style.display = 'none';
     nameErrorMsg.style.display = 'none';
@@ -58,7 +59,8 @@ function validateInputs() {
     isNameValid = true;
   } else {
     nameInputBox.style.marginBottom = '0';
-    nameInput.style.border = '.1rem solid red';
+    nameInput.classList.remove('valid');
+    nameInput.classList.add('invalid');
     nameCheckIcon.style.display = 'none';
     nameErrorIcon.style.display = 'block';
     nameErrorMsg.style.display = 'block';
@@ -70,10 +72,12 @@ function validateInputs() {
     if (name === '') {
       nameErrorMsg.textContent = "Name cannot be empty!";
     } else if (!pattern.test(name)) {
-      nameErrorMsg.textContent = "Please enter a valid name!";
-    } else {
-      nameErrorMsg.textContent = "Invalid name entered!";
-    }
+        nameErrorMsg.textContent = "Please enter a valid name!";
+      } else if(pattern.test(id) && !nameInput.checkValidity()) {
+          nameErrorMsg.textContent = "Name must be at least 3 character!";
+        } else {
+            nameErrorMsg.textContent = "Invalid name entered!";
+          }
 
     isNameValid = false;
   }
@@ -81,7 +85,8 @@ function validateInputs() {
   // Validate Amount
   if (am && am > 0 && am <= 100000) {
     amInputBox.style.marginBottom = '1.5rem';
-    amInput.style.border = '.1rem solid #00cc00';
+    amInput.classList.remove('invalid');
+    amInput.classList.add('valid');
     amCheckIcon.style.display = 'block';
     amErrorIcon.style.display = 'none';
     amErrorMsg.style.display = 'none';
@@ -89,7 +94,8 @@ function validateInputs() {
     isAmValid = true;
   } else {
     amInputBox.style.marginBottom = '0';
-    amInput.style.border = '.1rem solid red';
+    amInput.classList.remove('valid');
+    amInput.classList.add('invalid');
     amCheckIcon.style.display = 'none';
     amErrorIcon.style.display = 'block';
     amErrorMsg.style.display = 'block';
@@ -216,17 +222,19 @@ qrBtn.addEventListener('click', function () {
   
   nameInput.addEventListener('input', function () {
     const id = document.getElementById('inp_name').value.trim();
-    const pattern = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
+    const pattern = /^[A-Za-z]+(?: [A-Za-z]+)*\s*$/;
   
-      if (pattern.test(id)) {
+      if (pattern.test(id) && nameInput.checkValidity()) {
         nameInputBox.style.marginBottom = '1.5rem';
-        nameInput.style.border = '.1rem solid #00cc00';
+        nameInput.classList.remove('invalid');
+        nameInput.classList.add('valid');
         nameCheckIcon.style.display = 'block';
         nameErrorIcon.style.display = 'none';
         nameErrorMsg.style.display = 'none';
       } else {
           nameInputBox.style.marginBottom = '0';
-          nameInput.style.border = '.1rem solid red';
+          nameInput.classList.remove('valid');
+          nameInput.classList.add('invalid');
           nameCheckIcon.style.display = 'none';
           nameErrorIcon.style.display = 'block';
           nameErrorMsg.style.display = 'block';
@@ -240,25 +248,29 @@ qrBtn.addEventListener('click', function () {
             nameErrorMsg.textContent = "Name cannot be empty!";
           } else if (!pattern.test(id)) {
               nameErrorMsg.textContent = "Please enter a valid name!";
-            } else {
-                nameErrorMsg.textContent = "Invalid name entered!";
-              }
+            } else if(pattern.test(id) && !nameInput.checkValidity()) {
+                nameErrorMsg.textContent = "Name must be at least 3 character!";
+              } else {
+                  nameErrorMsg.textContent = "Invalid name entered!";
+                }
         }
 
   });
 
 
   amInput.addEventListener('input', function () {
-    const id = document.getElementById('inp_name').value;    const value = document.getElementById('inp_am').value;
+    const value = document.getElementById('inp_am').value;
     
       if (value && value > 0 && value <= 100000) {
-        amInput.style.border = '.1rem solid #00cc00';
+        amInput.classList.remove('invalid');
+        amInput.classList.add('valid');
         amInputBox.style.marginBottom = '1.5rem';
         amCheckIcon.style.display = 'block';
         amErrorIcon.style.display = 'none';
         amErrorMsg.style.display = 'none';
       } else {
-          amInput.style.border = '.1rem solid red';
+          amInput.classList.remove('valid');
+          amInput.classList.add('invalid');
           amInputBox.style.marginBottom = '0';
           amCheckIcon.style.display = 'none';
           amErrorIcon.style.display = 'block';

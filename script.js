@@ -563,9 +563,9 @@ document.addEventListener('DOMContentLoaded', () => {
             pincodeField.classList.remove('valid');
             pincodeField.classList.add('invalid');
             pErrorMsg.textContent = "Please enter a valid pincode!";
-            pErrorMsg.classList.add('shake');
+            pErrorMsg.classList.add('error-shake');
             setTimeout(() => {
-              pErrorMsg.classList.remove('shake');
+              pErrorMsg.classList.remove('error-shake');
             }, 500);
           }
         }
@@ -582,9 +582,11 @@ document.addEventListener('DOMContentLoaded', () => {
   submitBtn.addEventListener('click', (event) => {
       event.preventDefault();
 
+      const otpEmail = document.getElementById('inp_email').value.trim();
+      const finalName = document.getElementById('inp_student_first_name').value.trim();
       const submitError = document.getElementById('submit-error');
       const subjectField = document.getElementById('subject');
-      subjectField.value = `${name}'s Form Submitted Successfully.`;
+      subjectField.value = `${finalName}'s Form Submitted Successfully.`;
 
       if (validateAndStyleInputs() && pincodeIsValid && isDeclarationChecked()) {
         submitError.style.display = 'none';
@@ -594,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
         letCEmail = letEmail;
         cEmailInput.value = letCEmail;
         maskMail.textContent = maskEmail(emailInput.value.trim());
-        sendOTP(email, name);
+        sendOTP(otpEmail, finalName);
         console.log('Form is valid. Proceeding to the next page...');
       }
       else {
@@ -726,14 +728,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sendOtpToCEmail(cEmailInput.value.trim());
   });
 
-
-
-
   function generateOTP() {
     return Math.floor(100000 + Math.random() * 900000); // Generates a 6-digit OTP
   }
   
-  emaijs.init(atob(pk));
+  emailjs.init(atob(pk));
 
   function sendOTP(email, name) {
     const otp = generateOTP(); // Generate OTP
