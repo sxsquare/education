@@ -1,25 +1,23 @@
-           /*---- topbar ----*/
+                /*---- Home ----*/
 document.addEventListener('DOMContentLoaded', () => {
-  const menubar = document.getElementById("my_menubar");
-  const menuBtn = document.getElementById("menu-icon");
+  const home = document.getElementById('home');
+    home.addEventListener('click', () => {
+      window.location.replace("index.html");
+    });
+});
 
-  menuBtn.addEventListener('click', function() {
-    const transformValue = window.getComputedStyle(menuBtn).transform;
-
-    if (transformValue === "none" || transformValue === "matrix(1, 0, 0, 1, 0, 0)") {
-      menubar.style.maxHeight = '100rem';
-      menuBtn.style.transform = "rotate(-540deg)";
-    } else {
-      menubar.style.maxHeight = '0';
-      menuBtn.style.transform = "rotate(0deg)";
-    }
+         /*---- Make inputs sensible ----*/
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('input').forEach(input => {
+    input.setAttribute('spellcheck', 'false');
+    input.setAttribute('autocomplete', 'off');
   });
 });
 
-           /*---- inputs function ----*/
+            /*---- inputs function ----*/
 document.addEventListener('DOMContentLoaded', () => {
-  const mainBox = document.getElementById('content');
-  
+  const inputSlide = document.getElementById('input-slide');
+ 
   const nameInputBox = document.getElementById('name-box');
   const nameInput = document.getElementById('inp_name');
   const nameCheckIcon = document.getElementById('name-check-icon');
@@ -32,101 +30,166 @@ document.addEventListener('DOMContentLoaded', () => {
   const amErrorIcon = document.getElementById('am-error-icon');
   const amErrorMsg = document.getElementById('am-error-msg');
 
-  const finalBox = document.getElementById('payment-summary');
+  const paymentSlide = document.getElementById('payment-slide');
   const qrBtn = document.getElementById('qr-btn');
   const finalName = document.getElementById('final-name');
   const finalAm = document.getElementById('final-am');
   const img = document.getElementById('qr-img');
   const loading = document.getElementById('loading-bg');
 
-function validateInputs() {
-  const name = document.getElementById('inp_name').value.trim();
-  const pattern = /^[A-Za-z]+(?: [A-Za-z]+)*\s*$/;
-  const am = document.getElementById('inp_am').value.trim();
+  const confirmBtn = document.getElementById('confirm-btn');
+  const successSlide = document.getElementById('success-slide')
+  const paymentId = document.getElementById('payment-id');
+  
+  nameInput.addEventListener('input', function () {
+    const value = this.value;
+    const words = value.split(' ');
+    const capitalizedWords = words.map(word => {
+      return word.length > 0 ? word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() : '';
+    });
 
-  let isNameValid = false;
-  let isAmValid = false;
+    this.value = capitalizedWords.join(' ');
 
-  // Validate Name
-  if (pattern.test(name) && nameInput.checkValidity()) {
-    nameInputBox.style.marginBottom = '1.5rem';
-    nameInput.classList.remove('invalid');
-    nameInput.classList.add('valid');
-    nameCheckIcon.style.display = 'block';
-    nameErrorIcon.style.display = 'none';
-    nameErrorMsg.style.display = 'none';
+    validateName();
+  });
 
-    isNameValid = true;
-  } else {
-    nameInputBox.style.marginBottom = '0';
-    nameInput.classList.remove('valid');
-    nameInput.classList.add('invalid');
-    nameCheckIcon.style.display = 'none';
-    nameErrorIcon.style.display = 'block';
-    nameErrorMsg.style.display = 'block';
-    nameErrorMsg.classList.add('shake');
-    setTimeout(() => {
-      nameErrorMsg.classList.remove('shake');
-    }, 500);
-
-    if (name === '') {
-      nameErrorMsg.textContent = "Name cannot be empty!";
-    } else if (!pattern.test(name)) {
-        nameErrorMsg.textContent = "Please enter a valid name!";
-      } else if(pattern.test(id) && !nameInput.checkValidity()) {
-          nameErrorMsg.textContent = "Name must be at least 3 character!";
-        } else {
-            nameErrorMsg.textContent = "Invalid name entered!";
-          }
-
-    isNameValid = false;
-  }
-
-  // Validate Amount
-  if (am && am > 0 && am <= 100000) {
-    amInputBox.style.marginBottom = '1.5rem';
-    amInput.classList.remove('invalid');
-    amInput.classList.add('valid');
-    amCheckIcon.style.display = 'block';
-    amErrorIcon.style.display = 'none';
-    amErrorMsg.style.display = 'none';
-
-    isAmValid = true;
-  } else {
-    amInputBox.style.marginBottom = '0';
-    amInput.classList.remove('valid');
-    amInput.classList.add('invalid');
-    amCheckIcon.style.display = 'none';
-    amErrorIcon.style.display = 'block';
-    amErrorMsg.style.display = 'block';
-    amErrorMsg.classList.add('shake');
-    setTimeout(() => {
-      amErrorMsg.classList.remove('shake');
-    }, 500);
-
-    if (am === '') {
-      amErrorMsg.textContent = "Amount cannot be empty!";
-    } else if (am <= 0) {
-      amErrorMsg.textContent = "Amount must be greater than zero!";
-    } else if (am > 100000) {
-      amErrorMsg.innerHTML = "Amount cannot exceed 1 lakh,<br>as per UPI limits!";
-    } else {
-      amErrorMsg.textContent = "Please enter a valid amount!";
+  amInput.addEventListener('input', function () {
+    if(this.value.length > 6) {
+      this.value = this.value.slice(0, 6);
     }
+   
+    validateAm();
+  });
 
-    isAmValid = false;
+  function validateName() {
+    const name = nameInput.value.trim();
+    const pattern = /^[A-Za-z]+(?: [A-Za-z]+)*\s*$/;
+    let isNameValid = false;
+
+    if (pattern.test(name) && name.length >= 3) {
+      nameInputBox.style.marginBottom = '1.5rem';
+      nameInput.classList.remove('invalid');
+      nameInput.classList.add('valid');
+      nameCheckIcon.style.display = 'block';
+      nameErrorIcon.style.display = 'none';
+      nameErrorMsg.style.display = 'none';
+
+      isNameValid = true;
+    } else {
+      nameInputBox.style.marginBottom = '0';
+      nameInput.classList.remove('valid');
+      nameInput.classList.add('invalid');
+      nameCheckIcon.style.display = 'none';
+      nameErrorIcon.style.display = 'block';
+      nameErrorMsg.style.display = 'block';
+      nameErrorMsg.classList.add('shake');
+      setTimeout(() => {
+        nameErrorMsg.classList.remove('shake');
+      }, 500);
+
+      if (name === '') {
+        nameErrorMsg.textContent = "Name cannot be empty!";
+      } else if (!pattern.test(name)) {
+        nameErrorMsg.textContent = "Please enter a valid name!";
+      } else if(name.length < 3) {
+        nameErrorMsg.textContent = "Name must be at least 3 character!";
+      } else {
+        nameErrorMsg.textContent = "Invalid name entered!";
+      }
+
+      isNameValid = false;
+    }
+  
+    return isNameValid;
   }
 
-  return { isNameValid, isAmValid, name: name, amount: am };
-}
+  function validateAm() {
+    const am = amInput.value.trim();
+    let isAmValid = false;
+
+    if (am && amInput.checkValidity() && am >= 1 && am <= 100000) {
+      amInputBox.style.marginBottom = '1.5rem';
+      amInput.classList.remove('invalid');
+      amInput.classList.add('valid');
+      amCheckIcon.style.display = 'block';
+      amErrorIcon.style.display = 'none';
+      amErrorMsg.style.display = 'none';
+
+      isAmValid = true;
+    } else {
+      amInputBox.style.marginBottom = '0';
+      amInput.classList.remove('valid');
+      amInput.classList.add('invalid');
+      amCheckIcon.style.display = 'none';
+      amErrorIcon.style.display = 'block';
+      amErrorMsg.style.display = 'block';
+      amErrorMsg.classList.add('shake');
+      setTimeout(() => {
+        amErrorMsg.classList.remove('shake');
+      }, 500);
+
+      if (am === '') {
+        amErrorMsg.textContent = "Amount cannot be empty!";
+      } else if (am < 1) {
+        amErrorMsg.textContent = "Amount should be at least 1!";
+      } else if (am > 100000) {
+        amErrorMsg.innerHTML = "Amount cannot exceed 1 lakh,<br>as per UPI limits!";
+      } else {
+        amErrorMsg.textContent = "Please enter a valid amount!";
+      }
+
+      isAmValid = false;
+    }
+  
+    return isAmValid;
+  }
+
+  qrBtn.addEventListener('click', (event) => {
+    event.preventDefault;
+    const isNameValid = validateName();
+    const isAmValid = validateAm();
+  
+    function shortName(name) {
+      const shortedName = name.length > 20 ? `${name.substring(0, 20)}...` : name;
+      return shortedName;
+    }
+  
+    if (isNameValid && isAmValid) {
+      const name = nameInput.value.trim();
+      const am = amInput.value.trim();
+      const eSrc = "aHR0cHM6Ly9xdWlja2NoYXJ0LmlvL3FyP3NpemU9MjAwJnRleHQ9dXBpJTNBJTJGJTJGcGF5JTNGcGElM0RzeHNxdWFyZSU0MHlibCUyNnBuJTNEU1hTJTIwRURVQ0FUSU9OJTI2dG4lM0RUaGFua3MlMjBmb3IlMjB0cnVzdGluZyUyMHVzISUyNmN1JTNESU5SJTI2YW0lM0Q=";
+      const dSrc = atob(eSrc);
+      const qrSrc = `${dSrc}${am}`;
+  
+      inputSlide.style.opacity = '0';
+      loading.style.display = 'grid';
+    
+      inputSlide.addEventListener('transitionend', function () { 
+        this.style.display = 'none';
+        setTimeout(() => {
+          loading.style.display = 'none';
+          initiateTimer();
+        }, 2000);
+        img.src = qrSrc;
+        paymentSlide.style.display = 'grid';
+        finalName.textContent = shortName(name);
+        finalAm.textContent = formatIndianCurrency(am);
+        img.style.display = 'block';
+        console.log('QR code generated successfully...');
+      });
+    } else {
+      console.log('Please fix the errors before generating the QR code!');
+    }
+  
+  });
 
 
-let timerInterval;
-let remainingTime = 0;
-let startTime = 0;
-const timerDuration = 2 * 60; // Set timer duration here (e.g., 2 minutes)
+  let timerInterval;
+  let remainingTime = 0;
+  let startTime = 0;
+  const timerDuration = 2 * 60; // Set timer duration here (e.g., 2 minutes)
 
-function startTimer(duration) {
+  function startTimer(duration) {
     // Check if there's any saved time in localStorage, else start fresh
     if (localStorage.getItem('remainingTime')) {
         remainingTime = parseInt(localStorage.getItem('remainingTime'));
@@ -139,167 +202,243 @@ function startTimer(duration) {
     startTime = Date.now(); // Mark the start time
 
     timerInterval = setInterval(function() {
-        const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Calculate elapsed time
+      const elapsedTime = Math.floor((Date.now() - startTime) / 1000); // Calculate elapsed time
 
         // Update remaining time based on elapsed time
-        remainingTime = Math.max(0, duration - elapsedTime);
+      remainingTime = Math.max(0, duration - elapsedTime);
 
         // Update the timer display
-        const minutes = Math.floor(remainingTime / 60);
-        const seconds = remainingTime % 60;
-        const display = document.getElementById('timer');
-        display.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      const minutes = Math.floor(remainingTime / 60);
+      const seconds = remainingTime % 60;
+      const display = document.getElementById('timer');
+      display.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
         // Save remaining time to localStorage every second
-        localStorage.setItem('remainingTime', remainingTime);
+      localStorage.setItem('remainingTime', remainingTime);
 
         // Timer expiry condition
-        if (remainingTime <= 0) {
-            clearInterval(timerInterval);
-            handleTimerExpiry();
-        }
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        handleTimerExpiry();
+      }
     }, 1000);
-}
+  }
 
-// Function to handle timer expiry
-function handleTimerExpiry() {
+  // Function to handle timer expiry
+  function handleTimerExpiry() {
     console.log("Timer expired!");
     // Add any logic here, e.g., showing a message or refreshing the page
-}
+  }
 
-// This function will be called to initiate the timer
-function initiateTimer() {
+  // This function will be called to initiate the timer
+  function initiateTimer() {
     localStorage.removeItem('remainingTime'); // Reset the stored time when initiating a new timer
     startTimer(timerDuration); // Start the timer from fresh state
-}
+  }
 
+          /*---- On-confirm Payment ----*/
+  confirmBtn.addEventListener('click', () => {
+    const random = Math.floor(100000 + Math.random() * 900000);
+    paymentRef = `SE${random}P`;
+    confirmTime = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-GB');
+    paymentId.textContent = `Payment ID: ${paymentRef}`;
+    paymentSlide.style.opacity = '0';
+    loading.style.display = 'grid';
+    
+    paymentSlide.addEventListener('transitionend', function () {
+      setTimeout(() => {
+        this.style.display = 'none';
+        successSlide.style.display = 'grid';
+        loading.style.display = 'none';
+      }, 2000);
+    });
+  });
+});
+
+let paymentRef = null;
+let confirmTime = null;
+
+           /*---- Format INR ----*/
 function formatIndianCurrency(amount) {
-  // Convert amount to string and format with commas as per Indian numbering system
-  const [integerPart, decimalPart] = amount.toString().split('.'); // Separate integer and decimal parts
-
-  // Format integer part with Indian currency style commas
-  const lastThree = integerPart.slice(-3); // Get the last three digits
-  const otherDigits = integerPart.slice(0, -3); // Get the remaining digits
+  const integerPart = Math.floor(amount).toString();
+  const lastThree = integerPart.slice(-3);
+  const otherDigits = integerPart.slice(0, -3);
   const formattedInteger = otherDigits
     ? otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + lastThree
     : lastThree;
 
-  // Return formatted amount with decimal part, if present
-  return decimalPart ? `₹ ${formattedInteger}.${decimalPart}` : `₹ ${formattedInteger}`;
+  return `${formattedInteger}.00 INR`;
 }
 
-
-// Event Listener for Generate QR Button
-qrBtn.addEventListener('click', function () {
-  const { isNameValid, isAmValid, name, amount } = validateInputs();
-
-  if (isNameValid && isAmValid) {
-    const eSrc = "aHR0cHM6Ly9xdWlja2NoYXJ0LmlvL3FyP3NpemU9MjAwJnRleHQ9dXBpJTNBJTJGJTJGcGF5JTNGcGElM0RzeHNxdWFyZSU0MHlibCUyNnBuJTNEU1hTJTIwRURVQ0FUSU9OJTI2dG4lM0RUaGFua3MlMjBmb3IlMjB0cnVzdGluZyUyMHVzISUyNmN1JTNESU5SJTI2YW0lM0Q=";
-    const dSrc = atob(eSrc);
-    const qrSrc = `${dSrc}${amount}`;
+           /*---- Receipt generation ----*/
+document.addEventListener('DOMContentLoaded', () => {
+  const receiptBtn = document.getElementById('receipt-btn');
+  const nameInput = document.getElementById('inp_name');
+  const amInput = document.getElementById('inp_am');
   
-    mainBox.style.opacity = '0';
-    loading.style.display = 'grid';
+  receiptBtn.addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const logoURL = 'https://i.ibb.co/mv8T96b/sxs-logo.png';
+    const ref = paymentRef;
+    const time = confirmTime;
+    const name = nameInput.value.trim();
+    const am = formatIndianCurrency(amInput.value.trim());
+
+    // Add Light Background
+    doc.setFillColor(245, 245, 245);
+    doc.rect(0, 0, 210, 297, 'F');
+
+    // page measurement
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const paddingTop = 20;
+    const paddingBottom = 20;
     
-    mainBox.addEventListener('transitionend', function () { 
-      mainBox.style.display = 'none';
-      setTimeout(() => {
-        loading.style.display = 'none';
-        initiateTimer();
-      }, 2000);
-      img.src = qrSrc;
-      finalBox.style.display = 'grid';
-      finalName.textContent = `${name}`;
-      const amount = document.getElementById('inp_am').value;
-      finalAm.textContent = formatIndianCurrency(amount);
-      img.style.display = 'block';
-      console.log('QR code generated successfully...');
+    // Add Logo
+    const logoWidth = 75;
+    const logoHeight = 17;
+    const centerX = (pageWidth - logoWidth) / 2;
+    const logoY = paddingTop;
+    doc.addImage(logoURL, 'PNG', centerX, logoY, logoWidth, logoHeight);
+    
+    // tagline
+    const taglineY = logoY + logoHeight + 5;
+    doc.setFont('times', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text('"Excess Your Success With SXS"', pageWidth / 2, taglineY, null, null, 'center');
+    
+    // Green Box for Fee Payment Receipt
+    const greenBoxX = 20;
+    const greenBoxY = taglineY + 12;
+    const greenBoxWidth = doc.internal.pageSize.getWidth() - 40;
+    const greenBoxHeight = 12;
+
+    doc.setFillColor(0, 128, 0);
+    doc.rect(greenBoxX, greenBoxY, greenBoxWidth, greenBoxHeight, 'F');
+
+    const greenText = "FEE PAYMENT RECEIPT";
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(14);
+    doc.setTextColor(255, 255, 255);
+    const greenTextX = greenBoxX + (greenBoxWidth - doc.getTextWidth(greenText)) / 2;
+    const greenTextY = greenBoxY + (greenBoxHeight + 14 * 0.352777778) / 2;
+    doc.text(greenText, greenTextX, greenTextY);
+
+    // Add Table
+    const tableStartY = greenBoxY + greenBoxHeight + 1;
+    doc.autoTable({
+      startY: tableStartY,
+      margin: { left: 20, right: 20 },
+      styles: { fontSize: 11, cellPadding: 5 },
+      theme: 'grid',
+      head: [],
+      body: [
+        ['Payment ID', ref],
+        ['Date & Time', time],
+        ['Payee Name', name],
+        ['Amount Paid', am],
+      ],
     });
-  } else {
-    console.log('Please fix the errors before generating the QR code!');
-  }
-});
-  
-  nameInput.addEventListener('input', function () {
-    const id = document.getElementById('inp_name').value.trim();
-    const pattern = /^[A-Za-z]+(?: [A-Za-z]+)*\s*$/;
-  
-      if (pattern.test(id) && nameInput.checkValidity()) {
-        nameInputBox.style.marginBottom = '1.5rem';
-        nameInput.classList.remove('invalid');
-        nameInput.classList.add('valid');
-        nameCheckIcon.style.display = 'block';
-        nameErrorIcon.style.display = 'none';
-        nameErrorMsg.style.display = 'none';
-      } else {
-          nameInputBox.style.marginBottom = '0';
-          nameInput.classList.remove('valid');
-          nameInput.classList.add('invalid');
-          nameCheckIcon.style.display = 'none';
-          nameErrorIcon.style.display = 'block';
-          nameErrorMsg.style.display = 'block';
-          nameErrorMsg.classList.add('shake');
-          img.style.display = 'none';
-          setTimeout(() => {
-            nameErrorMsg.classList.remove('shake');
-          }, 500);
 
-          if (id === '') {
-            nameErrorMsg.textContent = "Name cannot be empty!";
-          } else if (!pattern.test(id)) {
-              nameErrorMsg.textContent = "Please enter a valid name!";
-            } else if(pattern.test(id) && !nameInput.checkValidity()) {
-                nameErrorMsg.textContent = "Name must be at least 3 character!";
-              } else {
-                  nameErrorMsg.textContent = "Invalid name entered!";
-                }
-        }
+    // White Box for Note
+    const noteBoxX = 20;
+    const noteBoxY = doc.lastAutoTable.finalY + 15;
+    const noteBoxWidth = doc.internal.pageSize.getWidth() - 40;
+    const noteBoxHeight = 50;
 
-  });
+    doc.setFillColor(255, 255, 255); // White color for the box
+    doc.rect(noteBoxX, noteBoxY, noteBoxWidth, noteBoxHeight, 'F');
 
+    // Add Note Heading
+    const noteHeading = "NOTE";
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(0, 0, 0);
+    const noteHeadingX = noteBoxX + (noteBoxWidth - doc.getTextWidth(noteHeading)) / 2;
+    const noteHeadingY = noteBoxY + 10;
+    doc.text(noteHeading, noteHeadingX, noteHeadingY);
 
-  amInput.addEventListener('input', function () {
-    const value = document.getElementById('inp_am').value;
+    // Add Note Points
+    const bulletPoints = [
+      "This receipt is generated based on your confirmation of successful payment.",
+      "We trust our users and value your honesty in marking payments as completed.",
+      "The payment is subject to verification. In case of discrepancies, we will contact you.",
+      "Once the payment is verified, you will receive a confirmation email.",
+      "If you face issues, feel free to contact us for assistance.",
+    ];
+
+    let bulletY = noteHeadingY + 8;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(80, 80, 80);
+    bulletPoints.forEach((point) => {
+      doc.text(`\u2022 ${point}`, noteBoxX + 5, bulletY);
+      bulletY += 6;
+    });
+
+    // Footer
+    const footerEndY = pageHeight - paddingBottom;
+    doc.setFont('times', 'normal');
+    doc.setFontSize(13);
+    doc.setTextColor(40, 60, 90);
+    const footerStartY = footerEndY - 20;
+    doc.text("Thanks For Trusting Us!", pageWidth / 2, footerStartY, null, null, 'center');
+
+    const linkText = "S² Education";
+    const textWidth = doc.getTextWidth(linkText);
+    const linkX = (pageWidth - textWidth) / 2;
+    const linkY = footerEndY - 10;
+    doc.textWithLink(linkText, linkX, linkY, { url: 'https://sxsquare.github.io/education/' });
+    doc.setLineWidth(0.2);
+    doc.setDrawColor(40, 60, 90);
+    doc.line(linkX, linkY + 1, linkX + textWidth, linkY + 1);
+     
+    doc.setFont('courier', 'bold');
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text("Electronically Generated, does not require Signature.", pageWidth / 2, footerEndY, null, null, 'center');
+
+    // Save pdf with QR Code
+    const qrContainer = document.createElement('div');
+    const qrData = `S² Education\nFee Payment Receipt\nPayment ID: ${ref}\nDate & Time: ${date}\nPayee Name: ${name}\nAmount Paid: ${am}\nThanks For Trusting Us!`;
+    const qr = new qrcode(0, 'L');
+    qr.addData(qrData);
+    qr.make();
+    qrContainer.innerHTML = qr.createImgTag(4);
+    const qrImg = qrContainer.querySelector('img');
+    const qrWidth = 40;
+    const qrHeight = 40;
+    const qrX = (pageWidth - qrWidth) / 2;
+    const qrY = ((noteBoxY + noteBoxHeight) + footerStartY) / 2;
     
-      if (value && value > 0 && value <= 100000) {
-        amInput.classList.remove('invalid');
-        amInput.classList.add('valid');
-        amInputBox.style.marginBottom = '1.5rem';
-        amCheckIcon.style.display = 'block';
-        amErrorIcon.style.display = 'none';
-        amErrorMsg.style.display = 'none';
-      } else {
-          amInput.classList.remove('valid');
-          amInput.classList.add('invalid');
-          amInputBox.style.marginBottom = '0';
-          amCheckIcon.style.display = 'none';
-          amErrorIcon.style.display = 'block';
-          amErrorMsg.style.display = 'block';
-          amErrorMsg.classList.add('shake');
-          setTimeout(() => {
-            amErrorMsg.classList.remove('shake');
-          }, 500);
-        
-          if (value === '') {
-            amErrorMsg.textContent = "Amount cannot be empty!";
-          } else if (value <= 0) {
-              amErrorMsg.textContent = "Amount must be greater than zero!";
-            } else if (value > 100000) {
-                amErrorMsg.innerHTML = "Amount cannot exceed 1 lakh,<br>as per UPI limits!";
-              } else {
-                  amErrorMsg.textContent = "Please enter a valid amount!";
-                }
-        }
+    if (qrImg) {
+      qrImg.onload = () => {
+        doc.addImage(qrImg.src, 'PNG', qrX, qrY - qrHeight/2, qrWidth, qrHeight);
+        doc.save("fee_payment_receipt.pdf");
+        console.log('Pdf Downloaded Successfully...');
+      };
+      qrImg.onerror = () => {
+        doc.save("fee_payment_receipt.pdf");
+        console.log('some error occurred, may be QR will not available in pdf.');
+      };
+    } else {
+      doc.save("fee_payment_receipt.pdf");
+      console.log('pdf downloaded, but QR will not available.');
+    }
   });
 });
-
-   
    
          /*-- Online/Offline status --*/
 function updateStatusBar() {
   const statusBar = document.getElementById('status-bar');
-  const img = document.getElementById('internet-img');
+  const statusBarIcons = document.getElementById('status-bar-icons');
+  const internet = document.getElementById('internet-img');
+  const noInternet = document.getElementById('no-internet-icon')
   const msg = document.getElementById('internet-msg');
+  const logo = document.getElementById('logo');
 
   if (navigator.onLine) {
     setTimeout(() => {
@@ -308,28 +447,34 @@ function updateStatusBar() {
     }, 1900);
     setTimeout(() => {
       statusBar.style.opacity = '0';
-    }, 1000)
-    img.src = 'https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043203.png';
+    }, 1000);
+    statusBarIcons.style.borderColor = '#0ef';
+    internet.style.opacity = '1';
+    noInternet.style.opacity = '0';
     msg.style.color = '#00cc00';
     msg.textContent = 'Back Online'
+    logo.style.margin = '0';
   } else {
     setTimeout(() => {
       statusBar.style.opacity = '1';
       document.body.style.overflowY = 'hidden';
-    }, 500);
+    }, 50);
     statusBar.style.display = 'grid';
-    img.src = 'https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043166.png';
+    statusBarIcons.style.borderColor = '#007bff';
+    internet.style.opacity = '0';
+    noInternet.style.opacity = '1';
     msg.style.color = 'red';
     msg.textContent = 'No Internet Connection!'
+    setTimeout(() => {
+      logo.style.margin = 'auto';
+    }, 500);
   }
 }
 
 window.addEventListener('online', updateStatusBar);
 window.addEventListener('offline', updateStatusBar);
 
-document.addEventListener('DOMContentLoaded', () => {
-  updateStatusBar();
-});
+document.addEventListener('DOMContentLoaded', updateStatusBar);
 
         /*---- © current year ----*/
 document.addEventListener('DOMContentLoaded', () => {

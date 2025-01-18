@@ -18,39 +18,56 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
    <link rel="stylesheet" href="styles.css">
-   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-   <script>
-    window.embeddedChatbotConfig = {
-      chatbotId: "9YRSDWYGQFngIG3W6Ahqp",
-      domain: "www.chatbase.co"
-    }
-   </script>
+   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" type="text/javascript"></script>
    <script src="https://www.chatbase.co/embed.min.js" chatbotId="9YRSDWYGQFngIG3W6Ahqp" domain="www.chatbase.co" defer></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
    <script src="script.js"></script>
    <script src="pwa.js"></script>
   </head>
   <body>
            <!-- navbar -->
-   <nav class="navbar">
+   <nav id="my_navbar" class="navbar">
     <span class="fa fa-bell-o" id="bell-icon"></span>
-    <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
-    <span class="material-symbols-outlined" id="menu-icon">expand_circle_down</span>
+    <span class="fa fa-chevron-left" id="close-icon"></span>
+    <div class="logo-box">
+     <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
+    </div>
+    <div id="menu-btn"><span class="fa fa-angle-down" id="menu-icon"></span></div>
    </nav>
+   
+   <div id="my_sidebar" class="sidebar">
+    <p id="default-notify-msg">No Notifications found!</p>
+   </div>
+
+   
+   
            <!-- menubar -->
    <div id="my_menubar" class="menubar">
     <div class="text-options">
      <div class="menu-option material-symbols-outlined" id="home" onclick="location.reload()">Home</div>
-     <div class="menu-option" id="fee-submission" onclick="window.location.href='fs.html'">Fee Submission</div>
-     <div class="menu-option" id="feedback">Feedback</div>
-     <div class="menu-option" id="contact-us">Contact Us</div>
+     <div class="menu-option" id="fee-submission" onclick="window.location.href='fs.html'"><a href="fs.html"></a>Fee Submission</div>
+     <div class="menu-option" id="feedback" onclick="window.location.href='fb.html'"><a href="fb.html"></a>Feedback</div>
+     <div class="menu-option" id="contact-us" onclick="window.location.href='cu.html'"><a href="cu.html"></a>Contact Us</div>
     </div>
    </div>
 
 
            <!-- Front-page -->
 <div id="page-wrapper">
- <div class="page-content">
+ <div id="page-sk">
+   <div class="sk sk-circle"></div>
+   <div class="sk sk-la"></div>
+   <div class="sk sk-lb"></div>
+   <div class="sk sk-box"></div>
+ </div>
+ 
+ <div id="page-content">
    <div id="welcome-box">
     <div id="welcome-icon-box">
      <span class="fa fa-smile-o logo-color" id="welcome-icon"></span>
@@ -144,22 +161,22 @@
     <input type="hidden" name="_next" value="https://sxsquare.github.io/education/thanks.html">
             <!-- Visible-inputs -->
    <div class="input-fields">
-    <input name="First Name" id="inp_student_first_name" type="text" pattern="[A-Za-z]+" placeholder="Enter student's first name" required>
+    <input name="First Name" id="inp_student_first_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's first name" required>
     <label class="float-label inp_text_imp" for="inp_student_first_name">First Name :</label>
    </div>
    <div class="input-fields">
-    <input name="Middle Name" id="inp_student_middle_name" type="text" pattern="[A-Za-z]+" placeholder="Enter student's middle name">
+    <input name="Middle Name" id="inp_student_middle_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's middle name">
     <label class="float-label" for="inp_student_middle_name">Middle Name :</label>
    </div>
    <div class="input-fields">
-    <input name="Last Name" id="inp_student_last_name" type="text" pattern="[A-Za-z]+" placeholder="Enter student's last name" required>
+    <input name="Last Name" id="inp_student_last_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's last name" required>
     <label class="float-label inp_text_imp" for="inp_student_last_name">Last Name :</label>
    </div>
    <div class="input-fields">
-    <input name="DOB" id="inp_student_dob" type="tel" minlength="10" maxlength="10" pattern="\d{2}-\d{2}-\d{4}" value="" placeholder="DD-MM-YYYY" required>
-    <label class="float-label inp_text_imp" for="inp_student_dob">Date of Birth :</label>
+    <span class="option-label dob-ol">Date of Birth :</span>
+    <input name="DOB" id="inp_student_dob" type="text" placeholder="DD/MM/YYYY" required>
+    <label class="float-label dob-fl inp_text_imp" for="inp_student_dob">Date of Birth :</label>
    </div>
-   
    <div class="select-fields">
     <span class="option-label">Gender :</span>
     <label class="select-label inp_text_imp" for="opt_gender">Gender :</label>
@@ -207,14 +224,58 @@
      <option value="XII">XII</option>
     </select>
    </div>
+   
+   <div class="select-fields">
+    <span class="option-label">Subjects :</span>
+    <label class="select-label inp_text_imp" for="opt_subjects">Subjects :</label>
+    <select id="opt_subjects" class="no-table no-qr" multiple required>
+     <option class="select-option" value="">Select</option>
+     <option value="All Subjects">All Subjects</option>
+     <option value="English">English</option>
+     <option value="Hindi">Hindi</option>
+     <option value="Social-studies">Social Studies</option>
+     <option value="Maths">Mathematics</option>
+     <option value="Science">Science</option>
+     <option value="Politics">Political Science</option>
+     <option value="History">History</option>
+     <option value="Geography">Geography</option>
+     <option value="Economics">Economics</option>
+     <option value="Computer-science">Computer Science</option>
+     <option value="Physics">Physics</option>
+     <option value="Chemistry">Chemistry</option>
+     <option value="Biology">Biology</option>
+     <option value="Business-studies">Business Studies</option>
+     <option value="Accounting">Accounting</option>
+     <option value="Sociology">Sociology</option>
+     <option value="Psychology">Psychology</option>
+     <option value="Fine-arts">Fine Arts</option>
+     <option value="Physical-education">Physical Education</option>
+     <option value="Philosophy">Philosophy</option>
+     <option value="Environmental-science">Environmental Science</option>
+     <option value="Information-technology">Information Technology</option>
+     <option value="Home-science">Home Science</option>
+     <option value="Entrepreneurship">Entrepreneurship</option>
+     <option value="Legal-studies">Legal Studies</option>
+     <option value="Agriculture">Agriculture</option>
+     <option value="Other">Other</option>
+    </select>
+   </div>
+   <input name="Subjects" id="inp_subjects" type="hidden">
+
+   
+  
+   
+ <!--  
    <div class="input-fields">
     <input name="Subjects" id="inp_subjects" type="text" pattern="^([A-Za-z\s]+(,\s)?)+$" placeholder="eg: Maths, Science or All Subjects" required>
     <label class="float-label inp_text_imp" for="inp_subjects">Subjects :</label>
    </div>
+
    <div class="input-fields">
     <input name="Time Schedule" id="inp_time_schedule" type="text" pattern="^([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm) - ([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm)$" placeholder="eg: 09:00 AM - 11:00 AM" required>
     <label class="float-label inp_text_imp" for="inp_time_schedule">Time Schedule :</label>
    </div>
+-->  
    <div class="select-fields">
     <span class="option-label">Tuition Mode :</span>
     <label class="select-label inp_text_imp" for="opt_tuition_mode">Tuition Mode :</label>
@@ -325,33 +386,33 @@
     </select>
    </div>
    <div class="input-fields">
-    <input name="E-mail" id="inp_email" type="email" placeholder="eg: abc123@email.com" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+    <input name="E-mail" id="inp_email" class="no-cap sna" type="email" placeholder="eg: abc123@email.com" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
     <label class="float-label inp_text_imp" for="inp_email">E-mail :</label>
    </div>
    <div class="input-fields">
-    <input name="Phone" id="inp_mob" type="tel" pattern="[6789]\d{9}" value="" minlength="10" maxlength="10" placeholder="10-digit Mobile No." required>
+    <input name="Phone" id="inp_mob" class="sna" type="tel" pattern="[6789]\d{9}" value="" minlength="10" maxlength="10" placeholder="10-digit Mobile No." required>
     <label class="float-label inp_text_imp" for="inp_mob">Mobile Number :</label>
    </div>
    <div class="input-fields">
-    <input name="Flat/House No., Building Name" id="inp_house_no." type="text" placeholder="eg: 69/110, Nova Apartment" required>
-    <label class="float-label inp_text_imp" for="inp_house_no.">Flat/House No., Building Name :</label>
+    <input name="Flat/House No., Building Name" id="inp_house_no" class="no-cap" type="text" pattern="^(?!\s*$).+" placeholder="eg: 69/110, Nova Apartment" required>
+    <label class="float-label inp_text_imp" for="inp_house_no">Flat/House No., Building Name :</label>
    </div>
    <div class="input-fields">
-    <input name="Street/Sector, Area" id="inp_area" type="text" placeholder="eg: Sector 18" required>
+    <input name="Street/Sector, Area" id="inp_area" class="no-cap" type="text" pattern="^(?!\s*$).+" placeholder="eg: Sector 18" required>
     <label class="float-label inp_text_imp" for="inp_area">Street/Sector, Area :</label>
    </div>
    <div class="input-fields">
-    <input name="Pincode" id="inp_pincode" type="tel" maxlength="6" minlength="6" pattern="^\d{6}$" value="" placeholder="6-digit Pincode" required>
+    <input name="Pincode" id="inp_pincode" class="sna" type="tel" maxlength="6" minlength="6" pattern="^\d{6}$" value="" placeholder="6-digit Pincode" required>
     <label class="float-label inp_text_imp" for="inp_pincode">Pincode :</label>
     <span id="error-icon" class="material-symbols-outlined">error</span>
    </div>
    <p id="error"></p>
   <div class="inline-inputs">
-   <div class="input-fields">
+   <div class="input-fields cs-box" tabindex="0">
     <input name="City" class="no-focus" id="inp_city" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" tabindex="-1" placeholder="Enter city name" required>
     <label class="float-label inp_text_imp" for="inp_city">City :</label>
    </div>
-   <div class="input-fields">
+   <div class="input-fields cs-box" tabindex="0">
     <input name="State" class="no-focus" id="inp_state" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" tabindex="-1" placeholder="Enter state name" required>
     <label class="float-label inp_text_imp" for="inp_state">State :</label>
    </div>
@@ -363,23 +424,23 @@
    </div>
   </div>
    
-   <label class="solid-label inp_text_imp" for="inp_photo">Student's Photo (Passport-Size Only) :</label><br>
-   <p class="photo-note">Accept :<br>File Format - JPG, JPEG, PNG.<br>File Size - Maximum 2 MB.</p>
-   <div class="photo_container">
-    <div id="photo_box"> 
-    <img id="default_image_photo" src="https://assets.onecompiler.app/42fkuwhzd/42rfnf4fh/1000038208.png" alt="default_display_picture"> 
-    </div>
-    <p id="photo-error"></p>
-    <input name="Photo" id="inp_photo" type="file" accept="image/*" onchange="previewImage(event)" required>
-    <div class="photo_control_btn">
-    <button id="upload_photo_btn" class="material-symbols-outlined">upload</button>
-    <button id="delete_photo_btn" class="material-symbols-outlined" onclick="showPhotoDeleteAlert()">delete</button>
-    <p id="upload-error">Please upload!</p>
-    </div>
+  <label class="solid-label inp_text_imp osa-element" for="inp_photo">Student's Photo (Passport-Size Only) :</label>
+  <p class="photo-note osa-element">Accept :<br>File Format - JPG, JPEG, PNG.<br>File Size - Maximum 2 MB.</p>
+  <div class="photo_container">
+   <div id="photo_box" class="osa-element"> 
+   <img id="default_image_photo" src="https://assets.onecompiler.app/42fkuwhzd/42rfnf4fh/1000038208.png" alt="default_display_picture"> 
    </div>
+   <p id="photo-error"></p>
+   <input name="Photo" id="inp_photo" type="file" accept="image/*" required>
+   <div class="photo_control_btn">
+   <button id="upload_photo_btn" class="material-symbols-outlined osa-element">upload</button>
+   <button id="delete_photo_btn" class="material-symbols-outlined osa-element">delete</button>
+   <p id="upload-error">Please upload!</p>
+   </div>
+  </div>
    
   <div id="after-review">
-   <div id="declaration_msg">
+   <div id="declaration_msg" class="osa-element">
     <label class="solid-label declaration_label inp_text_imp">Self-Declaration :</label>
     <p>
      I declare that the information provided in this form is accurate, and I have reviewed and confirmed all details to be correct to the best of my knowledge. 
@@ -388,92 +449,116 @@
     </p>
    </div>
    <div class="checkbox-container">
-    <button id="declaration_check_btn" class="material-symbols-outlined declaration_check_btn">priority</button>
+    <button id="declaration_check_btn" class="material-symbols-outlined declaration_check_btn osa-element">priority</button>
     <p class="declaration-checkbox-error">Please Click Checkbox!</p>
    </div> 
-    <label class="solid-label inp_text_imp" for="inp_captcha">CAPTCHA Verification :</label><br>
-   <div class="inline-boxes">
+   <label class="solid-label inp_text_imp osa-element" for="inp_captcha">CAPTCHA Verification :</label>
+   <div class="inline-boxes osa-element">
     <div id="captcha_container" onclick="generateCaptcha()">
     <div id="captcha" class="captcha"></div>
     </div>
-    <input id="inp_captcha" class="inp_captcha" type="text" minlength="6" maxlength="6" placeholder="Enter Text" required>
+    <input id="inp_captcha" class="inp_captcha sna no-cap" type="text" minlength="6" maxlength="6" placeholder="Enter Text" required>
    </div>
-    <div id="captcha_texts">
+   <div id="captcha_texts" class="osa-element">
     <p id="captcha_note">Click on text to change</p>
     <p id="captcha_msg"></p>
-    </div>
+   </div>
   </div>
 
-    <div class="btn-container">
-     <button id="submit-disabled-btn" type="button">Proceed</button>
-     <button class="form-submit-btn" type="button" onclick="validateCaptcha()">Submit</button>
-    </div>
-    <p id="submit-error">Please fix all the errors before submitting the form!</p>
-    <div id="form-error">
-     <p>Something Went Wrong, please check the following:</p>
-     <ol>
-      <li>Ensure your email address is valid and entered correctly.</li>
-      <li>Verify your internet connection is stable.</li>
-      <li>If everything is correct, please try submitting the form again, and it will successfully process.</li>
-     </ol>
-    </div>
+  <div class="btn-container">
+   <button id="submit-disabled-btn" class="osa-element" type="button">Proceed</button>
+   <button id="submit-btn" class="osa-element" type="button">Submit</button>
+  </div>
+  <p id="submit-error">Please fix all the errors before submitting the form!</p>
+  <div id="form-error" class="osa-element">
+   <p>Something Went Wrong, please check the following:</p>
+   <ol>
+    <li>Ensure your email address is valid and entered correctly.</li>
+    <li>Verify your internet connection is stable.</li>
+    <li>If everything is correct, please try submitting the form again, and it will successfully process.</li>
+   </ol>
+  </div>
   </form>
   </div>
-  <div class="alert-bar">To select, please click in blank area or on arrow <span class="material-icons arrow-icon">keyboard_arrow_down</span></div>
-  <div class="review-bar">Please review all details once again before final submission.</div>
+  <div id="alert-box" role="alert"></div>
+ </div>
+</div>
 
+         <!---- Verification ---->
   <div id="v-box-bg">
    <div id="v-box">
     <div class="v-header">
      <span class="fa fa-lock" id="v-lock"></span>
      <span class="fa fa-unlock-alt" id="v-unlock"></span>
-     <h2>OTP Verification</h2>
+     <span class="fa fa-download" id="v-dl"></span>
+     <h2 id="v-heading">OTP Verification</h2>
     </div>
     <div class="v-body">
-     <p id="v-note">Kindly check your <b>email account</b> below for the OTP we just sent you to verify.</p>
-     <div class="mail-box">
-      <span class="fa fa-eye" id="v-eye"></span>
-      <span class="fa fa-eye-slash" id="v-eye-slash"></span>
-      <p id="mask-mail"></p>
-      <span class="fa fa-pencil" id="edit-btn"></span>
-      <span class="fa fa-question-circle-o" id="q-mark"></span>
-      <div class="q-msg">If you entered a wrong email address by mistake then you need to fill a new form due to some security reasons!</div>
-     </div>
-     <div id="edit-q">
-      <div class="edit-q-content">
-       <div id="q">
-        <h3>Email Correction</h3>
-        <p class="q-content">Do you want to edit your email address?</p>
-        <div class="ans-btns">
-         <button id="edit-yes">Yes</button>
-         <button id="edit-no">No</button>
+     <div id="v-otp-verify"> 
+      <p id="v-note">Kindly check your <b>email account</b> below for the OTP we just sent you to verify.</p>
+      <div class="mail-box">
+       <span class="fa fa-eye" id="v-eye"></span>
+       <span class="fa fa-eye-slash" id="v-eye-slash"></span>
+       <p id="mask-mail"></p>
+       <span class="fa fa-pencil" id="edit-btn"></span>
+       <span class="fa fa-question-circle-o" id="q-mark"></span>
+       <div class="q-msg">If you entered a wrong email address by mistake then you need to fill a new form due to some security reasons!</div>
+      </div>
+      <div id="edit-q">
+       <span class="fa fa-close" id="quite-edit"></span>
+       <div id="edit-q-content" class="edit-q-content">
+        <div id="q">
+         <h3>Email Correction</h3>
+         <p class="q-content">Do you want to edit your email address?</p>
+         <div class="ans-btns">
+          <button id="edit-yes">Yes</button>
+          <button id="edit-no">No</button>
+         </div>
         </div>
-       </div>
-       <div id="edit-inp">
-        <span class="fa fa-close" id="quite-edit"></span>
-        <div class="c-email-field">
-         <input name="Corrected E-mail" id="inp_c_email" type="email" placeholder="Enter a valid email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-         <label class="float-label inp_text_imp c-email-label" for="inp_c_email">Corrected E-mail :</label>
+        <div id="edit-inp">
+         <div class="c-email-field">
+          <input name="Corrected E-mail" id="inp_c_email" class="sna no-cap" type="email" placeholder="Enter a valid email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+          <label class="float-label inp_text_imp c-email-label" for="inp_c_email">Corrected E-mail :</label>
+         </div>
+         <p id="c-email-msg"></p>
+         <button id="otp-btn" type="button">Send OTP</button>
         </div>
-        <p id="c-email-msg"></p>
-        <button id="otp-btn" type="button">Send OTP</button>
        </div>
       </div>
+      <div id="resend-otp"></div>
+      <p id="resend-msg"></p>
+      <input name="OTP" id="inp_otp" class="sna" type="tel" maxlength="6" minlength="6" autocomplete="off" pattern="^\d{6}$" value="" placeholder="Enter OTP" required>
+      <p id="otp-msg"></p>
+      <img id="otp-verify-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verification_gif">
+      <div id="vlg-bg">
+       <img id="verify-loading-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verify_loading_gif">
+      </div>
      </div>
-     <input name="OTP" id="inp_otp" type="tel" maxlength="6" minlength="6" autocomplete="off" pattern="^\d{6}$" value="" placeholder="Enter OTP" required>
-     <p id="otp-msg"></p>
-     <img id="otp-verify-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verification_gif">
+     <div id="v-form-dl">
+      <p class="dl-q">Do you want to download the form?</p>
+      <div class="dl-btns">
+       <button id="dl-no">No</button>
+       <button id="dl-yes">Yes</button>
+      </div>
+     </div>
     </div>
    </div>
   </div>
- </div>
-</div>
 
-
-        <!-- Status bar -->
+          <!-- Status bar -->
   <div id="status-bar">
    <div id="status-bar-content">
-    <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043166.png" alt="internet_indicator">
+    <div id="status-bar-icons">
+     <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043203.png" alt="internet_indicator">
+     <svg xmlns="http://www.w3.org/2000/svg" id="no-internet-icon" viewBox="0 0 200 200" width="150" height="150">
+      <rect width="200" height="200" fill="transparent" />
+      <path class="wifi-dot" d="M100 115c-7.5 0-13.5 6-13.5 13.5S92.5 142 100 142s13.5-6 13.5-13.5S107.5 115 100 115z" fill="#007bff"></path>
+      <path class="wifi-arc1" d="M100 90c-15 0-29 6-39.5 16.5l7.5 7.5C78.5 105 88.5 100 100 100s21.5 5 29.5 14l7.5-7.5C129 96 115 90 100 90z" fill="#007bff"></path>
+      <path class="wifi-arc2" d="M100 65c-25 0-48 10-65.5 27.5l7.5 7.5C53.5 83 75 75 100 75s46.5 8 58 25l7.5-7.5C148 75 125 65 100 65z" fill="#007bff"></path>
+      <circle class="circle" cx="100" cy="100" r="75" fill="none" stroke="#ff0000" stroke-width="5"></circle>
+      <line class="slash" x1="55" y1="55" x2="145" y2="145" stroke="#ff0000" stroke-width="5"></line>
+     </svg>
+    </div>
     <p id="internet-msg"></p>
    </div>
   </div>
@@ -486,8 +571,8 @@
     <line x1="12" y1="8" x2="12" y2="12"></line>
     <line x1="12" y1="16" x2="12.01" y2="16"></line>
    </svg>
-   <p class="back-note">Please do not press back or close the page.</p>
-   <p class="wait-note">Due to slow internet, form submission may take longer. Please wait...</p>
+   <p id="back-note">Please do not press back or close the page.</p>
+   <p id="wait-note">Due to slow internet, form submission may take longer. Please wait...</p>
   </div>
   
       <!-- Ad-blocker -->

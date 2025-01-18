@@ -5,7 +5,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
    <meta name="theme-color" content="#000000">
-   <title>Fee Submission</title>
+   <title>S² Education | Fee Submission</title>
    <link rel="icon" href="icon.png" type="image/png">
    <link rel="shortcut icon" href="icon.png" type="image/png">
    <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -19,55 +19,56 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
    <link rel="stylesheet" href="fs.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
    <script src="fs.js"></script>
    <script src="pwa.js"></script>
   </head>
   <body>
            <!-- navbar -->
    <nav class="navbar">
-    <span class="fa fa-bell-o" id="bell-icon"></span>
-    <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
-    <span class="material-symbols-outlined" id="menu-icon">expand_circle_down</span>
-   </nav>
-           <!-- menubar -->
-   <div id="my_menubar" class="menubar">
-    <div class="text-options">
-     <div class="menu-option" id="home" onclick="history.back()">Home</div>
-     <div class="menu-option material-symbols-outlined" id="fee-submission" onclick="location.reload()">payments</div>
-     <div class="menu-option" id="feedback">Feedback</div>
-     <div class="menu-option" id="contact-us">Contact Us</div>
+    <div class="logo-box">
+     <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
     </div>
+   </nav>
+  
+        <!-- navigation bar --> 
+   <div class="nav-box">
+     <div id="home">Home</div>
+     <span class="fa fa-chevron-right"></span>
+     <div>Fee Submission</div>
    </div>
 
           <!-- Front-page -->
   <div id="page-wrapper">
    <div id="payment-box">
-    <div class="upi-logo-box">
-     <img id="upi-logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000055123.png" alt="upi-logo">
+    <div class="qr-logo-box">
+     <img id="qr-logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000055123.png" alt="qr_logo">
     </div>
-    <div class="upi_texts_div">
-     <div id="upi-heading">FEE SUBMISSION</div>
+    <div class="fee_texts_div">
+     <div id="fee-heading">FEE SUBMISSION</div>
     </div>
-    <div id="content">
+    <div id="input-slide">
     <div id="name-box" class="inp-name-box">
      <div class="person material-symbols-outlined">person</div>
-     <input id="inp_name" type="text" minlength="3" maxlength="10" pattern="^[A-Za-z]+(?: [A-Za-z]+)*\s*$" placeholder="Enter Parent's Name *" required>
+     <input id="inp_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*\s*$" placeholder="Enter Parent's Name *" required>
      <span id="name-check-icon" class="material-symbols-outlined">check_circle</span>
      <span id="name-error-icon" class="material-symbols-outlined">error</span>
     </div>
     <p id="name-error-msg"></p>
-
+    
     <div id="am-box" class="inp-am-box">
      <div class="inr material-symbols-outlined">currency_rupee</div>
-     <input id="inp_am" type="number" min="1" max="100000" step="0.01" placeholder="Enter Amount *" required>
+     <input id="inp_am" type="number" min="1" max="100000" step="1" pattern="^\d+$" placeholder="Enter Amount *" required>
      <span id="am-check-icon" class="material-symbols-outlined">check_circle</span>
      <span id="am-error-icon" class="material-symbols-outlined">error</span>
     </div>
     <p id="am-error-msg"></p>
     
-    <button id="qr-btn" class="qr-btn">GENERATE QR CODE</button>
+    <button id="qr-btn" class="qr-btn" type="button">GENERATE QR CODE</button>
     </div>
-    <div id="payment-summary">
+    <div id="payment-slide">
      <p id="timer-text">Time remaining - <span id="timer">02:00</span></p>
      <div class="text-content">
       <p id="final-name-text" class="row">
@@ -79,9 +80,23 @@
        <span class="right" id="final-am"></span>
       </p>
      </div>
-     <img id="qr-img" src="" alt="UPI QR Code">
-     <button id="mark-paid-btn" class="mark-paid-btn">Mark as Paid</button>
-
+     <img id="qr-img" src="" alt="payment_qr_code">
+     <button id="confirm-btn">Confirm Payment</button>
+    </div>
+    <div id="success-slide">
+     <svg width="70px" height="70px" class="success-check" id="check" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+       <g transform="translate(-1233.000000, -901.000000)" stroke="#34D183" stroke-width="4">
+        <g transform="translate(1237.000000, 905.000000)" class="pay-svg pay-circle">
+         <circle class="pay-svg pay-circle" cx="32" cy="32" r="32"></circle>
+         <polyline class="pay-svg pay-check" points="48 22.7096774 26.6484279 42.3225806 15.483871 31.5557034"></polyline>
+        </g>
+       </g>
+      </g>
+     </svg>
+     <h2>Payment Successful!</h2>
+     <p id="payment-id"></p>
+     <button id="receipt-btn" type="button">Download Receipt<span class="fa fa-download"></span></button>
     </div>
 
            <!-- loading -->
@@ -90,27 +105,25 @@
     </div>
    </div>
   </div>
+
    
-          <!-- Status bar -->
+              <!-- Status bar -->
   <div id="status-bar">
    <div id="status-bar-content">
-    <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043166.png" alt="internet_indicator">
+    <div id="status-bar-icons">
+     <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043203.png" alt="internet_indicator">
+     <svg xmlns="http://www.w3.org/2000/svg" id="no-internet-icon" viewBox="0 0 200 200" width="150" height="150">
+      <rect width="200" height="200" fill="transparent" />
+      <path class="wifi-dot" d="M100 115c-7.5 0-13.5 6-13.5 13.5S92.5 142 100 142s13.5-6 13.5-13.5S107.5 115 100 115z" fill="#007bff"></path>
+      <path class="wifi-arc1" d="M100 90c-15 0-29 6-39.5 16.5l7.5 7.5C78.5 105 88.5 100 100 100s21.5 5 29.5 14l7.5-7.5C129 96 115 90 100 90z" fill="#007bff"></path>
+      <path class="wifi-arc2" d="M100 65c-25 0-48 10-65.5 27.5l7.5 7.5C53.5 83 75 75 100 75s46.5 8 58 25l7.5-7.5C148 75 125 65 100 65z" fill="#007bff"></path>
+      <circle class="no-int-circle" cx="100" cy="100" r="75" fill="none" stroke="#ff0000" stroke-width="5"></circle>
+      <line class="no-int-slash" x1="55" y1="55" x2="145" y2="145" stroke="#ff0000" stroke-width="5"></line>
+     </svg>
+    </div>
     <p id="internet-msg"></p>
    </div>
   </div>
-  
-      <!-- Ad-blocker -->
-<div class="adblock-container hidden" id="adblockContainer">
-    <div class="adblock-message">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        <h2>Ad-Blocker Detected!</h2>
-        <p>It seems an ad blocker is preventing your form from being submitted. This isn't for ads, but to ensure the form works properly with our submission service. <span>Please disable your ad blocker temporarily and refresh page to submit the form.</span> We appreciate your understanding!</p>
-    </div>
-</div>
 
        <!-- footer -->
   <div class="footer">
