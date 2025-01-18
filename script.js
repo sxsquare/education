@@ -1373,7 +1373,7 @@ function printForm() {
     
     // Add Table
     const formData = [];
-    const elements = form.querySelectorAll('input:not(.no-table):not([type="file"]), select');
+    const elements = form.querySelectorAll('input:not(.no-table):not([type="file"]), select:not(.no-table)');
         
         elements.forEach((el) => {
           const label = el.name || el.id || 'Field';
@@ -1436,7 +1436,7 @@ function printForm() {
       bulletY += 6;
     });
     
-    const qrElements = form.querySelectorAll('input:not(.no-qr):not([type="file"]), select');
+    const qrElements = form.querySelectorAll('input:not(.no-qr):not([type="file"]), select:not(.no-qr)');
     let formattedData = '';
     qrElements.forEach((el) => {
       const label = el.name || el.id || 'Field';

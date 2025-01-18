@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const receiptBtn = document.getElementById('receipt-btn');
   const nameInput = document.getElementById('inp_name');
   const amInput = document.getElementById('inp_am');
-  
+
   receiptBtn.addEventListener('click', () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Save pdf with QR Code
     const qrContainer = document.createElement('div');
-    const qrData = `S² Education\nFee Payment Receipt\nPayment ID: ${ref}\nDate & Time: ${date}\nPayee Name: ${name}\nAmount Paid: ${am}\nThanks For Trusting Us!`;
+    const qrData = `S² Education\nFee Payment Receipt\nPayment ID: ${ref}\nDate & Time: ${time}\nPayee Name: ${name}\nAmount Paid: ${am}\nThanks For Trusting Us!`;
     const qr = new qrcode(0, 'L');
     qr.addData(qrData);
     qr.make();
