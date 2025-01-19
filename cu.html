@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+   <meta charset="UTF-8"> 
+   <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   <meta name="theme-color" content="#000000">
+   <title>S² Education | Contact Us</title>
+   <link rel="icon" href="icon.png" type="image/png">
+   <link rel="shortcut icon" href="icon.png" type="image/png">
+   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+   <link rel="manifest" href="site.webmanifest">
+   <link rel="preload" href="https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"> 
+   <link rel="preload" href="https://fonts.gstatic.com/s/materialsymbolsoutlined/v138/kJF1B7cus1bS3U-6KKG9r2Vhetw3yGlrzCQ.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
+   <link rel="stylesheet" href="cu.css">
+   <script src="https://kit.fontawesome.com/2e39ca5f52.js" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" type="text/javascript"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
+   <script src="cu.js"></script>
+   <script src="pwa.js"></script>
+  </head>
+  <body>
+           <!-- navbar -->
+   <nav class="navbar">
+    <div class="logo-box">
+     <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
+    </div>
+   </nav>
+  
+        <!-- navigation bar --> 
+   <div class="nav-box">
+     <div id="home">Home</div>
+     <span class="fa-solid fa-chevron-right"></span>
+     <div>Contact Us</div>
+   </div>
+   
+          <!-- Front-page -->
+  <div id="page-wrapper">
+   <div class="contact-container">
+    <div class="cu_texts_div">
+     <div id="cu-heading">Let's Connect</div>
+    </div>
+    <p class="head-line">We're here to help, connect with us anytime!</p>
+    <form id="form" autocomplete="off" spellcheck="false">
+      <label class="inp_text_imp" for="inp_name">Name:</label>
+      <input name="Name" type="text" id="inp_name" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter your name" required>
+      <p class="error">Please fill a valid name!</p>
+      
+      <label class="inp_text_imp" for="inp_email">Email:</label>
+      <input name="Email" type="email" id="inp_email" oninput="this.value = this.value.replace(/\s+/g, '')" placeholder="Enter your email" required>
+      <p class="error">Please fill a valid email!</p>
+
+      <label for="inp_phone">Phone:</label>
+      <input name="Phone" id="inp_phone" type="tel" oninput="this.value = this.value.replace(/\s+/g, '')" pattern="[6789]\d{9}" value="" minlength="10" maxlength="10" placeholder="10-digit Mobile No.">
+      <p class="error">Please fill a valid phone number!</p>
+
+      <div class="msg-label">
+       <label class="inp_text_imp" for="text_msg">Message:</label>
+       <p id="msg-char">0 / 500</p>
+      </div>
+      <textarea name="Message" id="text_msg" maxlength="500" pattern="^(?!\s*$).+" placeholder="Let us know your query..." required></textarea>
+      <p class="error">Please input your message!</p>
+
+      <button id="submit-btn" type="submit">Submit</button>
+      <div id="form-status"></div>
+    </form>
+
+    <div class="contact-info">
+      <div class="contact-btn" id="w-btn" onclick="window.open('https://wa.me/919792141850', '_blank')"><i class="fa-brands fa-whatsapp"></i> Whatsapp</div>
+      <div class="contact-btn" id="c-btn" onclick="location='tel:+916386841775'"><i class="fa-solid fa-phone"></i> Phone: +91 9792141850</div>
+      <div class="contact-btn" id="m-btn" onclick="location='mailto:contact.sxsquare@gmail.com'"><i class="fa-solid fa-envelope"></i> Email: contact.sxsquare@gmail.com</div>
+    </div>
+   </div>
+  </div>
+
+          <!-- Status bar -->
+  <div id="status-bar">
+   <div id="status-bar-content">
+    <div id="status-bar-icons">
+     <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043203.png" alt="internet_indicator">
+     <svg xmlns="http://www.w3.org/2000/svg" id="no-internet-icon" viewBox="0 0 200 200" width="150" height="150">
+      <rect width="200" height="200" fill="transparent" />
+      <path class="wifi-dot" d="M100 115c-7.5 0-13.5 6-13.5 13.5S92.5 142 100 142s13.5-6 13.5-13.5S107.5 115 100 115z" fill="#007bff"></path>
+      <path class="wifi-arc1" d="M100 90c-15 0-29 6-39.5 16.5l7.5 7.5C78.5 105 88.5 100 100 100s21.5 5 29.5 14l7.5-7.5C129 96 115 90 100 90z" fill="#007bff"></path>
+      <path class="wifi-arc2" d="M100 65c-25 0-48 10-65.5 27.5l7.5 7.5C53.5 83 75 75 100 75s46.5 8 58 25l7.5-7.5C148 75 125 65 100 65z" fill="#007bff"></path>
+      <circle class="circle" cx="100" cy="100" r="75" fill="none" stroke="#ff0000" stroke-width="5"></circle>
+      <line class="slash" x1="55" y1="55" x2="145" y2="145" stroke="#ff0000" stroke-width="5"></line>
+     </svg>
+    </div>
+    <p id="internet-msg"></p>
+   </div>
+  </div>
+  
+       <!-- loading -->
+  <div id="loading-bg">
+   <img id="loading" src="https://media3.giphy.com/media/tneMJXxY0TH1LJCfCd/giphy.gif?cid=6c09b952uxugqmlr2qv7ep7k9942rivzy932fa2yol9lbafp&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="loading_gif">
+   <svg id="loading-error" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="8" x2="12" y2="12"></line>
+    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+   </svg>
+  </div>
+
+       <!-- footer -->
+  <div class="footer">
+   <p>© 2020 - <span id="current-year"></span><br>All Rights Reserved<br>Designed by - <span class="logo-color">SXS</span> <span class="logo-color">Web Consultancy</span></p>
+  </div>
+  </body>
+ </html>
