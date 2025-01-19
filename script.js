@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, pageLoadT);
 });
 
+              /*---- notifications ----*/
 document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.getElementById("my_sidebar");
   const bellBtn = document.getElementById("bell-icon");
@@ -55,6 +56,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const home = document.getElementById('home');
+  const fs = document.getElementById('fee-submission');
+  const fb = document.getElementById('feedback');
+  const cu = document.getElementById('contact-us');
+
+  home.addEventListener('click', () => {
+    location.reload();
+  });
+  fs.addEventListener('click', () => {
+    window.location.replace('fs.html');
+  });
+  fb.addEventListener('click', () => {
+    window.location.replace('fb.html');
+  });
+  cu.addEventListener('click', () => {
+    window.location.replace('cu.html');
+  });
+});
+
 
          /*-- instruction check button --*/
 document.addEventListener('DOMContentLoaded', () => {
@@ -1374,13 +1396,20 @@ function printForm() {
     // Add Table
     const formData = [];
     const elements = form.querySelectorAll('input:not(.no-table):not([type="file"]), select:not(.no-table)');
-        
-        elements.forEach((el) => {
+
+      elements.forEach((el) => {
+        if (el.type === 'hidden') {
+          if (el.dataset.include === 'true') {
+            const label = el.name || el.id || 'Field';
+            const value = el.value.trim() || 'N/A';
+            formData.push([label, value]);
+          }
+        } else {
           const label = el.name || el.id || 'Field';
           const value = el.value.trim() || 'N/A';
           formData.push([label, value]);
-        });
-
+        }
+      });
     
     const tableStartY = imgY + imgHeight + 5;
     doc.autoTable({
@@ -1439,9 +1468,17 @@ function printForm() {
     const qrElements = form.querySelectorAll('input:not(.no-qr):not([type="file"]), select:not(.no-qr)');
     let formattedData = '';
     qrElements.forEach((el) => {
-      const label = el.name || el.id || 'Field';
-      const value = el.value.trim() || 'N/A';
-      formattedData += `${label}: ${value}\n`;
+      if (el.type === 'hidden') {
+        if (el.dataset.include === 'true') {
+          const label = el.name || el.id || 'Field';
+          const value = el.value.trim() || 'N/A';
+          formattedData += `${label}: ${value}\n`;
+        }
+      } else {
+        const label = el.name || el.id || 'Field';
+        const value = el.value.trim() || 'N/A';
+        formattedData += `${label}: ${value}\n`;
+      }
     });
     
     const qrWidth = 40;

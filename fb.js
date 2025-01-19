@@ -8,6 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+                /*---- onBack ----*/
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname !== '/index.html') {
+    history.replaceState(null, '', 'index.html'); // Replace the initial state with index.html
+  }
+  history.pushState(null, '', window.location.pathname);
+  window.addEventListener('popstate', (event) => {
+    if (window.location.pathname !== '/index.html') {
+      window.location.replace('index.html');
+    }
+  });
+});
+
             /*---- Rating system ----*/
 document.addEventListener('DOMContentLoaded', () => {
   const ratingBox = document.getElementById('rating-container');
@@ -127,13 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
   fbText.addEventListener('input', function () {
     fbLength = this.value.length;
-    fbChar.textContent = `${fbLength} / 200`;
+    fbChar.textContent = `${fbLength} / 250`;
    
     if (this.value.startsWith(" ")) {
       this.value = this.value.trimStart();
     }
    
-    if (fbLength >= 200) {
+    if (fbLength >= 250) {
       fbChar.classList.add('warn');
       setTimeout(() => {
         fbChar.classList.remove('warn');

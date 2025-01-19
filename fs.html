@@ -81,6 +81,11 @@
       </p>
      </div>
      <img id="qr-img" src="" alt="payment_qr_code">
+     
+      <p class="confirm-note">By clicking the checkbox button, I confirm that the payment has been successfully completed and understand that this information is subject to verification.</p>
+      <button id="payment_check_btn" class="material-symbols-outlined">priority</button>
+      <p id="checkbox-error">Please Click Checkbox!</p>
+     
      <button id="confirm-btn">Confirm Payment</button>
     </div>
     <div id="success-slide">
@@ -97,6 +102,15 @@
      <h2>Payment Successful!</h2>
      <p id="payment-id"></p>
      <button id="receipt-btn" type="button">Download Receipt<span class="fa fa-download"></span></button>
+    </div>
+    <div id="expire-slide">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+     <h2>Session Expired!</h2>
+     <p>The payment window timed out. Please refresh the page to initiate the process again.</p>
     </div>
 
            <!-- loading -->

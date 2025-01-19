@@ -440,6 +440,7 @@ button:hover {
   width: 20rem;
   margin: auto;
   margin-top: 3rem;
+  text-align: center;
   line-height: 1.5rem;
 }
 #success-box-bg {

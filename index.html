@@ -50,10 +50,10 @@
            <!-- menubar -->
    <div id="my_menubar" class="menubar">
     <div class="text-options">
-     <div class="menu-option material-symbols-outlined" id="home" onclick="location.reload()">Home</div>
-     <div class="menu-option" id="fee-submission" onclick="window.location.href='fs.html'"><a href="fs.html"></a>Fee Submission</div>
-     <div class="menu-option" id="feedback" onclick="window.location.href='fb.html'"><a href="fb.html"></a>Feedback</div>
-     <div class="menu-option" id="contact-us" onclick="window.location.href='cu.html'"><a href="cu.html"></a>Contact Us</div>
+     <div class="menu-option material-symbols-outlined" id="home">Home</div>
+     <div class="menu-option" id="fee-submission"><a href="fs.html"></a>Fee Submission</div>
+     <div class="menu-option" id="feedback"><a href="fb.html"></a>Feedback</div>
+     <div class="menu-option" id="contact-us"><a href="cu.html"></a>Contact Us</div>
     </div>
    </div>
 
@@ -155,10 +155,10 @@
 
   <form action="https://formsubmit.co/379222391c104d12d8c343be26ae92e9" method="POST" enctype="multipart/form-data" id="form">
             <!-- Hidden-inputs -->
-    <input class="no-table no-qr" type="hidden" name="_template" value="table">
-    <input class="no-table no-qr" type="hidden" name="_subject" id="subject">
-    <input class="no-table no-qr" type="hidden" name="_captcha" value="false">
-    <input class="no-table no-qr" type="hidden" name="_next" value="https://sxsquare.github.io/education/thanks.html">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_subject" id="subject">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://sxsquare.github.io/education/thanks.html">
             <!-- Visible-inputs -->
    <div class="input-fields">
     <input name="First Name" id="inp_student_first_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's first name" required>
@@ -260,22 +260,15 @@
      <option value="Other">Other</option>
     </select>
    </div>
-   <input name="Subjects" id="inp_subjects" type="hidden">
+   <input name="Subjects" id="inp_subjects" type="hidden" data-include="true">
 
-   
-  
-   
- <!--  
-   <div class="input-fields">
-    <input name="Subjects" id="inp_subjects" type="text" pattern="^([A-Za-z\s]+(,\s)?)+$" placeholder="eg: Maths, Science or All Subjects" required>
-    <label class="float-label inp_text_imp" for="inp_subjects">Subjects :</label>
-   </div>
-
+  <!--  
    <div class="input-fields">
     <input name="Time Schedule" id="inp_time_schedule" type="text" pattern="^([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm) - ([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm)$" placeholder="eg: 09:00 AM - 11:00 AM" required>
     <label class="float-label inp_text_imp" for="inp_time_schedule">Time Schedule :</label>
    </div>
--->  
+  -->  
+
    <div class="select-fields">
     <span class="option-label">Tuition Mode :</span>
     <label class="select-label inp_text_imp" for="opt_tuition_mode">Tuition Mode :</label>
@@ -457,7 +450,7 @@
     <div id="captcha_container" onclick="generateCaptcha()">
     <div id="captcha" class="captcha"></div>
     </div>
-    <input id="inp_captcha" class="inp_captcha sna no-cap" type="text" minlength="6" maxlength="6" placeholder="Enter Text" required>
+    <input id="inp_captcha" class="inp_captcha sna no-cap no-table no-qr" type="text" minlength="6" maxlength="6" placeholder="Enter Text" required>
    </div>
    <div id="captcha_texts" class="osa-element">
     <p id="captcha_note">Click on text to change</p>

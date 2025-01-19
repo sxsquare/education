@@ -6,6 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+                /*---- onBack ----*/
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname !== '/index.html') {
+    history.replaceState(null, '', 'index.html'); // Replace the initial state with index.html
+  }
+  history.pushState(null, '', window.location.pathname);
+  window.addEventListener('popstate', (event) => {
+    if (window.location.pathname !== '/index.html') {
+      window.location.replace('index.html');
+    }
+  });
+});
+
          /*---- Make inputs sensible ----*/
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('input').forEach(input => {
@@ -37,9 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const img = document.getElementById('qr-img');
   const loading = document.getElementById('loading-bg');
 
+  const checkBox = document.getElementById('payment_check_btn');
+  const checkboxError = document.getElementById('checkbox-error');
   const confirmBtn = document.getElementById('confirm-btn');
   const successSlide = document.getElementById('success-slide')
   const paymentId = document.getElementById('payment-id');
+  const expireSlide = document.getElementById('expire-slide')
   
   nameInput.addEventListener('input', function () {
     const value = this.value;
@@ -226,8 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to handle timer expiry
   function handleTimerExpiry() {
-    console.log("Timer expired!");
-    // Add any logic here, e.g., showing a message or refreshing the page
+    paymentSlide.style.display = 'none';
+    expireSlide.style.display = 'grid';
+    console.log("Session expired!");
   }
 
   // This function will be called to initiate the timer
@@ -235,23 +252,54 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.removeItem('remainingTime'); // Reset the stored time when initiating a new timer
     startTimer(timerDuration); // Start the timer from fresh state
   }
+  
+  checkBox.addEventListener('click', (event) => {
+    event.preventDefault();
+    
+    const checked = checkBox.classList.toggle('btn-checked');
 
+    if (checked) {
+      checkboxError.style.display = 'none';
+  //    declarationCheckBtn.style.marginBottom = '2.5rem';
+      checkBox.classList.remove('invalid');
+      checkBox.classList.add('valid');
+    } else {
+      checkBox.classList.remove('valid');
+      checkBox.classList.add('invalid');
+    }
+  });
+
+           /*---- payment checkBox ----*/
+  function paymentIsChecked() {
+    return checkBox.classList.contains('btn-checked');
+  }
+  
           /*---- On-confirm Payment ----*/
   confirmBtn.addEventListener('click', () => {
-    const random = Math.floor(100000 + Math.random() * 900000);
-    paymentRef = `SE${random}P`;
-    confirmTime = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-GB');
-    paymentId.textContent = `Payment ID: ${paymentRef}`;
-    paymentSlide.style.opacity = '0';
-    loading.style.display = 'grid';
+    if (paymentIsChecked()) {
+      const random = Math.floor(100000 + Math.random() * 900000);
+      paymentRef = `SE${random}P`;
+      confirmTime = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-GB');
+      paymentId.textContent = `Payment ID: ${paymentRef}`;
+      paymentSlide.style.opacity = '0';
+      loading.style.display = 'grid';
     
-    paymentSlide.addEventListener('transitionend', function () {
+      paymentSlide.addEventListener('transitionend', function () {
+        setTimeout(() => {
+          this.style.display = 'none';
+          successSlide.style.display = 'grid';
+          loading.style.display = 'none';
+        }, 2000);
+      });
+    } else {
+      checkBox.classList.remove('valid');
+      checkBox.classList.add('invalid');
+      checkboxError.style.display = 'block';
+      checkboxError.classList.add('shake');
       setTimeout(() => {
-        this.style.display = 'none';
-        successSlide.style.display = 'grid';
-        loading.style.display = 'none';
-      }, 2000);
-    });
+        checkboxError.classList.remove('shake');
+      }, 500);
+    }
   });
 });
 
