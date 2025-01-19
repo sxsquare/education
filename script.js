@@ -351,11 +351,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const ol = document.querySelector('.dob-ol'); 
   const alertBox = document.getElementById('alert-box');
   
-  flatpickr("#inp_student_dob", {
-    minDate: "1976-01-01",
-    maxDate: "today",
-    dateFormat: "d-m-Y"
-  });
+  const today = new Date().toISOString().split('T')[0];
+  
+  inp.setAttribute('max', today);
 
   function toggleLabels() {
     if (inp.value === '') {
