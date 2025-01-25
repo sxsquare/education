@@ -61,27 +61,47 @@ body {
   left: 0; 
   right: 0; 
 }
+#my_navbar.center {
+  justify-content: center;
+}
+#bell-box {
+  display: inline-block;
+  position: relative;
+  margin-left: 1rem;
+  padding: 0;
+  opacity: 1;
+  border-radius: .4rem;
+  transition: opacity .5s ease;
+}
 #bell-icon {
   display: block;
-  opacity: 1;
   color: #ffffff;
   font-size: 2rem;
-  margin-left: 1rem;
+  margin:0;
   padding: .2rem;
   border-radius: .4rem;
   border: .01rem solid #ffffff;
-  transition: opacity .5s ease;
+}
+#bell-dot {
+  display: none;
+  position: absolute;
+  width: .8rem;
+  height: .8rem;
+  background-color: #00cc00;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  border: .2rem solid #1f242d;
 }
 #close-icon {
   display: none;
-  opacity: 1;
   color: #ffffff;
   font-size: 1.8rem;
-  margin-left: 1rem;
+  margin: 0;
   padding: .4rem .65rem .2rem .45rem;
   border-radius: .4rem;
   border: .01rem solid #ffffff;
-  transition: opacity .5s ease;
 }
 .logo-box {
   position: relative;
@@ -141,20 +161,22 @@ body {
   padding: .05rem .25rem 0rem .25rem;
   transition: transform .5s ease-in-out;
 }
-        /*---- sidebar ----*/
+        /*---- notification-bar ----*/
 .sidebar { 
   height: 0; 
   width: 0;
   opacity: 0;
   position: fixed; 
   z-index: 99999; 
-  overflow: scroll; 
   top: 6.05rem; 
   left: 0; 
   bottom: 0;
-  padding: 0;
+  padding: 0 1.5rem;
+  overflow-y: auto; 
+  overflow-x: hidden;
   background: #2a303a;
   transform: scale(.5);
+  box-sizing: border-box;
   transition: all .5s ease-out; 
 }
 .sidebar.open-msg {
@@ -163,15 +185,111 @@ body {
   opacity: 1;
   transform: scale(1);
 }
+.sidebar::-webkit-scrollbar {
+  display: none;
+}
 #default-notify-msg {
+  visibility: visible;
+  opacity: 1;
   position: relative;
   top: calc(50% - 6.05rem);
   color: #ffffff;
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1);
+  transition: all .5s ease;
 }
+#default-notify-msg.invisible {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%) scale(0);
+}
+.notification-message {
+  display: flex;
+  position: relative;
+  margin: 1rem auto;
+  padding: 1.2rem;
+  max-width: 95%;
+  padding-right: 3rem;
+  font-size: 1rem;
+  border-radius: 0.8rem;
+  border: none;
+  color: #999999;
+  font-weight: normal;
+  opacity: 1;
+  transform: scale(1);
+  background: linear-gradient(145deg, #1f242d, #16191f);
+  box-shadow: 0 .4rem .8rem rgba(0, 0, 0, 0.4), inset 0 .1rem .1rem rgba(255, 255, 255, 0.05);
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow: hidden;
+  align-items: center;
+  transition: all .5s ease;
+}
+.notification-message:not(.unseen):hover {
+  color: lightgrey;
+  transform: scale(1.02);
+  background: linear-gradient(145deg, #1b1f26, #2d323d);
+}
+.notification-message.unseen {
+  color: #fff;
+  font-weight: bold;
+  border: .05rem solid #0ef;
+  background: linear-gradient(145deg, #3a4050, #232833);
+}
+.notification-message.unseen:hover {
+  transform: scale(1.02);
+  background: linear-gradient(145deg, #1b1f26, #2d323d);
+}
+.notification-message:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: .3rem;
+  height: 100%;
+  background: #555;
+  border-radius: 0 .8rem .8rem 0;
+  transition: background .5s ease;
+}
+.notification-message.unseen:before {
+  background: #0ef;
+}
+.notification-message p {
+  line-height: 1.3rem;
+  margin-top: 0;
+}
+.timestamp {
+  position: absolute;
+  left: 1.2rem;
+  bottom: .5rem;
+  color: #999999;
+  font-weight: bold;
+}
+.delete-icon {
+  position: absolute;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: #ff0000;
+  opacity: 1;
+  visibility: visible;
+  transition: all .3s ease;
+}
+.delete-icon:hover {
+  color: #800000;
+} 
+.notification-message.unseen .delete-icon {
+  opacity: 0;
+  visibility: hidden;
+}
+.notification-message.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(1.05);
+}
+
          /*---- menubar ----*/ 
 .menubar {
   display: block;

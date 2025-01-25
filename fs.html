@@ -22,7 +22,7 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
-   <script src="fs.js"></script>
+   <script type="module" src="fs.js"></script>
    <script src="pwa.js"></script>
   </head>
   <body>
@@ -100,7 +100,7 @@
       </g>
      </svg>
      <h2>Payment Successful!</h2>
-     <p id="payment-id"></p>
+     <p id="payment-id">Payment ID: <code id="ref"></code></p>
      <button id="receipt-btn" type="button">Download Receipt<span class="fa fa-download"></span></button>
     </div>
     <div id="expire-slide">

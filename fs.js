@@ -1,4 +1,7 @@
-                /*---- Home ----*/
+              /*---- Porting ----*/
+import { showNotification } from './script.js';
+
+               /*---- Home ----*/
 document.addEventListener('DOMContentLoaded', () => {
   const home = document.getElementById('home');
     home.addEventListener('click', () => {
@@ -55,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const confirmBtn = document.getElementById('confirm-btn');
   const successSlide = document.getElementById('success-slide')
   const paymentId = document.getElementById('payment-id');
+  const ref = document.getElementById('ref');
   const expireSlide = document.getElementById('expire-slide')
   
   nameInput.addEventListener('input', function () {
@@ -162,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   qrBtn.addEventListener('click', (event) => {
     event.preventDefault;
+    
     const isNameValid = validateName();
     const isAmValid = validateAm();
   
@@ -194,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('QR code generated successfully...');
       });
     } else {
-      console.log('Please fix the errors before generating the QR code!');
+      console.warn('Please fix the errors before generating the QR code!');
     }
   
   });
@@ -207,8 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function startTimer(duration) {
     // Check if there's any saved time in localStorage, else start fresh
-    if (localStorage.getItem('remainingTime')) {
-        remainingTime = parseInt(localStorage.getItem('remainingTime'));
+    if (localStorage.getItem('cGF5bWVudF90aW1lcg==')) {
+        remainingTime = parseInt(localStorage.getItem('cGF5bWVudF90aW1lcg=='));
     } else {
         remainingTime = duration;
     }
@@ -230,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
       display.textContent = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
         // Save remaining time to localStorage every second
-      localStorage.setItem('remainingTime', remainingTime);
+      localStorage.setItem('cGF5bWVudF90aW1lcg==', remainingTime);
 
         // Timer expiry condition
       if (remainingTime <= 0) {
@@ -244,12 +249,14 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleTimerExpiry() {
     paymentSlide.style.display = 'none';
     expireSlide.style.display = 'grid';
-    console.log("Session expired!");
+    clearInterval(timerInterval);
+    localStorage.removeItem('cGF5bWVudF90aW1lcg==');
+    console.log("Payment session expired!");
   }
 
   // This function will be called to initiate the timer
   function initiateTimer() {
-    localStorage.removeItem('remainingTime'); // Reset the stored time when initiating a new timer
+    localStorage.removeItem('cGF5bWVudF90aW1lcg=='); // Reset the stored time when initiating a new timer
     startTimer(timerDuration); // Start the timer from fresh state
   }
   
@@ -276,14 +283,17 @@ document.addEventListener('DOMContentLoaded', () => {
   
           /*---- On-confirm Payment ----*/
   confirmBtn.addEventListener('click', () => {
+    const name = nameInput.value.trim();
+    const am = formatIndianCurrency(amInput.value.trim());
+   
     if (paymentIsChecked()) {
       const random = Math.floor(100000 + Math.random() * 900000);
       paymentRef = `SE${random}P`;
       confirmTime = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-GB');
-      paymentId.textContent = `Payment ID: ${paymentRef}`;
+      ref.textContent = paymentRef;
       paymentSlide.style.opacity = '0';
       loading.style.display = 'grid';
-    
+
       paymentSlide.addEventListener('transitionend', function () {
         setTimeout(() => {
           this.style.display = 'none';
@@ -291,6 +301,12 @@ document.addEventListener('DOMContentLoaded', () => {
           loading.style.display = 'none';
         }, 2000);
       });
+      
+      const update = `Payment Update: ${name}'s payment of ${am} with Payment ID '${paymentRef}' is under verification. You will be notified upon completion`;
+      showNotification(update, confirmTime);
+      
+      clearInterval(timerInterval);
+      localStorage.removeItem('cGF5bWVudF90aW1lcg==');
     } else {
       checkBox.classList.remove('valid');
       checkBox.classList.add('invalid');
@@ -300,6 +316,30 @@ document.addEventListener('DOMContentLoaded', () => {
         checkboxError.classList.remove('shake');
       }, 500);
     }
+  });
+  
+  let isCopying = false;
+  paymentId.addEventListener('click', function () {
+    if (isCopying) return;
+    const text = this.textContent;
+    isCopying = true;
+    navigator.clipboard.writeText(text)
+    .then((response) => {
+      console.log(response);
+      this.textContent = 'Copied to clipboard!';
+      setTimeout(() => {
+        this.textContent = text;
+        isCopying = false;
+      }, 2000);
+    })
+    .catch((err) => {
+      console.error('Error in copying:', err);
+      this.textContent = 'Failed to copy';
+      setTimeout(() => {
+        this.textContent = text;
+        isCopying = false;
+      }, 2000);
+    });
   });
 });
 
@@ -470,7 +510,7 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       qrImg.onerror = () => {
         doc.save("fee_payment_receipt.pdf");
-        console.log('some error occurred, may be QR will not available in pdf.');
+        console.error('some error occurred, may be QR will not available in pdf.');
       };
     } else {
       doc.save("fee_payment_receipt.pdf");

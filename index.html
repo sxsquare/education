@@ -5,7 +5,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
    <meta name="theme-color" content="#000000">
-   <title>S² Education</title>
+   <title>S² Education | Home</title>
    <link rel="icon" href="icon.png" type="image/png">
    <link rel="shortcut icon" href="icon.png" type="image/png">
    <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -17,7 +17,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fredoka:wght@300..700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
    <link rel="stylesheet" href="styles.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" type="text/javascript"></script>
@@ -25,26 +25,28 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
-   <script src="script.js"></script>
+   <script type="module" src="script.js"></script>
    <script src="pwa.js"></script>
   </head>
   <body>
            <!-- navbar -->
    <nav id="my_navbar" class="navbar">
-    <span class="fa fa-bell-o" id="bell-icon"></span>
-    <span class="fa fa-chevron-left" id="close-icon"></span>
+    <div id="bell-box">
+     <span class="fa fa-bell-o" id="bell-icon"></span>
+     <div id="bell-dot"></div>
+     <span class="fa fa-chevron-left" id="close-icon"></span>
+    </div>
     <div class="logo-box">
      <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
     </div>
     <div id="menu-btn"><span class="fa fa-angle-down" id="menu-icon"></span></div>
    </nav>
    
+           <!-- sidebar -->
    <div id="my_sidebar" class="sidebar">
     <p id="default-notify-msg">No Notifications found!</p>
    </div>
 
-   
-   
            <!-- menubar -->
    <div id="my_menubar" class="menubar">
     <div class="text-options">
@@ -54,7 +56,6 @@
      <div class="menu-option" id="contact-us"><a href="cu.html"></a>Contact Us</div>
     </div>
    </div>
-
 
            <!-- Front-page -->
 <div id="page-wrapper">

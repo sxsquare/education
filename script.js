@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, pageLoadT);
 });
 
-              /*---- notifications ----*/
+              /*---- notification-system ----*/
 document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.getElementById("my_sidebar");
   const bellBtn = document.getElementById("bell-icon");
@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.add('open-msg');
     closeBtn.style.display = 'block';
     document.body.style.overflowY = 'hidden';
+ 
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+    const updatedNotifications = notifications.map((notif) => ({ ...notif, seen: true }));
+    localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+
+    toggleBellDot(); // Hide the green dot
   });
   
   closeBtn.addEventListener('click', function() {
@@ -32,9 +38,122 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.remove('open-msg');
     bellBtn.style.display = 'block';
     document.body.style.overflowY = 'scroll';
+    
+    markAllNotificationsAsSeen();
   });
   
+  loadNotifications();
 });
+
+function toggleDefaultMessage() {
+  const panel = document.getElementById('my_sidebar');
+  const defaultMsg = document.getElementById('default-notify-msg');
+  const remainingNotifications = panel.querySelectorAll('.notification-message').length;
+
+  remainingNotifications === 0 ? defaultMsg.classList.remove('invisible') : defaultMsg.classList.add('invisible');
+}
+
+export function showNotification(message, timestamp) {
+  const panel = document.getElementById('my_sidebar');
+  const defaultMsg = document.getElementById('default-notify-msg');
+
+  if (!message) return;
+
+  const uniqueId = `${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+
+  const existingNotifications = JSON.parse(localStorage.getItem('notifications')) || [];
+  existingNotifications.push({ id: uniqueId, message, timestamp, seen: false });
+  localStorage.setItem('notifications', JSON.stringify(existingNotifications));
+
+  if (!panel) return;
+
+  const notification = document.createElement('div');
+  notification.className = 'notification-message unseen';
+  notification.innerHTML = `
+    <p>${message}</p>
+    <small class="timestamp">${timestamp}</small>
+    `;
+  
+  const deleteIcon = document.createElement('span');
+  deleteIcon.className = 'fa fa-trash-o delete-icon';
+  deleteIcon.onclick = () => {
+    notification.classList.add('fade-out');
+    setTimeout(() => {
+      notification.remove();
+      removeNotificationFromStorage(uniqueId);
+      toggleDefaultMessage();
+    }, 500);
+  };
+
+  notification.appendChild(deleteIcon);
+  panel.insertBefore(notification, panel.firstChild);
+
+  defaultMsg.classList.add('invisible');
+
+  toggleBellDot();
+}
+
+function removeNotificationFromStorage(notificationId) {
+  const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+  const updatedNotifications = notifications.filter((notif) => notif.id !== notificationId);
+  localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+}
+
+function loadNotifications() {
+  const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+  const panel = document.getElementById('my_sidebar');
+
+  notifications.forEach(({ id, message, timestamp, seen }) => {
+    const notification = document.createElement('div');
+    notification.className = `notification-message ${!seen ? 'unseen' : ''}`; // Add unseen class for unseen notifications
+    notification.innerHTML = `
+      <p>${message}</p>
+      <small class="timestamp">${timestamp}</small>
+      `;
+
+    const deleteIcon = document.createElement('span');
+    deleteIcon.className = 'fa fa-trash-o delete-icon';
+    deleteIcon.onclick = () => {
+      notification.classList.add('fade-out');
+      setTimeout(() => {
+        notification.remove();
+        removeNotificationFromStorage(id);
+        toggleDefaultMessage();
+      }, 500);
+    };
+
+    notification.appendChild(deleteIcon);
+    panel.insertBefore(notification, panel.firstChild);
+  });
+
+  toggleDefaultMessage();
+  toggleBellDot();
+}
+
+function toggleBellDot() {
+  const bellDot = document.getElementById('bell-dot');
+  const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+  const hasUnseenNotifications = notifications.some((notif) => notif.seen === false);
+
+  bellDot.style.display = hasUnseenNotifications ? 'block' : 'none';
+}
+
+function markAllNotificationsAsSeen() {
+  const panel = document.getElementById('my_sidebar');
+  const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+  const notificationElements = panel.querySelectorAll('.notification-message.unseen');
+  notificationElements.forEach((notification) => {
+    setTimeout(() => {
+      notification.classList.remove('unseen');
+    }, 500);
+  });
+
+  const updatedNotifications = notifications.map((notif) => ({ ...notif, seen: true }));
+  localStorage.setItem('notifications', JSON.stringify(updatedNotifications));
+
+  toggleBellDot();
+}
 
               /*---- menuBar ----*/
 document.addEventListener('DOMContentLoaded', () => {
@@ -695,7 +814,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const email = emailInput.value.trim();
   const pincodeField = document.getElementById('inp_pincode');
   const pErrorMsg = document.getElementById('error');
-  const name = document.getElementById('inp_student_first_name');
+  const firstNameInput = document.getElementById('inp_student_first_name');
+  const midNameInput = document.getElementById('inp_student_middle_name');
+  const lastNameInput = document.getElementById('inp_student_last_name')
   const declarationCheckBtn = document.getElementById('declaration_check_btn');
   const declarationCheckboxError = document.querySelector('.declaration-checkbox-error');
   const alertBox = document.getElementById('alert-box');
@@ -812,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Form is valid. Once review again...');
       }
       else {
-        console.log('Form is invalid! Please correct the errors and try again.');
+        console.warn('Form is invalid! Please correct the errors and try again.');
     
         if (!pincodeIsValid) {
           if(pincodeField.value.length === 6) {
@@ -840,7 +961,7 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
 
       const pwEmail = emailInput.value.trim();
-      const finalName = name.value.trim();
+      const finalName = firstNameInput.value.trim();
       const submitError = document.getElementById('submit-error');
       const subjectField = document.getElementById('subject');
       subjectField.value = `${finalName}'s Form Submitted Successfully.`;
@@ -871,7 +992,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
           submitError.classList.remove('shake');
         }, 500);
-        console.log('Form is invalid. Please correct the errors and try again.');
+        console.warn('Form is invalid. Please correct the errors and try again.');
  
         if (!pincodeIsValid) {
           pincodeField.classList.remove('valid');
@@ -1014,7 +1135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5 * 60 * 1000);
       })
       .catch((error) => {
-        console.log('Error:', error);
+        console.error('Error:', error);
         if (mode === "initial") {
           setTimeout(() => {
             loadingContent.style.display = 'none';
@@ -1054,12 +1175,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const dPwBytes = CryptoJS.AES.decrypt(ePw, dPwd);
     const dPw = dPwBytes.toString(CryptoJS.enc.Utf8);
   
+    const firstName = firstNameInput.value.trim();
+    const midName = midNameInput.value.trim();
+    const lastName = lastNameInput.value.trim();
+    const fullName = midName ? `${firstName} ${midName} ${lastName}` : `${firstName} ${lastName}`;
+   
     const pattern = /^\d{6}$/;
 
     if (enteredPw === dPw) {
       const random = Math.floor(100000 + Math.random() * 900000);
       regId = `SE${random}R`;
       confirmTime = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString('en-GB');
+      storeNotifData(regId, fullName, confirmTime);
       vLock.style.display = 'none';
       vUnlock.style.display = 'block';
       otpInput.classList.remove('invalid');
@@ -1098,15 +1225,21 @@ document.addEventListener('DOMContentLoaded', () => {
         otpMsg.textContent = "Invalid OTP!";
         vLock.style.display = 'block';
         vUnlock.style.display = 'none';
-        console.log('Invalid OTP! Please try again...');
+        console.error('Invalid OTP! Please try again...');
       } else {
         otpMsg.textContent = "Enter a valid 6-digit OTP!";
         otpInput.value = "";
         vLock.style.display = 'block';
         vUnlock.style.display = 'none';
-        console.log('Please enter a valid 6-digit OTP...');
+        console.warn('Please enter a valid 6-digit OTP...');
       }
     }
+  }
+  
+  function storeNotifData(id, name, time) {
+    const data = `${id}-${name}-${time}`;
+    const eData = btoa(data);
+    localStorage.setItem('c3RvcmVkX2RhdGE=', eData);
   }
 
   function submitForm() { 
@@ -1139,7 +1272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         verifyPw(enteredOTP);
       }, 2000);
     } else {
-      console.log('Please enter 6-digit OTP');
+      console.warn('Please enter 6-digit OTP');
     }
   });
   
@@ -1181,7 +1314,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleTimerExpiry() {
     resendOtp.textContent = 'Resend OTP';
-    console.log("Timer expired!");
+    clearInterval(timerInterval);
+    localStorage.removeItem('cmVzZW5kX290cA==');
   }
 
   function initiateTimer() {
@@ -1191,7 +1325,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   resendOtp.addEventListener('click', () => {
     const sameEmail = emailInput.value.trim();
-    const sameName = name.value.trim();
+    const sameName = firstNameInput.value.trim();
 
     if (remainingTime <= 0) {
       verifyLoading.style.display = 'grid';
@@ -1258,14 +1392,14 @@ document.addEventListener('DOMContentLoaded', () => {
   otpBtn.addEventListener('click', (event) => {
     event.preventDefault();
     const newEmail = cEmailInput.value.trim();
-    const sameName = name.value.trim();
+    const sameName = firstNameInput.value.trim();
     const emailIsValid = sendPwToCEmail(newEmail);
     
     if (emailIsValid) {
       verifyLoading.style.display = 'grid';
       sendPw(newEmail, sameName, "correction");
     } else {
-      console.log('Please fix errors before sending otp to corrected email!');
+      console.warn('Please fix errors before sending otp to corrected email!');
     }
   });
   
@@ -1524,21 +1658,13 @@ function printForm() {
       };
       qrImg.onerror = () => {
         doc.save("student_registration_form.pdf");
-        console.log('some error occurred, may be QR will not available in pdf.');
+        console.error('some error occurred, may be QR will not available in pdf.');
       };
     } else {
       doc.save("student_registration_form.pdf");
       console.log('pdf downloaded, but QR will not available.');
     }
 }
-
-
-
-
-
-
-
-
 
          /*-- Online/Offline status --*/
 function updateStatusBar() {
@@ -1547,9 +1673,9 @@ function updateStatusBar() {
   const internet = document.getElementById('internet-img');
   const noInternet = document.getElementById('no-internet-icon')
   const msg = document.getElementById('internet-msg');
-  const logo = document.getElementById('logo');
+  const navbar = document.getElementById('my_navbar');
   const menubar = document.getElementById("my_menubar");
-  const bellBtn = document.getElementById('bell-icon');
+  const bellBox = document.getElementById('bell-box');
   const menuBtn = document.getElementById("menu-btn");
   const adblockContainer = document.getElementById('adblockContainer');
 
@@ -1562,7 +1688,7 @@ function updateStatusBar() {
     setTimeout(() => {
       statusBar.style.opacity = '0';
       menubar.style.opacity = '1';
-      bellBtn.style.opacity = '1';
+      bellBox.style.opacity = '1';
       menuBtn.style.opacity = '1';
     }, 1000);
     statusBarIcons.style.borderColor = '#0ef';
@@ -1570,9 +1696,9 @@ function updateStatusBar() {
     noInternet.style.opacity = '0';
     msg.style.color = '#00cc00';
     msg.textContent = 'Back Online'
-    logo.style.margin = '0';
+    navbar.classList.remove('center');
     menubar.style.display = 'block';
-    bellBtn.style.display = 'block';
+    bellBox.style.display = 'block';
     menuBtn.style.display = 'block';
   } else {
     setTimeout(() => {
@@ -1586,13 +1712,13 @@ function updateStatusBar() {
     msg.style.color = 'red';
     msg.textContent = 'No Internet Connection!'
     menubar.style.opacity = '0';
-    bellBtn.style.opacity = '0';
+    bellBox.style.opacity = '0';
     menuBtn.style.opacity = '0';
     adblockContainer.style.opacity = '0';
     setTimeout(() => {
-      logo.style.margin = 'auto';
+      navbar.classList.add('center');
       menubar.style.display = 'none';
-      bellBtn.style.display = 'none';
+      bellBox.style.display = 'none';
       menuBtn.style.display = 'none';
     }, 500);
   }
@@ -1612,7 +1738,7 @@ function detectAdBlock() {
     const testScript = document.createElement('script');
     testScript.type = 'text/javascript';
     testScript.async = true;
-    testScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?nocache=' + Math.floor(Math.random() * 1000);
+    testScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?nocache=${Date.now()}-${Math.random()}`;
 
     testScript.onerror = function () {
         if (!adblockDetected) {
@@ -1629,6 +1755,12 @@ function detectAdBlock() {
     };
 
     document.head.appendChild(testScript);
+    
+    setTimeout(() => {
+      if (testScript.parentNode) {
+        testScript.parentNode.removeChild(testScript);
+      }
+    }, 2000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

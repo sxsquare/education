@@ -4,7 +4,7 @@
    <meta charset="UTF-8"> 
    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-   <title>Thank You</title>
+   <title>S² Education | Thank You</title>
    <link rel="icon" href="icon.png" type="image/png">
    <link rel="shortcut icon" href="icon.png" type="image/png">
    <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -42,7 +42,7 @@
     font-size: 121.8%; 
   } 
 }
-
+       /*---- body ----*/
 body {
   display: grid;
   margin: 0;
@@ -55,8 +55,7 @@ body {
   height: 100vh;
   place-items: center;
 }
-        
-     /*---- navbar ----*/ 
+      /*---- navbar ----*/ 
 .navbar { 
   display: flex;
   background: transparent;
@@ -76,40 +75,60 @@ body {
   left: 0; 
   right: 0; 
 }
-
-.nav-list {
-  list-style: none;
-  display: inline-block;
+.logo-box {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
   padding: 0;
+  border-radius: .4rem;
 }
-
 #logo {
+  display: block;
   width: 20rem;
   height: 4rem;
+  margin: 0;
+  padding: 0;
   pointer-events: none;
   border-radius: .4rem;
   border: .01rem solid #ffffff;
   background: rgba(0,0,0,0.4);
 }
-
+.logo-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+  filter: blur(3rem);
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.1) 100%);
+  transform: skewX(-30deg);
+  animation: shine 5s ease-in-out infinite;
+}
+@keyframes shine {
+  0% { left: -150%; }
+ 50% { left: 150%; }
+100% { left: 150%; }
+}
 .card {
+  display: none;
   margin: 0;
   text-align: center;
 }
-
+.card.load {
+  display: block;
+}
 .success {
   width: 5rem;
 }
-
 .path {
   stroke-dasharray: 1000;
   stroke-dashoffset: 0;
 }
-
 .path .circle {
   animation: dash 2s ease-in-out;
 }
-
 @keyframes dash {
   0% {
     stroke-dashoffset: 1000;
@@ -118,12 +137,10 @@ body {
     stroke-dashoffset: 0;
   }
 }
-
 .path .check {
   stroke-dasharray: 700;
   animation: dash-check 1s ease-in-out forwards;
 }
-
 @keyframes dash-check {
   from {
     stroke-dashoffset: 700;
@@ -132,7 +149,6 @@ body {
     stroke-dashoffset: 1400;
   }
 }
-
 @keyframes breathing { 
   0% { 
     transform: scale(1,1); 
@@ -144,37 +160,43 @@ body {
     transform: scale(1,1); 
   } 
 } 
-
 .thanks {
   margin-top: 2.2rem;
-  margin-bottom: 1.5rem;
   font-size: 2.5rem;
   color: #00cc00;
   letter-spacing: .2rem;
   font-family: 'Rubik Scribble', system-ui;
 }
-
 .logo-color {
   background: linear-gradient(to right, #0fcefa, #8367da, #da23d6);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 }
-
+#reg-id {
+  color: #999999;
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+  padding-bottom: .3rem;
+  transition: color .3s ease;
+  border-bottom: .1rem solid grey;
+}
+#reg-id:hover {
+  color: lightgrey;
+}
 .card-p {
   font-size: 1.5rem;
   margin: 0;
   color: #fff;
+  max-height: 10rem;
   line-height: 2.2rem;
   font-family: 'Chakra Petch', Sans-Serif;
 }
-
 .back-btn-container {
   display: grid;
   margin-top: 2rem;
   padding: 0;
   place-items: center;
 }
-
 .back-btn {
   display: flex;
   background-color: transparent;
@@ -189,21 +211,41 @@ body {
   justify-content: center;
   transition: all .5s ease;
 }
-
 .back-btn:hover {
+  color: lightgrey;
   border: .1rem solid #0ef;
 }
-
 .back-btn:hover span {
   color: #0ef;
   transform: rotate(-90deg);
 }
-
 .back-btn span {
   font-size: 1.5rem;
   transition: all .5s ease;
 }
-
+#no-request {
+  display: block;
+}
+#no-request.hide {
+  display: none;
+}
+#no-request img {
+  width: 16rem;
+  height: 16rem;
+  padding: 2rem;
+  pointer-events: none;
+  border-radius: .8rem;
+  border: .05rem solid #0ef;
+  animation: warn 1s linear infinite;
+}
+@keyframes warn {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
 .footer {
   display: flex;
   background-color: #1f242d;
@@ -223,9 +265,64 @@ body {
   justify-content: center;
 }
    </style>
-   <script>
-          /*---- Type-msg ----*/
-document.addEventListener("DOMContentLoaded", () => {
+   
+   <script type="module">
+              /*---- Porting ----*/
+import { showNotification } from './script.js';
+  
+             /*---- OnPageLoad ----*/
+function getFormRequest() {
+  const eData = localStorage.getItem('c3RvcmVkX2RhdGE=');
+  const no = document.getElementById('no-request');
+  const card = document.getElementById('content');
+  
+  if (!eData) {
+    no.style.display = 'block';
+    card.style.display = 'none';
+    return;
+  }
+  
+  no.classList.add('hide');
+  card.classList.add('load');
+  typing();
+  const ref = document.getElementById('ref');
+  const regId = document.getElementById('reg-id');
+  const data = atob(eData);
+  const [id, name, time] = data.split('-');
+  const update = `Registration ID: ${id}<br>Student Registration for ${name} has been successfully submitted. The details will be verified, and you will be notified upon completion.`;
+  showNotification(update, time);
+  ref.textContent = id;
+  
+  if (ref.textContent) {
+    let isCopying = false;
+    regId.addEventListener('click', function () {
+      if (isCopying) return;
+      const text = this.textContent;
+      isCopying = true;
+      navigator.clipboard.writeText(text)
+      .then((response) => {
+        console.log(response);
+        this.textContent = 'Copied to clipboard!';
+        setTimeout(() => {
+          this.textContent = text;
+          isCopying = false;
+        }, 2000);
+      })
+      .catch((err) => {
+        console.error('Error in copying:', err);
+        this.textContent = 'Failed to copy';
+        setTimeout(() => {
+          this.textContent = text;
+          isCopying = false;
+        }, 2000);
+      });
+    });
+  }
+  
+  localStorage.removeItem('c3RvcmVkX2RhdGE=');
+}
+     
+function typing() { 
   const textElement = document.getElementById("typing-text");
   const text = "The Form has been Submitted Successfully.\nWe will reply to you soon.";
   const check = document.getElementById('check');
@@ -242,7 +339,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     
   typeLetter();
-});
+}
+
+document.addEventListener("DOMContentLoaded", getFormRequest);
 
         /*---- Go to Home ----*/
 function goHome() {
@@ -261,13 +360,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
             <!-- navbar -->
     <nav class="navbar">
-     <ul class="nav-list">
-      <li class="nav-list"><img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo"></li>
-     </ul>
+      <div class="logo-box">
+        <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
+      </div>
     </nav> 
 
            <!-- front-page -->
-    <div class="card">
+    <div class="card" id="content">
         <svg width="70px" height="70px" class="success" id="check" viewBox="0 0 70 70" version="1.1"
             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -281,8 +380,13 @@ document.addEventListener('DOMContentLoaded', () => {
             </g>
         </svg>
         <h1 class="thanks logo-color">Thank You!</h1>
+        <p id="reg-id">Registration ID: <code id="ref"></code></p>
         <p class="card-p" id="typing-text"></p>
         <div class="back-btn-container"><button class="back-btn" onclick="goHome()"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
+    </div>
+    <div id="no-request">
+      <img class="not-found" src="https://assets.onecompiler.app/42fkuwhzd/42w39nmq5/1000063117.gif" alt="page-not-found">
+      <div class="back-btn-container"><button class="back-btn" onclick="goHome()"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
     </div>
 
             <!-- Footer -->

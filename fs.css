@@ -146,7 +146,7 @@ body {
   position: relative;
   background: transparent;
   padding: 3rem;
-  margin-top: 5rem;
+  margin-top: 6rem;
   margin-bottom: 5rem;
   padding-top: 0;
   border-radius: .4rem;
@@ -519,6 +519,7 @@ body {
 }
 .success-check {
   width: 4rem;
+  margin-bottom: 1rem;
 }
 .pay-svg {
   stroke-dasharray: 1000;
@@ -548,21 +549,25 @@ body {
   }
 }
 #success-slide h2 {
+  margin: 0;
   color: #00cc00;
 }
-#success-slide p {
+#payment-id {
   color: #999999;
-  font-size: 1rem;
-  margin: 0;
-  text-align: center;
-  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+  padding: .3rem;
+  transition: color .3s ease;
+  border-bottom: .1rem solid grey;
+}
+#payment-id:hover {
+  color: lightgrey;
 }
 #receipt-btn {
   display: flex;
   gap: .8rem;
   padding: .6rem;
   color: #ffffff;
-  margin-top: 1rem;
   font-size: 1rem;
   background: transparent;
   border-radius: .4rem;
