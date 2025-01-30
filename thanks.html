@@ -17,30 +17,30 @@
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik+Scribble&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
    <style>
            /*---- media-query ----*/ 
-@media only screen and (max-width: 400px) { 
+@media (max-width: 400px) { 
   html { 
     font-size: 62.5%; 
   } 
 } 
-@media only screen and (min-width: 401px) and (max-width: 600px) { 
+@media (min-width: 401px) and (max-width: 600px) { 
   html { 
-    font-size: 78.125%; 
+    font-size: 75%; 
   } 
 } 
-@media only screen and (min-width: 601px) and (max-width: 768px) { 
+@media (min-width: 601px) and (max-width: 768px) { 
   html { 
-    font-size: 90%; 
+    font-size: 87.5%; 
   } 
 } 
-@media only screen and (min-width: 769px) and (max-width: 999px) { 
+@media (min-width: 769px) and (max-width: 999px) { 
   html { 
-    font-size: 105.7%; 
+    font-size: 100%; 
   }
 } 
-@media only screen and (min-width: 1000px) and (max-width: 1200px) { 
+@media (min-width: 1000px) { 
   html { 
-    font-size: 121.8%; 
-  } 
+    font-size: 112.5%; 
+  }
 }
        /*---- body ----*/
 body {
@@ -268,7 +268,7 @@ body {
    
    <script type="module">
               /*---- Porting ----*/
-import { showNotification } from './script.js';
+//import { showNotification } from './script.js';
   
              /*---- OnPageLoad ----*/
 function getFormRequest() {
@@ -279,6 +279,7 @@ function getFormRequest() {
   if (!eData) {
     no.style.display = 'block';
     card.style.display = 'none';
+    document.title = '404 not found!';
     return;
   }
   
@@ -290,7 +291,7 @@ function getFormRequest() {
   const data = atob(eData);
   const [id, name, time] = data.split('-');
   const update = `Registration ID: ${id}<br>Student Registration for ${name} has been successfully submitted. The details will be verified, and you will be notified upon completion.`;
-  showNotification(update, time);
+//  showNotification(update, time);
   ref.textContent = id;
   
   if (ref.textContent) {
@@ -344,9 +345,17 @@ function typing() {
 document.addEventListener("DOMContentLoaded", getFormRequest);
 
         /*---- Go to Home ----*/
-function goHome() {
+document.addEventListener('DOMContentLoaded', () => {
+  const btns = document.querySelectorAll('.back-btn');
+  
+  function goHome() {
     window.location.replace("index.html");
-}
+  }
+  
+  btns.forEach((btn) => {
+    btn.addEventListener('click', goHome);
+  });
+});
      
         /*---- © current year ----*/
 document.addEventListener('DOMContentLoaded', () => {
@@ -382,11 +391,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <h1 class="thanks logo-color">Thank You!</h1>
         <p id="reg-id">Registration ID: <code id="ref"></code></p>
         <p class="card-p" id="typing-text"></p>
-        <div class="back-btn-container"><button class="back-btn" onclick="goHome()"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
+        <div class="back-btn-container"><button class="back-btn"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
     </div>
     <div id="no-request">
       <img class="not-found" src="https://assets.onecompiler.app/42fkuwhzd/42w39nmq5/1000063117.gif" alt="page-not-found">
-      <div class="back-btn-container"><button class="back-btn" onclick="goHome()"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
+      <div class="back-btn-container"><button class="back-btn"><span class="material-symbols-outlined">home_app_logo</span>Go To Home</button></div>
     </div>
 
             <!-- Footer -->

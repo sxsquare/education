@@ -22,7 +22,7 @@
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link rel="stylesheet" href="fb.css">
    <script src="https://kit.fontawesome.com/2e39ca5f52.js" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" type="text/javascript"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
@@ -61,7 +61,7 @@
       <p class="error">Please fill a valid email!</p>
 
       
-      <label class="inp_text_imp" for="rating">Rate Us:</label>
+      <label class="inp_text_imp">Rate Us:</label>
       <div id="rating-container">
         <div class="stars">
          <div class="star-box">
@@ -112,7 +112,7 @@
        <label class="inp_text_imp" for="text_fb">Your Feedback:</label>
        <p id="fb-char">0 / 200</p>
       </div>
-      <textarea name="Feedback" id="text_fb" maxlength="250" pattern="^(?!\s*$).+" placeholder="Let us know your thoughts..." required></textarea>
+      <textarea name="Feedback" id="text_fb" maxlength="250" placeholder="Let us know your thoughts..." required></textarea>
       <p class="error">Please input your feedback!</p>
       
       <button id="submit-btn" type="submit">Send Feedback</button>
@@ -121,7 +121,7 @@
    </div>
   </div>
 
-         <!---- Success-box ---->
+         <!-- Success-box -->
   <div id="success-box-bg">
    <div class="success-box">
     <i id="close-success" class="fa-solid fa-xmark"></i>
