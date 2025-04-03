@@ -55,9 +55,9 @@ export function showNotification(message, timestamp) {
   toggleBellDot();
 }
 
+const correctPath = window.location.pathname.includes("education/index.html") || window.location.pathname.endsWith("education/");
 
-
-if (window.location.pathname.includes("education/index.html")) {
+if (correctPath) {
 
 document.addEventListener('DOMContentLoaded', () => {
   
