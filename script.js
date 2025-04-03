@@ -55,9 +55,9 @@ export function showNotification(message, timestamp) {
   toggleBellDot();
 }
 
-const correctPath = window.location.pathname.includes("education/index.html") || window.location.pathname.endsWith("education/");
 
-if (correctPath) {
+
+if (window.location.pathname.includes("index.html")) {
 
 document.addEventListener('DOMContentLoaded', () => {
   
@@ -303,13 +303,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
     location.reload();
   });
   fs.addEventListener('click', () => {
-    window.location.href = '/fs.html';
+    window.location.href = 'fs.html';
   });
   fb.addEventListener('click', () => {
-    window.location.href = '/fb.html';
+    window.location.href = 'fb.html';
   });
   cu.addEventListener('click', () => {
-    window.location.href = '/cu.html';
+    window.location.href = 'cu.html';
   });
 
                 /*---- Sign In/Up ----*/
@@ -520,7 +520,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     .then(() => {
        fgStatus.textContent = 'Password reset link sent! Check your email to reset your password.';
        setTimeout(() => {
-           window.location.replace('/index.html?mode=login');
+           window.location.replace('index.html?mode=login');
        }, 2000);
 
     //   alert("mail to reset password sent successfully...");
@@ -605,7 +605,7 @@ function updateFirebaseProfile(imageUrl) {
         
      //   const photoUrl = user.photoURL;
       //  console.log(photoUrl);
-        window.location.replace('/index.html');
+        window.location.replace('index.html');
      //   if (photoUrl && photoUrl.includes("i.ibb.co")) {
    //         console.log('already stored in imgbb');
     //        location.reload();
@@ -750,7 +750,7 @@ function handleAuthError(error) {
             logStatus.style.display = 'none';
         }
         
-        window.location.replace('/index.html');
+        window.location.replace('index.html');
       })
       .catch((error) => {
         logStatus.textContent = handleAuthError(error);
@@ -782,7 +782,7 @@ function handleAuthError(error) {
           await sendEmailVerification(user);
           signStatus.textContent = "Verification link sent! Please check your email and verify your account before logging in.";
           setTimeout(() => {
-            window.location.replace('/index.html?mode=login');
+            window.location.replace('index.html?mode=login');
           }, 2000);
      //     alert(userCredential.user);    
     } catch (error) {

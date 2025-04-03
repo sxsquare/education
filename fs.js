@@ -8,15 +8,15 @@
 document.addEventListener('DOMContentLoaded', () => {
  // const home = document.getElementById('home');
     home.addEventListener('click', () => {
-      if (document.referrer.includes('/index.html')) {
+      if (document.referrer.includes('index.html')) {
           history.back(); // Go back if possible (acts like pressing the Back button)
       } else {
-        location.replace('/index.html'); // Fallback in case history is not available
+        location.replace('index.html'); // Fallback in case history is not available
       }
     });
   
    //  if (!item) {
-   //     window.location.href = '/index.html?mode=login';
+   //     window.location.href = 'index.html?mode=login';
    //}
    
   const firebaseConfig = {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-            window.location.href = '/index.html?mode=login';
+            window.location.href = 'index.html?mode=login';
         } else {
             document.body.style.display = 'flex';
         }
