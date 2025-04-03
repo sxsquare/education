@@ -57,7 +57,7 @@ export function showNotification(message, timestamp) {
 
 
 
-if (window.location.pathname.includes("index.html")) {
+if (window.location.pathname.includes("education/index.html")) {
 
 document.addEventListener('DOMContentLoaded', () => {
   
