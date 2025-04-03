@@ -1,25 +1,44 @@
               /*---- Porting ----*/
-import { showNotification } from './script.js';
+  import { showNotification } from "./script.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-               /*---- Home ----*/
+
+              /*---- Home navigation & account checkup ----*/
 document.addEventListener('DOMContentLoaded', () => {
-  const home = document.getElementById('home');
+ // const home = document.getElementById('home');
     home.addEventListener('click', () => {
-      window.location.replace("index.html");
+      if (document.referrer.includes('/index.html')) {
+          history.back(); // Go back if possible (acts like pressing the Back button)
+      } else {
+        location.replace('/index.html'); // Fallback in case history is not available
+      }
     });
-});
+  
+   //  if (!item) {
+   //     window.location.href = '/index.html?mode=login';
+   //}
+   
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjcYwQSstXZPf3ratDeYHJvgYiLdpc4JU",
+    authDomain: "sxs-education.firebaseapp.com",
+    projectId: "sxs-education",
+    storageBucket: "sxs-education.firebasestorage.app",
+    messagingSenderId: "688203518667",
+    appId: "1:688203518667:web:b19d0f7bed2a569f02814e",
+    measurementId: "G-71ZY8YPJSW"
+  };
 
-                /*---- onBack ----*/
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.location.pathname !== '/index.html') {
-    history.replaceState(null, '', 'index.html'); // Replace the initial state with index.html
-  }
-  history.pushState(null, '', window.location.pathname);
-  window.addEventListener('popstate', (event) => {
-    if (window.location.pathname !== '/index.html') {
-      window.location.replace('index.html');
-    }
-  });
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = '/index.html?mode=login';
+        } else {
+            document.body.style.display = 'flex';
+        }
+    });    
 });
 
          /*---- Make inputs sensible ----*/
@@ -178,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isNameValid && isAmValid) {
       const name = nameInput.value.trim();
       const am = amInput.value.trim();
-      const eSrc = "aHR0cHM6Ly9xdWlja2NoYXJ0LmlvL3FyP3NpemU9MjAwJnRleHQ9dXBpJTNBJTJGJTJGcGF5JTNGcGElM0RzeHNxdWFyZSU0MHlibCUyNnBuJTNEU1hTJTIwRURVQ0FUSU9OJTI2dG4lM0RUaGFua3MlMjBmb3IlMjB0cnVzdGluZyUyMHVzISUyNmN1JTNESU5SJTI2YW0lM0Q=";
+      const eSrc = "aHR0cHM6Ly9xdWlja2NoYXJ0LmlvL3FyP3NpemU9MjAwJnRleHQ9dXBpJTNBJTJGJTJGcGF5JTNGcGElM0RzYXVyYWJoc3JpdmFzdGF2YWJpbm5pJTQwb2tpY2ljaSUyNnBuJTNEU1hTJTIwRURVQ0FUSU9OJTI2dG4lM0RUaGFua3MlMjBmb3IlMjB0cnVzdGluZyUyMHVzISUyNmN1JTNESU5SJTI2YW0lM0QK";
       const dSrc = atob(eSrc);
       const qrSrc = `${dSrc}${am}`;
   
@@ -302,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
       });
       
-      const update = `Payment Update: ${name}'s payment of ${am} with Payment ID '${paymentRef}' is under verification. You will be notified upon completion`;
+      const update = `Payment Update: Payment of ${am} for ${name} with Payment ID '${paymentRef}' is under verification. You will be notified upon completion.`;
       showNotification(update, confirmTime);
       
       clearInterval(timerInterval);

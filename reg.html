@@ -1,0 +1,598 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+  <head> 
+   <meta charset="UTF-8"> 
+   <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   <meta name="theme-color" content="#000000">
+   <title>S² Education | Student registration</title>
+   <link rel="icon" href="icon.png" type="image/png">
+   <link rel="shortcut icon" href="icon.png" type="image/png">
+   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+   <link rel="manifest" href="site.webmanifest">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"> 
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fredoka:wght@300..700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
+   <link rel="stylesheet" href="reg.css">
+   <script src="https://kit.fontawesome.com/2e39ca5f52.js" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+   <script src="https://www.chatbase.co/embed.min.js" chatbotId="9YRSDWYGQFngIG3W6Ahqp" domain="www.chatbase.co" defer></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
+   <script type="module" src="reg.js"></script>
+   <script src="pwa.js"></script>
+  </head>
+  <body>
+           <!-- navbar -->
+   <nav id="my_navbar" class="navbar">
+    <div class="logo-box">
+     <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
+    </div>
+   </nav>
+   
+        <!-- navigation bar --> 
+   <div class="nav-box">
+     <div id="home">Home</div>
+     <span class="fa-solid fa-chevron-right"></span>
+     <div onclick="window.location.href='indx.html'">Registration</div>
+   </div>
+    
+           <!-- Front-page -->
+<div id="page-wrapper">
+ <div id="page-sk">
+  <!--
+   <div class="sk sk-circle"></div>
+   <div class="sk sk-la"></div>
+   <div class="sk sk-lb"></div>
+  -->
+   <div class="sk sk-box"></div>
+ </div>
+ 
+ <div id="page-content">
+   
+<div id="step-box">
+  <div id="arrow-btn">
+    <i id="arrow" class="fa-solid fa-caret-right"></i>
+  </div>
+  <div class="step">
+    <i class="fa-solid fa-book-open-reader"></i>
+    <small>Start</small>
+  </div>
+  <div class="step">
+    <i class="fa-solid fa-file-pen"></i>
+    <small>Fill</small>
+  </div>
+  <div class="step">
+    <i class="fa-solid fa-magnifying-glass-chart"></i>
+    <small>Review</small>
+  </div>
+  <div class="step">
+    <i class="fa-solid fa-envelope-circle-check"></i>
+    <small>Verify</small>
+  </div>
+  <div class="step">
+    <i class="fa-solid fa-circle-check"></i>
+    <small>Submit</small>
+  </div>
+</div>
+
+
+   
+               <!-- G-i -->
+   <div class="g-i-container" id="g_i_container">
+    <div class="reg_texts_div">
+     <div id="reg">REGISTER AS A STUDENT</div>
+    </div>
+    <div id="general-instruction-heading">General Instructions</div>
+    <div id="scroll-box">
+    <div id="scroll-box-content">
+     <div class="main-instructions">
+      <h3>Please scroll and read the following instructions carefully before filling out the form. These guidelines will help you provide accurate and complete information, ensuring a smooth and efficient form filling process.</h3>
+     </div><br>
+     <h3 class="sub-headings">Mandatory Fields :</h3>
+     <div class="sub-instructions">
+      <ul class="sub-instructions-list">
+       <li>Fields marked with an asterisk (<span class="asterisk">*</span>) are mandatory and must be filled out to proceed.</li>
+       <li>Incomplete forms or missing mandatory fields will delay the processing of your application.</li>
+      </ul>
+     </div>
+     <h3 class="sub-headings">Accurate Information :</h3>
+     <div class="sub-instructions">
+      <ul class="sub-instructions-list">
+       <li>Ensure all information provided is accurate and up-to-date.</li>
+       <li>Double-check for spelling errors and correct any discrepancies before submitting.</li>
+      </ul>
+     </div>
+     <h3 class="sub-headings">Format Requirements :</h3>
+     <div class="sub-instructions">
+      <ul class="sub-instructions-list">
+       <li>Follow specified formats for dates, phone numbers, and other input types as indicated in each field.</li>
+       <li>Use the given formats to avoid any errors during form submission.</li>
+      </ul>
+     </div>
+     <h3 class="sub-headings">Documents Uploads :</h3>
+     <div class="sub-instructions">
+      <ul class="sub-instructions-list">
+       <li>Please ensure you prepare a recent passport-size photograph of the student to be submitted along with the form.</li>
+       <li>Only upload files in accepted formats and ensure each file does not exceed the specified size limit.</li>
+      </ul>
+     </div>
+     <h3 class="sub-headings">Technical Issues :</h3>
+     <div class="sub-instructions">
+      <ul class="sub-instructions-list">
+       <li>To ensure a smooth submission process, please temporarily disable any ad blockers you may have enabled on your device.</li>
+       <li>Ensure your internet connection is stable while filling out and submitting the form.</li>
+      </ul>
+     </div>
+     <h3 class="sub-headings">Need Assistance :</h3>
+     <div class="sub-instructions">
+      <ul class="sub-instructions-list">
+       <li>If you encounter any issues or have any concerns, feel free to contact us.</li>
+      </ul>
+     </div>
+     <div class="main-instructions">
+      <h3>By clicking the checkbox button, you will ensure that you have read the complete instructions carefully and that you will fill out and submit your form correctly.</h3>
+     </div>
+     <div class="checkbox-container">
+      <button id="instruction_check_btn" class="material-symbols-outlined">priority</button>
+      <p class="checkbox-error">Please Click Checkbox!</p>
+     </div>
+     <div class="thanks-msg">
+      <h2>Thanks For Trusting Us!</h2>
+     </div>
+     <div class="btn-container">
+      <button id="start-disabled-btn">Let's Start</button>
+      <button id="start-btn" class="form-start-btn">Let's Start</button>
+     </div>
+    </div>
+   </div>
+ </div>
+
+        <!-- form-parent-conatiner -->
+  <div class="container">
+    <div class="session" id="academic-session"></div>
+    <h1 class="heading">Student's Registration Form</h1>
+    <div class="gi-btn">See General Instructions</div>
+
+  <form action="https://formsubmit.co/379222391c104d12d8c343be26ae92e9" method="POST" enctype="multipart/form-data" id="form" autocomplete="off" spellcheck="false">
+            <!-- Hidden-inputs -->
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_subject" id="subject">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://sxsquare.github.io/education/thanks.html">
+            <!-- Visible-inputs -->
+  <div class="fields-container">
+   <input name="Registration Id" id="inp_reg_id" type="hidden">
+   <input name="Date & Time" id="inp_sub_time" type="hidden">    
+   <div class="input-fields">
+    <input name="First Name" id="inp_student_first_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's first name" required>
+    <label class="float-label inp_text_imp" for="inp_student_first_name">First Name :</label>
+   </div>
+   <div class="input-fields">
+    <input name="Middle Name" id="inp_student_middle_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's middle name">
+    <label class="float-label" for="inp_student_middle_name">Middle Name :</label>
+   </div>
+   <div class="input-fields">
+    <input name="Last Name" id="inp_student_last_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's last name" required>
+    <label class="float-label inp_text_imp" for="inp_student_last_name">Last Name :</label>
+   </div>
+   <div class="input-fields">
+    <span class="option-label dob-ol">Date of Birth :</span>
+    <input name="Date Of Birth" id="inp_student_dob" type="date" min="1976-01-01" required>
+    <label class="float-label dob-fl inp_text_imp" for="inp_student_dob">Date of Birth :</label>
+   </div>
+   <div class="select-fields">
+    <span class="option-label">Gender :</span>
+    <label class="select-label inp_text_imp" for="opt_gender">Gender :</label>
+    <select name="Gender" id="opt_gender" required>
+     <option class="select-option" value="" label=" "></option>
+     <option value="Male">Male</option>
+     <option value="Female">Female</option>
+     <option value="Other">Other</option>
+    </select>
+   </div>
+   <div class="select-fields">
+    <span class="option-label">Category :</span>
+    <label class="select-label inp_text_imp" for="opt_category">Category :</label>
+    <select name="Category" id="opt_category" required>
+     <option class="select-option" value="" label=" "></option>
+     <option value="Unreserved">Unreserved</option>
+     <option value="OBC">OBC</option>
+     <option value="SC/ST">SC/ST</option>
+     <option value="Backward Classes">Backward Classes</option>
+    </select>
+   </div>
+   <div class="select-fields">
+    <span class="option-label">Grade :</span>
+    <label class="select-label inp_text_imp" for="opt_class">Grade :</label>
+    <select name="Class" id="opt_class" required>
+     <option class="select-option" value="" label=" "></option>
+     <option value="P.G.">P.G.</option>
+     <option value="Nursery">Nursery</option>
+     <option value="L K.G.">L.K.G</option>
+     <option value="U.K.G.">U.K.G.</option>
+     <option value="I">I</option>
+     <option value="II">II</option>
+     <option value="III">III</option>
+     <option value="IV">IV</option>
+     <option value="V">V</option>
+     <option value="VI">VI</option>
+     <option value="VII">VII</option>
+     <option value="VIII">VIII</option>
+     <option value="IX">IX</option>
+     <option value="XI">X</option>
+     <option value="XI (PCM)">XI (PCM)</option>
+     <option value="XI (PCB)">XI (PCB)</option>
+     <option value="XI (Commerce)">XI (Commerce)</option>
+     <option value="XI (Humanities)">XI (Humanities)</option>
+     <option value="XII">XII</option>
+    </select>
+   </div>
+   
+   <div class="select-fields">
+    <span class="option-label">Your Subjects :</span>
+    <label class="select-label inp_text_imp" for="opt_subjects">Your Subjects :</label>
+    <select id="opt_subjects" class="no-table no-qr" multiple required>
+     <option class="select-option" value="" label=" "></option>
+     <option value="All Subjects">All Subjects</option>
+     <option value="English">English</option>
+     <option value="Hindi">Hindi</option>
+     <option value="Social-studies">Social Studies</option>
+     <option value="Maths">Mathematics</option>
+     <option value="Science">Science</option>
+     <option value="Politics">Political Science</option>
+     <option value="History">History</option>
+     <option value="Geography">Geography</option>
+     <option value="Economics">Economics</option>
+     <option value="Computer-science">Computer Science</option>
+     <option value="Physics">Physics</option>
+     <option value="Chemistry">Chemistry</option>
+     <option value="Biology">Biology</option>
+     <option value="Business-studies">Business Studies</option>
+     <option value="Accounting">Accounting</option>
+     <option value="Sociology">Sociology</option>
+     <option value="Psychology">Psychology</option>
+     <option value="Fine-arts">Fine Arts</option>
+     <option value="Physical-education">Physical Education</option>
+     <option value="Philosophy">Philosophy</option>
+     <option value="Environmental-science">Environmental Science</option>
+     <option value="Information-technology">Information Technology</option>
+     <option value="Home-science">Home Science</option>
+     <option value="Entrepreneurship">Entrepreneurship</option>
+     <option value="Legal-studies">Legal Studies</option>
+     <option value="Agriculture">Agriculture</option>
+     <option value="Other">Other</option>
+    </select>
+   </div>
+   <input name="Subjects" id="inp_subjects" type="hidden" data-include="true">
+
+  <!--  
+   <div class="input-fields">
+    <input name="Time Schedule" id="inp_time_schedule" type="text" pattern="^([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm) - ([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm)$" placeholder="eg: 09:00 AM - 11:00 AM" required>
+    <label class="float-label inp_text_imp" for="inp_time_schedule">Time Schedule :</label>
+   </div>
+  -->  
+
+   <div class="select-fields">
+    <span class="option-label">Tuition Mode :</span>
+    <label class="select-label inp_text_imp" for="opt_tuition_mode">Tuition Mode :</label>
+    <select name="Tuition Mode" id="opt_tuition_mode" required>
+     <option class="select-option" value="" label=" "></option>
+     <option value="Online">Online</option>
+     <option value="Offline">Offline</option>
+     <option value="Hybrid">Hybrid</option>
+    </select>
+   </div>
+   <div class="select-fields">
+    <span class="option-label">Tuition Type :</span>
+    <label class="select-label inp_text_imp" for="opt_tuition_type">Tuition Type :</label>
+    <select name="Tuition Type" id="opt_tuition_type" required>
+     <option class="select-option" value="" label=" "></option>
+     <option value="Batch Classes">Batch Classes</option>
+     <option value="Regular Tuition">Regular Tuition</option>
+     <option value="Weekend Classes">Weekend Classes</option>
+     <option value="Crash Course">Crash Course</option>
+    </select>
+   </div>
+   <div class="input-fields">
+    <input name="School Name" id="inp_school_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter school name" required>
+    <label class="float-label inp_text_imp" for="inp_school_name">School Name :</label>
+   </div>
+   <div class="select-fields">
+    <span class="option-label">School Board :</span>
+    <label class="select-label inp_text_imp" for="opt_school_board">School Board :</label>
+    <select name="School Board" id="opt_school_board" required>
+     <option class="select-option" value="" label=" "></option>
+             <!-- Central Boards -->
+     <option value="CBSE">CBSE (Central Board of Secondary Education)</option>
+     <option value="ICSE">ICSE (Indian Certificate of Secondary Education)</option>
+     <option value="IB">IB (International Baccalaureate)</option>
+     <option value="IGCSE">IGCSE (Cambridge International)</option>
+     <option value="NIOS">NIOS (National Institute of Open Schooling)</option>
+          <!-- Regional and State Boards -->
+     <option value="Andaman and Nicobar Board">Andaman and Nicobar Board</option>
+     <option value="Andhra Pradesh Board">Andhra Pradesh Board</option>
+     <option value="Arunachal Pradesh Board">Arunachal Pradesh Board</option>
+     <option value="Assam Board">Assam Board</option>
+     <option value="Bihar Board">Bihar Board</option>
+     <option value="Chattisgarh Board">Chhattisgarh Board</option>
+     <option value="Chandigarh Board">Chandigarh Board</option>
+     <option value="Dadra and Nagar Haveli and Daman and Diu Board">Dadra and Nagar Haveli and Daman and Diu Board</option>
+     <option value="Dadra and Nagar Haveli Board">Dadra and Nagar Haveli Board</option>
+     <option value="Delhi Board">Delhi Board</option>
+     <option value="Goa Board">Goa Board</option>
+     <option value="Gujarat Board">Gujarat Board</option>
+     <option value="Haryana Board">Haryana Board</option>
+     <option value="Himachal Pradesh Board">Himachal Pradesh Board</option>
+     <option value="Jammu and Kashmir Board">Jammu and Kashmir Board</option>
+     <option value="Jharkhand Board">Jharkhand Board</option>
+     <option value="Karnataka Board">Karnataka Board</option>
+     <option value="Kerala Board">Kerala Board</option>
+     <option value="Lakshadweep Board">Lakshadweep Board</option>
+     <option value="Madhya Pradesh Board">Madhya Pradesh Board</option>
+     <option value="Maharashtra Board">Maharashtra Board</option>
+     <option value="Manipur Board">Manipur Board</option>
+     <option value="Meghalaya Board">Meghalaya Board</option>
+     <option value="Mizoram Board">Mizoram Board</option>
+     <option value="Nagaland Board">Nagaland Board</option>
+     <option value="Odisha Board">Odisha Board</option>
+     <option value="Puducherry Board">Puducherry Board</option>
+     <option value="Punjab Board">Punjab Board</option>
+     <option value="Rajasthan Board">Rajasthan Board</option>
+     <option value="Sikkim Board">Sikkim Board</option>
+     <option value="Tamil Nadu Board">Tamil Nadu Board</option>
+     <option value="Telangana Board">Telangana Board</option>
+     <option value="Tripura Board">Tripura Board</option>
+     <option value="Uttar Pardesh Board">Uttar Pradesh Board</option>
+     <option value="Uttrakhand Board">Uttarakhand Board</option>
+     <option value="West Bengal Board">West Bengal Board</option>
+    </select>
+   </div>
+   <div class="input-fields">
+    <input name="Mother's Name" id="inp_mother_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter full name" required>
+    <label class="float-label inp_text_imp" for="inp_mother_name">Mother's Name :</label>
+   </div>
+   <div class="select-fields">
+    <span class="option-label not-imp">Mother's Occupation :</span>
+    <label class="select-label" for="opt_mother_occupation">Mother's Occupation :</label>
+    <select name="Mother's Occupation" id="opt_mother_occupation">
+     <option class="select-option" value="" label=" "></option>
+     <option value="Agriculture">Agriculture</option>
+     <option value="Business">Business</option>
+     <option value="Government Service">Government Service</option>
+     <option value="Home Maker">Home Maker</option>
+     <option value="Private Sector">Private Sector</option>
+     <option value="Retired">Retired</option>
+    </select>
+   </div>
+   <div class="input-fields">
+    <input name="Father's Name" id="inp_father_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter full name" required>
+    <label class="float-label inp_text_imp" for="inp_father_name">Father's / Gaurdian's Name :</label>
+   </div>
+   <div class="select-fields">
+    <span class="option-label not-imp">Father's / Gaurdian's Occupation :</span>
+    <label class="select-label" for="opt_father_occupation">Father's / Gaurdian's Occupation :</label>
+    <select name="Father's Occupation" id="opt_father_occupation">
+     <option class="select-option" value="" label=" "></option>
+     <option value="Agriculture">Agriculture</option>
+     <option value="Business">Business</option>
+     <option value="Government Service">Government Service</option>
+     <option value="Home Maker">Home Maker</option>
+     <option value="Private Sector">Private Sector</option>
+     <option value="Retired">Retired</option>
+    </select>
+   </div>
+   <div class="input-fields">
+    <input name="E-mail" id="inp_email" class="sna" type="email" placeholder="eg: abc123@email.com" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
+    <label class="float-label inp_text_imp" for="inp_email">E-mail :</label>
+   </div>
+   <div class="input-fields">
+    <input name="Phone" id="inp_mob" class="sna" type="tel" pattern="[6789]\d{9}" value="" minlength="10" maxlength="10" placeholder="10-digit Mobile No." required>
+    <label class="float-label inp_text_imp" for="inp_mob">Mobile Number :</label>
+   </div>
+   <div class="input-fields">
+    <input name="Flat/House No., Building Name" id="inp_house_no" class="no-cap" type="text" pattern="^(?!\s*$).+" placeholder="eg: 69/110, Nova Apartment" required>
+    <label class="float-label inp_text_imp" for="inp_house_no">Flat/House No., Building Name :</label>
+   </div>
+   <div class="input-fields">
+    <input name="Street/Sector, Area" id="inp_area" class="no-cap" type="text" pattern="^(?!\s*$).+" placeholder="eg: Sector 18" required>
+    <label class="float-label inp_text_imp" for="inp_area">Street/Sector, Area :</label>
+   </div>
+   <div class="input-fields">
+    <input name="Pincode" id="inp_pincode" class="sna" type="tel" maxlength="6" minlength="6" pattern="^\d{6}$" value="" placeholder="6-digit Pincode" required>
+    <label class="float-label inp_text_imp" for="inp_pincode">Pincode :</label>
+    <span id="error-icon" class="material-symbols-outlined">error</span>
+   </div>
+   <p id="error"></p>
+  <div class="inline-inputs">
+   <div class="input-fields cs-box" tabindex="0">
+    <input name="City" class="no-focus" id="inp_city" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" tabindex="-1" placeholder="Enter city name" required>
+    <label class="float-label inp_text_imp" for="inp_city">City :</label>
+   </div>
+   <div class="input-fields cs-box" tabindex="0">
+    <input name="State" class="no-focus" id="inp_state" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" tabindex="-1" placeholder="Enter state name" required>
+    <label class="float-label inp_text_imp" for="inp_state">State :</label>
+   </div>
+  </div>
+  <div class="country">
+   <div class="input-fields">
+    <input name="Country" id="inp_country" value="India" type="text" placeholder="" readonly>
+    <label class="float-label inp_text_imp" for="inp_country">Country :</label>
+   </div>
+  </div>
+ </div>
+   
+  <label class="solid-label inp_text_imp osa-element" for="inp_photo">Student's Photo (Passport-Size Only) :</label>
+  <p class="photo-note osa-element">Accept :<br>File Format - JPG, JPEG, PNG.<br>File Size - Maximum 2 MB.</p>
+  <div class="photo_container">
+   <div id="photo_box" class="osa-element"> 
+   <img id="default_image_photo" src="https://assets.onecompiler.app/42fkuwhzd/42rfnf4fh/1000038208.png" alt="default_display_picture"> 
+   </div>
+   <p id="photo-error"></p>
+   <input name="Photo" id="inp_photo" type="file" accept="image/*" required>
+   <div class="photo_control_btn">
+   <button id="upload_photo_btn" class="material-symbols-outlined osa-element">upload</button>
+   <button id="delete_photo_btn" class="material-symbols-outlined osa-element">delete</button>
+   <p id="upload-error">Please upload!</p>
+   </div>
+  </div>
+   
+  <div id="after-review">
+   <div id="declaration_msg" class="osa-element">
+    <label class="solid-label declaration_label inp_text_imp">Self-Declaration :</label>
+    <p>
+     I declare that the information provided in this form is accurate, and I have reviewed and confirmed all details to be correct to the best of my knowledge. 
+    <br>
+     By clicking the checkbox button, I agree to abide by the rules and regulations of the Service.
+    </p>
+   </div>
+   <div class="checkbox-container">
+    <button id="declaration_check_btn" class="material-symbols-outlined declaration_check_btn osa-element">priority</button>
+    <p class="declaration-checkbox-error">Please Click Checkbox!</p>
+   </div> 
+   <label class="solid-label inp_text_imp osa-element" for="inp_captcha">CAPTCHA Verification :</label>
+   <div class="inline-boxes osa-element">
+    <div id="captcha_container" onclick="generateCaptcha()">
+    <div id="captcha" class="captcha"></div>
+    </div>
+    <input id="inp_captcha" class="inp_captcha sna no-cap no-table no-qr" type="text" minlength="6" maxlength="6" placeholder="Enter Text" required>
+   </div>
+   <div id="captcha_texts" class="osa-element">
+    <p id="captcha_note">Click on text to change</p>
+    <p id="captcha_msg"></p>
+   </div>
+  </div>
+
+  <div class="btn-container">
+   <button id="submit-disabled-btn" class="osa-element" type="button">Proceed</button>
+   <button id="submit-btn" class="osa-element" type="button">Submit</button>
+  </div>
+  <p id="submit-error">Please fix all the errors before submitting the form!</p>
+  <div id="form-error" class="osa-element">
+   <p>Something Went Wrong, please check the following:</p>
+   <ol>
+    <li>Ensure your email address is valid and entered correctly.</li>
+    <li>Verify your internet connection is stable.</li>
+    <li>If everything is correct, please try submitting the form again, and it will successfully process.</li>
+   </ol>
+  </div>
+  </form>
+  </div>
+  <div id="alert-box" role="alert"></div>
+ </div>
+</div>
+
+           <!-- Verification -->
+  <div id="v-box-bg">
+   <div id="v-box">
+    <div class="v-header">
+     <span class="fa-solid fa-lock" id="v-lock"></span>
+     <span class="fa-solid fa-unlock-key-hole" id="v-unlock"></span>
+     <span class="fa-solid fa-download" id="v-dl"></span>
+     <h2 id="v-heading">OTP Verification</h2>
+    </div>
+    <div class="v-body">
+     <div id="v-otp-verify"> 
+      <p id="v-note">Kindly check your <b>email account</b> below for the OTP we just sent you to verify.</p>
+      <div class="mail-box">
+       <span class="fa-solid fa-eye" id="v-eye"></span>
+       <span class="fa-solid fa-eye-slash" id="v-eye-slash"></span>
+       <small id="eye-title">Show Email</small>
+       <p id="mask-mail"></p>
+       <span class="fa-solid fa-pencil" id="edit-btn"></span>
+       <small id="edit-title">Edit Email</small>
+      </div>
+      <div id="edit-q">
+       <span class="fa-solid fa-xmark" id="quite-edit"></span>
+       <div id="edit-q-content" class="edit-q-content">
+        <div id="q">
+         <h3>Email Correction</h3>
+         <p class="q-content">Do you want to edit your email address?</p>
+         <div class="ans-btns">
+          <button id="edit-yes">Yes</button>
+          <button id="edit-no">No</button>
+         </div>
+        </div>
+        <div id="edit-inp">
+         <div class="c-email-field">
+          <input name="Corrected E-mail" id="inp_c_email" class="sna" type="email" placeholder="Enter a valid email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+          <label class="float-label inp_text_imp c-email-label" for="inp_c_email">Corrected E-mail :</label>
+         </div>
+         <p id="c-email-msg"></p>
+         <button id="otp-btn" type="button">Send OTP</button>
+        </div>
+       </div>
+      </div>
+      <div id="resend-otp"></div>
+      <p id="resend-msg"></p>
+      <input name="OTP" id="inp_otp" class="sna" type="tel" maxlength="6" minlength="6" autocomplete="off" pattern="^\d{6}$" value="" placeholder="Enter OTP" required>
+      <p id="otp-msg"></p>
+      <img id="otp-verify-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verification_gif">
+      <div id="vlg-bg">
+       <img id="verify-loading-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verify_loading_gif">
+      </div>
+     </div>
+     <div id="v-form-dl">
+      <p class="dl-q">Do you want to download the form?</p>
+      <div class="dl-btns">
+       <button id="dl-no">No</button>
+       <button id="dl-yes">Yes</button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+          <!-- Status bar -->
+  <div id="status-bar">
+   <div id="status-bar-content">
+    <div id="status-bar-icons">
+     <img id="internet-img" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000043203.png" alt="internet_indicator">
+     <svg xmlns="http://www.w3.org/2000/svg" id="no-internet-icon" viewBox="0 0 200 200" width="150" height="150">
+      <rect width="200" height="200" fill="transparent" />
+      <path class="wifi-dot" d="M100 115c-7.5 0-13.5 6-13.5 13.5S92.5 142 100 142s13.5-6 13.5-13.5S107.5 115 100 115z" fill="#007bff"></path>
+      <path class="wifi-arc1" d="M100 90c-15 0-29 6-39.5 16.5l7.5 7.5C78.5 105 88.5 100 100 100s21.5 5 29.5 14l7.5-7.5C129 96 115 90 100 90z" fill="#007bff"></path>
+      <path class="wifi-arc2" d="M100 65c-25 0-48 10-65.5 27.5l7.5 7.5C53.5 83 75 75 100 75s46.5 8 58 25l7.5-7.5C148 75 125 65 100 65z" fill="#007bff"></path>
+      <circle class="circle" cx="100" cy="100" r="75" fill="none" stroke="#ff0000" stroke-width="5"></circle>
+      <line class="slash" x1="55" y1="55" x2="145" y2="145" stroke="#ff0000" stroke-width="5"></line>
+     </svg>
+    </div>
+    <p id="internet-msg"></p>
+   </div>
+  </div>
+  
+       <!-- loading -->
+  <div id="loading-bg">
+   <img id="loading" src="https://media3.giphy.com/media/tneMJXxY0TH1LJCfCd/giphy.gif?cid=6c09b952uxugqmlr2qv7ep7k9942rivzy932fa2yol9lbafp&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="loading_gif">
+   <svg id="loading-error" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="8" x2="12" y2="12"></line>
+    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+   </svg>
+   <p id="back-note">Please do not press back or close the page.</p>
+   <p id="wait-note">Due to slow internet, form submission may take longer. Please wait...</p>
+  </div>
+  
+      <!-- Ad-blocker -->
+<div class="adblock-container hidden" id="adblockContainer">
+    <div class="adblock-message">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h2>Ad-Blocker Detected!</h2>
+        <p>It seems an ad blocker is preventing the form from working properly. <b>This isn't for ads</b> but to ensure the form can be filled out and submitted successfully. <span>Please disable your ad blocker temporarily and refresh the page to proceed.</span> We appreciate your understanding!</p>
+    </div>
+</div>
+
+       <!-- footer -->
+  <div class="footer">
+   <p>© 2020 - <span id="current-year"></span><br>All Rights Reserved<br>Designed by - <span class="logo-color">SXS</span> <span class="logo-color">Web Consultancy</span></p>
+  </div>
+ </body>
+</html>

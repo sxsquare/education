@@ -10,536 +10,328 @@
    <link rel="shortcut icon" href="icon.png" type="image/png">
    <link rel="apple-touch-icon" href="apple-touch-icon.png">
    <link rel="manifest" href="site.webmanifest">
-   <link rel="preload" href="https://fonts.gstatic.com/s/materialicons/v140/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2" as="font" type="font/woff2" crossorigin="anonymous">
    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"> 
-   <link rel="preload" href="https://fonts.gstatic.com/s/materialsymbolsoutlined/v138/kJF1B7cus1bS3U-6KKG9r2Vhetw3yGlrzCQ.woff2" as="font" type="font/woff2" crossorigin="anonymous">
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=swap">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fredoka:wght@300..700&family=Rubik+Scribble&family=Rubik+Wet+Paint&family=Slabo+27px&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap">
    <link rel="stylesheet" href="styles.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+   <script src="https://kit.fontawesome.com/2e39ca5f52.js" crossorigin="anonymous"></script>
    <script src="https://www.chatbase.co/embed.min.js" chatbotId="9YRSDWYGQFngIG3W6Ahqp" domain="www.chatbase.co" defer></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator/qrcode.min.js"></script>
    <script type="module" src="script.js"></script>
    <script src="pwa.js"></script>
   </head>
   <body>
            <!-- navbar -->
    <nav id="my_navbar" class="navbar">
-    <div id="bell-box">
-     <span class="fa fa-bell-o" id="bell-icon"></span>
+    <div id="bell-box" class="plus">
+     <span class="fa-regular fa-bell" id="bell-icon"></span>
      <div id="bell-dot"></div>
-     <span class="fa fa-chevron-left" id="close-icon"></span>
+     <span class="fa-solid fa-chevron-left" id="close-icon"></span>
     </div>
     <div class="logo-box">
      <img id="logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
     </div>
-    <div id="menu-btn"><span class="fa fa-angle-down" id="menu-icon"></span></div>
+    <div id="menu-btn" class="plus">
+     <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="none" stroke="#fff" stroke-width="7"/>
+      <polyline points="35,45 50,60 65,45" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+     </svg>
+    </div>
+    <img id="pc-dp" class="plus" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="default_display_picture"> 
+    <div id="login">
+     <i id="login-icon" class="fa-solid fa-user-large"></i>
+     <span>Login</span>
+    </div>
    </nav>
+           <!-- pc-menubar -->
+   <div id="pc_menubar" class="pc-menubar plus">
+    <a onclick="location.reload()">Home</a>
+    <a onclick="window.location.href='/fs.html'">Fee Submission</a>
+    <a onclick="window.location.href='/fb.html'">Feedback</a>
+    <a onclick="window.location.href='/cu.html'">Contact Us</a>
+   </div>
    
            <!-- sidebar -->
-   <div id="my_sidebar" class="sidebar">
+   <div id="my_sidebar" class="sidebar plus">
     <p id="default-notify-msg">No Notifications found!</p>
    </div>
 
            <!-- menubar -->
-   <div id="my_menubar" class="menubar">
-    <div class="text-options">
-     <div class="menu-option material-symbols-outlined" id="home">Home</div>
-     <div class="menu-option" id="fee-submission"><a href="fs.html"></a>Fee Submission</div>
-     <div class="menu-option" id="feedback"><a href="fb.html"></a>Feedback</div>
-     <div class="menu-option" id="contact-us"><a href="cu.html"></a>Contact Us</div>
-    </div>
+   <div id="my_menubar" class="menubar plus">
+     <div class="header"> 
+      <div class="profile">
+       <img id="dp" src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg" alt="default_display_picture"> 
+     <!--
+      <input id="name" class="input-saved" data-key="input1" type="text" maxlength="20" value="" placeholder="Student's name" required> 
+    -->
+       <div class="profile-texts">
+        <h3 id="pro-name"></h3>
+        <small id="pro-email"></small>
+       </div>
+      </div>
+      <i id="open-profile" class="fa-solid fa-up-right-from-square"></i>
+    <!--
+      <button id="edit"><span class="fa fa-pencil"></span></button>   
+      <button id="save"><span class="fa fa-floppy-o"></span></button> 
+    -->
+      <div id="error-msg"></div> 
+      <div id="success-msg">Successfully updated...</div> 
+     </div> 
+
+     <div class="text-options">
+      <div class="menu-option material-symbols-outlined" id="home">Home</div>
+      <div class="menu-option" id="fee-submission"><i class="fa-solid fa-credit-card"></i><a href="fs.html"></a>Fee Submission<i class="fa-solid fa-arrow-right"></i></div>
+      <div class="menu-option" id="feedback"><i class="fa-solid fa-comment-dots"></i><a href="fb.html"></a>Feedback<i class="fa-solid fa-arrow-right"></i></div>
+      <div class="menu-option" id="contact-us"><i class="fa-solid fa-headset"></i><a href="cu.html"></a>Contact Us<i class="fa-solid fa-arrow-right"></i></div>
+     </div>
    </div>
 
            <!-- Front-page -->
-<div id="page-wrapper">
- <div id="page-sk">
-   <div class="sk sk-circle"></div>
-   <div class="sk sk-la"></div>
-   <div class="sk sk-lb"></div>
-   <div class="sk sk-box"></div>
- </div>
+  <div id="page-wrapper">
+   <div class="bg1">
+    <h1 class="top-heading">EXCESS YOUR SUCCESS WITH SXS</h1>
+   <!--  
+    <button id="reg-btn">Let's Go<span class="fa-solid fa-arrow-right"></span></button>
+   -->  
+   <!--
+    <img class="plane" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000072449.gif" alt="paper-plane">
+   -->
+   </div>
+   <div class="slider">
+     <img id="slider-box-1" src="https://media3.giphy.com/media/dKMcYi35pMBSfZ5msG/giphy.gif?cid=6c09b952qygueb98jyd4szppfswxl13ji4jnx4jmz81g0t2b&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=g" alt="img_1">
+     <img id="slider-box-2" src="https://i.ibb.co/cyYZ85y/White-Green-Modern-School-Admission-Video-20240613-231611-0000.jpg" alt="img_2">
+     <img id="slider-box-3" src="https://i.ibb.co/6Xbv7bq/Black-White-and-Orange-Photocentric-Sports-Cricket-Flyer-20240613-165755-0000-2.jpg" alt="img_3">
+     <img id="slider-box-4" src="https://i.ibb.co/P5sTsMk/Screenshot-20240611-095334.png" alt="img_4">
+   </div>
+<!--   
+   <input type="file" id="uploadFile" />
+   <button id="uploadBtn">Upload</button>
+-->   
+   <h1 class="h-1"><i class="fa-regular fa-circle-question"></i>Who We Are</h1>
+   <img class="img1" src="https://assets.onecompiler.app/42fkuwhzd/43dhj6hmv/1000085721.jpg" alt="img5">
+   <p class="p-1">Education with Purpose, Impact for Life</p>
+   <div class="p-box">
+     <p class="p-2">At <span class="logo-color">S² Education</span>, we are committed to providing high-quality, accessible, and engaging learning experiences, that too at a very affordable rate. Our mission is to create an environment where students not only acquire knowledge but also develop the skills and confidence needed to excel in their academic journey and beyond.</p>
+     <h3>Our Vision</h3>
+     <p class="p-2">To redefine education by integrating innovative teaching methods with personalized learning, ensuring that every student reaches their full potential.
+     <h3>Our Approach</h3>
+      <ul class="p-2">
+       <li><span class="li-h">Concept-Based Learning:</span> We focus on understanding rather than memorization, ensuring students grasp the "why" behind every concept.</li>
+       <li><span class="li-h">Interactive & Practical Methods:</span> Learning by doing is at the heart of our teaching philosophy, making education enjoyable and effective.</li>
+       <li><span class="li-h">Technology-Driven Education:</span> We integrate modern tools and digital platforms to make learning more engaging and efficient.</li>
+      </ul>
+   </div>
+   
+   
+   <h1 class="h-1"><i class="fa-solid fa-graduation-cap"></i>Premier Courses</h1>
+   <p class="p-1">Choose from our specially designed programs to help you succeed.</p>
+    <div class="slider s2">
+     <div class="batch-boxes">
+       <div class="batch-label bl3">•  Exclusive  •</div>
+       <i class="fa-solid fa-user-graduate batch-icons bi3"></i>
+       <h2>SUPER-SOLO PROGRAM</h2>
+       <q class="q3">Mater concepts with ease</q>
+     </div>
+     <div class="batch-boxes">
+       <div class="batch-label bl2">•  High Rated  •</div>
+       <i class="fa-solid fa-users batch-icons bi2"></i>
+       <h2>TERRIFIC-TRIO COHORT</h2>
+       <q class="q2">Learn your way, excel your way</q>
+     </div>
+     <div class="batch-boxes">
+       <div class="batch-label bl1">•  Affordable+  •</div>
+       <div class="batch-icons bi1">
+        <span class="stack-icon">
+         <i class="fa-solid fa-users stack-main"></i>
+         <i class="fa-solid fa-user stack-i1"></i>
+         <i class="fa-solid fa-user stack-i2"></i>
+        </span>
+       </div>
+       <h2>FAB-FIVE COHORT</h2>
+       <q class="q1">Excellence that fits your budget</q>    
+     </div>
+   </div>
+<!--    <img class="img1" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000072499.jpg" alt="img1">
+ -->
  
- <div id="page-content">
-   <div id="welcome-box">
-    <div id="welcome-icon-box">
-     <span class="fa fa-smile-o logo-color" id="welcome-icon"></span>
-    </div>
-    <div class="welcome_texts_div">
-     <div id="welcome">WELCOME</div>
-    </div>
-   </div>
-   
-               <!-- G-i -->
-   <div class="g-i-container" id="g_i_container">
-    <div class="reg_texts_div">
-     <div id="reg">REGISTER AS A STUDENT</div>
-    </div>
-    <div id="general-instruction-heading">General Instructions</div>
-    <div id="scroll-box">
-    <div id="scroll-box-content">
-     <div class="main-instructions">
-      <h3>Please scroll and read the following instructions carefully before filling out the form. These guidelines will help you provide accurate and complete information, ensuring a smooth and efficient form filling process.</h3>
-     </div><br>
-     <h3 class="sub-headings">Mandatory Fields :</h3>
-     <div class="sub-instructions">
-      <ul class="sub-instructions-list">
-       <li>Fields marked with an asterisk (<span class="asterisk">*</span>) are mandatory and must be filled out to proceed.</li>
-       <li>Incomplete forms or missing mandatory fields will delay the processing of your application.</li>
-      </ul>
-     </div>
-     <h3 class="sub-headings">Accurate Information :</h3>
-     <div class="sub-instructions">
-      <ul class="sub-instructions-list">
-       <li>Ensure all information provided is accurate and up-to-date.</li>
-       <li>Double-check for spelling errors and correct any discrepancies before submitting.</li>
-      </ul>
-     </div>
-     <h3 class="sub-headings">Format Requirements :</h3>
-     <div class="sub-instructions">
-      <ul class="sub-instructions-list">
-       <li>Follow specified formats for dates, phone numbers, and other input types as indicated in each field.</li>
-       <li>Use the given formats to avoid any errors during form submission.</li>
-      </ul>
-     </div>
-     <h3 class="sub-headings">Documents Uploads :</h3>
-     <div class="sub-instructions">
-      <ul class="sub-instructions-list">
-       <li>Please ensure you prepare a recent passport-size photograph of the student to be submitted along with the form.</li>
-       <li>Only upload files in accepted formats and ensure each file does not exceed the specified size limit.</li>
-      </ul>
-     </div>
-     <h3 class="sub-headings">Technical Issues :</h3>
-     <div class="sub-instructions">
-      <ul class="sub-instructions-list">
-       <li>To ensure a smooth submission process, please temporarily disable any ad blockers you may have enabled on your device.</li>
-       <li>Ensure your internet connection is stable while filling out and submitting the form.</li>
-      </ul>
-     </div>
-     <h3 class="sub-headings">Need Assistance :</h3>
-     <div class="sub-instructions">
-      <ul class="sub-instructions-list">
-       <li>If you encounter any issues or have any concerns, feel free to contact us.</li>
-      </ul>
-     </div>
-     <div class="main-instructions">
-      <h3>By clicking the checkbox button, you will ensure that you have read the complete instructions carefully and that you will fill out and submit your form correctly.</h3>
-     </div>
-     <div class="checkbox-container">
-      <button id="instruction_check_btn" class="material-symbols-outlined">priority</button>
-      <p class="checkbox-error">Please Click Checkbox!</p>
-     </div>
-     <div class="thanks-msg">
-      <h2>Thanks For Trusting Us!</h2>
-     </div>
-     <div class="btn-container">
-      <button id="start-disabled-btn">Let's Start</button>
-      <button id="start-btn" class="form-start-btn">Let's Start</button>
-     </div>
-    </div>
-   </div>
- </div>
-
-        <!-- form-parent-conatiner -->
-  <div class="container">
-    <div class="session" id="academic-session"></div>
-    <h1 class="heading">Student's Registration Form</h1>
-    <div class="gi-btn">See General Instructions</div>
-
-  <form action="https://formsubmit.co/379222391c104d12d8c343be26ae92e9" method="POST" enctype="multipart/form-data" id="form">
-            <!-- Hidden-inputs -->
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_subject" id="subject">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="hidden" name="_next" value="https://sxsquare.github.io/education/thanks.html">
-            <!-- Visible-inputs -->
-  <div class="fields-container"> 
-   <div class="input-fields">
-    <input name="First Name" id="inp_student_first_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's first name" required>
-    <label class="float-label inp_text_imp" for="inp_student_first_name">First Name :</label>
-   </div>
-   <div class="input-fields">
-    <input name="Middle Name" id="inp_student_middle_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's middle name">
-    <label class="float-label" for="inp_student_middle_name">Middle Name :</label>
-   </div>
-   <div class="input-fields">
-    <input name="Last Name" id="inp_student_last_name" class="sna no-table" type="text" pattern="[A-Za-z]+" placeholder="Enter student's last name" required>
-    <label class="float-label inp_text_imp" for="inp_student_last_name">Last Name :</label>
-   </div>
-   <div class="input-fields">
-    <span class="option-label dob-ol">Date of Birth :</span>
-    <input name="Date Of Birth" id="inp_student_dob" type="date" min="1976-01-01" required>
-    <label class="float-label dob-fl inp_text_imp" for="inp_student_dob">Date of Birth :</label>
-   </div>
-   <div class="select-fields">
-    <span class="option-label">Gender :</span>
-    <label class="select-label inp_text_imp" for="opt_gender">Gender :</label>
-    <select name="Gender" id="opt_gender" required>
-     <option class="select-option" value="" label=" "></option>
-     <option value="Male">Male</option>
-     <option value="Female">Female</option>
-     <option value="Other">Other</option>
-    </select>
-   </div>
-   <div class="select-fields">
-    <span class="option-label">Category :</span>
-    <label class="select-label inp_text_imp" for="opt_category">Category :</label>
-    <select name="Category" id="opt_category" required>
-     <option class="select-option" value="" label=" "></option>
-     <option value="Unreserved">Unreserved</option>
-     <option value="OBC">OBC</option>
-     <option value="SC/ST">SC/ST</option>
-     <option value="Backward Classes">Backward Classes</option>
-    </select>
-   </div>
-   <div class="select-fields">
-    <span class="option-label">Grade :</span>
-    <label class="select-label inp_text_imp" for="opt_class">Grade :</label>
-    <select name="Class" id="opt_class" required>
-     <option class="select-option" value="" label=" "></option>
-     <option value="P.G.">P.G.</option>
-     <option value="Nursery">Nursery</option>
-     <option value="L K.G.">L.K.G</option>
-     <option value="U.K.G.">U.K.G.</option>
-     <option value="I">I</option>
-     <option value="II">II</option>
-     <option value="III">III</option>
-     <option value="IV">IV</option>
-     <option value="V">V</option>
-     <option value="VI">VI</option>
-     <option value="VII">VII</option>
-     <option value="VIII">VIII</option>
-     <option value="IX">IX</option>
-     <option value="XI">X</option>
-     <option value="XI (PCM)">XI (PCM)</option>
-     <option value="XI (PCB)">XI (PCB)</option>
-     <option value="XI (Commerce)">XI (Commerce)</option>
-     <option value="XI (Humanities)">XI (Humanities)</option>
-     <option value="XII">XII</option>
-    </select>
-   </div>
-   
-   <div class="select-fields">
-    <span class="option-label">Your Subjects :</span>
-    <label class="select-label inp_text_imp" for="opt_subjects">Your Subjects :</label>
-    <select id="opt_subjects" class="no-table no-qr" multiple required>
-     <option class="select-option" value="" label=" "></option>
-     <option value="All Subjects">All Subjects</option>
-     <option value="English">English</option>
-     <option value="Hindi">Hindi</option>
-     <option value="Social-studies">Social Studies</option>
-     <option value="Maths">Mathematics</option>
-     <option value="Science">Science</option>
-     <option value="Politics">Political Science</option>
-     <option value="History">History</option>
-     <option value="Geography">Geography</option>
-     <option value="Economics">Economics</option>
-     <option value="Computer-science">Computer Science</option>
-     <option value="Physics">Physics</option>
-     <option value="Chemistry">Chemistry</option>
-     <option value="Biology">Biology</option>
-     <option value="Business-studies">Business Studies</option>
-     <option value="Accounting">Accounting</option>
-     <option value="Sociology">Sociology</option>
-     <option value="Psychology">Psychology</option>
-     <option value="Fine-arts">Fine Arts</option>
-     <option value="Physical-education">Physical Education</option>
-     <option value="Philosophy">Philosophy</option>
-     <option value="Environmental-science">Environmental Science</option>
-     <option value="Information-technology">Information Technology</option>
-     <option value="Home-science">Home Science</option>
-     <option value="Entrepreneurship">Entrepreneurship</option>
-     <option value="Legal-studies">Legal Studies</option>
-     <option value="Agriculture">Agriculture</option>
-     <option value="Other">Other</option>
-    </select>
-   </div>
-   <input name="Subjects" id="inp_subjects" type="hidden" data-include="true">
-
-  <!--  
-   <div class="input-fields">
-    <input name="Time Schedule" id="inp_time_schedule" type="text" pattern="^([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm) - ([1-9]|0[1-9]|1[0-2]):[0-5][0-9] ?(AM|PM|am|pm|Am|Pm)$" placeholder="eg: 09:00 AM - 11:00 AM" required>
-    <label class="float-label inp_text_imp" for="inp_time_schedule">Time Schedule :</label>
-   </div>
-  -->  
-
-   <div class="select-fields">
-    <span class="option-label">Tuition Mode :</span>
-    <label class="select-label inp_text_imp" for="opt_tuition_mode">Tuition Mode :</label>
-    <select name="Tuition Mode" id="opt_tuition_mode" required>
-     <option class="select-option" value="" label=" "></option>
-     <option value="Online">Online</option>
-     <option value="Offline">Offline</option>
-     <option value="Hybrid">Hybrid</option>
-    </select>
-   </div>
-   <div class="select-fields">
-    <span class="option-label">Tuition Type :</span>
-    <label class="select-label inp_text_imp" for="opt_tuition_type">Tuition Type :</label>
-    <select name="Tuition Type" id="opt_tuition_type" required>
-     <option class="select-option" value="" label=" "></option>
-     <option value="Batch Classes">Batch Classes</option>
-     <option value="Regular Tuition">Regular Tuition</option>
-     <option value="Weekend Classes">Weekend Classes</option>
-     <option value="Crash Course">Crash Course</option>
-    </select>
-   </div>
-   <div class="input-fields">
-    <input name="School Name" id="inp_school_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter school name" required>
-    <label class="float-label inp_text_imp" for="inp_school_name">School Name :</label>
-   </div>
-   <div class="select-fields">
-    <span class="option-label">School Board :</span>
-    <label class="select-label inp_text_imp" for="opt_school_board">School Board :</label>
-    <select name="School Board" id="opt_school_board" required>
-     <option class="select-option" value="" label=" "></option>
-             <!-- Central Boards -->
-     <option value="CBSE">CBSE (Central Board of Secondary Education)</option>
-     <option value="ICSE">ICSE (Indian Certificate of Secondary Education)</option>
-     <option value="IB">IB (International Baccalaureate)</option>
-     <option value="IGCSE">IGCSE (Cambridge International)</option>
-     <option value="NIOS">NIOS (National Institute of Open Schooling)</option>
-          <!-- Regional and State Boards -->
-     <option value="Andaman and Nicobar Board">Andaman and Nicobar Board</option>
-     <option value="Andhra Pradesh Board">Andhra Pradesh Board</option>
-     <option value="Arunachal Pradesh Board">Arunachal Pradesh Board</option>
-     <option value="Assam Board">Assam Board</option>
-     <option value="Bihar Board">Bihar Board</option>
-     <option value="Chattisgarh Board">Chhattisgarh Board</option>
-     <option value="Chandigarh Board">Chandigarh Board</option>
-     <option value="Dadra and Nagar Haveli and Daman and Diu Board">Dadra and Nagar Haveli and Daman and Diu Board</option>
-     <option value="Dadra and Nagar Haveli Board">Dadra and Nagar Haveli Board</option>
-     <option value="Delhi Board">Delhi Board</option>
-     <option value="Goa Board">Goa Board</option>
-     <option value="Gujarat Board">Gujarat Board</option>
-     <option value="Haryana Board">Haryana Board</option>
-     <option value="Himachal Pradesh Board">Himachal Pradesh Board</option>
-     <option value="Jammu and Kashmir Board">Jammu and Kashmir Board</option>
-     <option value="Jharkhand Board">Jharkhand Board</option>
-     <option value="Karnataka Board">Karnataka Board</option>
-     <option value="Kerala Board">Kerala Board</option>
-     <option value="Lakshadweep Board">Lakshadweep Board</option>
-     <option value="Madhya Pradesh Board">Madhya Pradesh Board</option>
-     <option value="Maharashtra Board">Maharashtra Board</option>
-     <option value="Manipur Board">Manipur Board</option>
-     <option value="Meghalaya Board">Meghalaya Board</option>
-     <option value="Mizoram Board">Mizoram Board</option>
-     <option value="Nagaland Board">Nagaland Board</option>
-     <option value="Odisha Board">Odisha Board</option>
-     <option value="Puducherry Board">Puducherry Board</option>
-     <option value="Punjab Board">Punjab Board</option>
-     <option value="Rajasthan Board">Rajasthan Board</option>
-     <option value="Sikkim Board">Sikkim Board</option>
-     <option value="Tamil Nadu Board">Tamil Nadu Board</option>
-     <option value="Telangana Board">Telangana Board</option>
-     <option value="Tripura Board">Tripura Board</option>
-     <option value="Uttar Pardesh Board">Uttar Pradesh Board</option>
-     <option value="Uttrakhand Board">Uttarakhand Board</option>
-     <option value="West Bengal Board">West Bengal Board</option>
-    </select>
-   </div>
-   <div class="input-fields">
-    <input name="Mother's Name" id="inp_mother_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter full name" required>
-    <label class="float-label inp_text_imp" for="inp_mother_name">Mother's Name :</label>
-   </div>
-   <div class="select-fields">
-    <span class="option-label not-imp">Mother's Occupation :</span>
-    <label class="select-label" for="opt_mother_occupation">Mother's Occupation :</label>
-    <select name="Mother's Occupation" id="opt_mother_occupation">
-     <option class="select-option" value="" label=" "></option>
-     <option value="Agriculture">Agriculture</option>
-     <option value="Business">Business</option>
-     <option value="Government Service">Government Service</option>
-     <option value="Home Maker">Home Maker</option>
-     <option value="Private Sector">Private Sector</option>
-     <option value="Retired">Retired</option>
-    </select>
-   </div>
-   <div class="input-fields">
-    <input name="Father's Name" id="inp_father_name" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" placeholder="Enter full name" required>
-    <label class="float-label inp_text_imp" for="inp_father_name">Father's / Gaurdian's Name :</label>
-   </div>
-   <div class="select-fields">
-    <span class="option-label not-imp">Father's / Gaurdian's Occupation :</span>
-    <label class="select-label" for="opt_father_occupation">Father's / Gaurdian's Occupation :</label>
-    <select name="Father's Occupation" id="opt_father_occupation">
-     <option class="select-option" value="" label=" "></option>
-     <option value="Agriculture">Agriculture</option>
-     <option value="Business">Business</option>
-     <option value="Government Service">Government Service</option>
-     <option value="Home Maker">Home Maker</option>
-     <option value="Private Sector">Private Sector</option>
-     <option value="Retired">Retired</option>
-    </select>
-   </div>
-   <div class="input-fields">
-    <input name="E-mail" id="inp_email" class="sna" type="email" placeholder="eg: abc123@email.com" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required>
-    <label class="float-label inp_text_imp" for="inp_email">E-mail :</label>
-   </div>
-   <div class="input-fields">
-    <input name="Phone" id="inp_mob" class="sna" type="tel" pattern="[6789]\d{9}" value="" minlength="10" maxlength="10" placeholder="10-digit Mobile No." required>
-    <label class="float-label inp_text_imp" for="inp_mob">Mobile Number :</label>
-   </div>
-   <div class="input-fields">
-    <input name="Flat/House No., Building Name" id="inp_house_no" class="no-cap" type="text" pattern="^(?!\s*$).+" placeholder="eg: 69/110, Nova Apartment" required>
-    <label class="float-label inp_text_imp" for="inp_house_no">Flat/House No., Building Name :</label>
-   </div>
-   <div class="input-fields">
-    <input name="Street/Sector, Area" id="inp_area" class="no-cap" type="text" pattern="^(?!\s*$).+" placeholder="eg: Sector 18" required>
-    <label class="float-label inp_text_imp" for="inp_area">Street/Sector, Area :</label>
-   </div>
-   <div class="input-fields">
-    <input name="Pincode" id="inp_pincode" class="sna" type="tel" maxlength="6" minlength="6" pattern="^\d{6}$" value="" placeholder="6-digit Pincode" required>
-    <label class="float-label inp_text_imp" for="inp_pincode">Pincode :</label>
-    <span id="error-icon" class="material-symbols-outlined">error</span>
-   </div>
-   <p id="error"></p>
-  <div class="inline-inputs">
-   <div class="input-fields cs-box" tabindex="0">
-    <input name="City" class="no-focus" id="inp_city" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" tabindex="-1" placeholder="Enter city name" required>
-    <label class="float-label inp_text_imp" for="inp_city">City :</label>
-   </div>
-   <div class="input-fields cs-box" tabindex="0">
-    <input name="State" class="no-focus" id="inp_state" type="text" pattern="^[A-Za-z]+(?: [A-Za-z]+)*$" tabindex="-1" placeholder="Enter state name" required>
-    <label class="float-label inp_text_imp" for="inp_state">State :</label>
-   </div>
-  </div>
-  <div class="country">
-   <div class="input-fields">
-    <input name="Country" id="inp_country" value="India" type="text" placeholder="" readonly>
-    <label class="float-label inp_text_imp" for="inp_country">Country :</label>
-   </div>
-  </div>
- </div>
-   
-  <label class="solid-label inp_text_imp osa-element" for="inp_photo">Student's Photo (Passport-Size Only) :</label>
-  <p class="photo-note osa-element">Accept :<br>File Format - JPG, JPEG, PNG.<br>File Size - Maximum 2 MB.</p>
-  <div class="photo_container">
-   <div id="photo_box" class="osa-element"> 
-   <img id="default_image_photo" src="https://assets.onecompiler.app/42fkuwhzd/42rfnf4fh/1000038208.png" alt="default_display_picture"> 
-   </div>
-   <p id="photo-error"></p>
-   <input name="Photo" id="inp_photo" type="file" accept="image/*" required>
-   <div class="photo_control_btn">
-   <button id="upload_photo_btn" class="material-symbols-outlined osa-element">upload</button>
-   <button id="delete_photo_btn" class="material-symbols-outlined osa-element">delete</button>
-   <p id="upload-error">Please upload!</p>
-   </div>
-  </div>
-   
-  <div id="after-review">
-   <div id="declaration_msg" class="osa-element">
-    <label class="solid-label declaration_label inp_text_imp">Self-Declaration :</label>
-    <p>
-     I declare that the information provided in this form is accurate, and I have reviewed and confirmed all details to be correct to the best of my knowledge. 
-    <br>
-     By clicking the checkbox button, I agree to abide by the rules and regulations of the Service.
-    </p>
-   </div>
-   <div class="checkbox-container">
-    <button id="declaration_check_btn" class="material-symbols-outlined declaration_check_btn osa-element">priority</button>
-    <p class="declaration-checkbox-error">Please Click Checkbox!</p>
-   </div> 
-   <label class="solid-label inp_text_imp osa-element" for="inp_captcha">CAPTCHA Verification :</label>
-   <div class="inline-boxes osa-element">
-    <div id="captcha_container" onclick="generateCaptcha()">
-    <div id="captcha" class="captcha"></div>
-    </div>
-    <input id="inp_captcha" class="inp_captcha sna no-cap no-table no-qr" type="text" minlength="6" maxlength="6" placeholder="Enter Text" required>
-   </div>
-   <div id="captcha_texts" class="osa-element">
-    <p id="captcha_note">Click on text to change</p>
-    <p id="captcha_msg"></p>
-   </div>
-  </div>
-
-  <div class="btn-container">
-   <button id="submit-disabled-btn" class="osa-element" type="button">Proceed</button>
-   <button id="submit-btn" class="osa-element" type="button">Submit</button>
-  </div>
-  <p id="submit-error">Please fix all the errors before submitting the form!</p>
-  <div id="form-error" class="osa-element">
-   <p>Something Went Wrong, please check the following:</p>
-   <ol>
-    <li>Ensure your email address is valid and entered correctly.</li>
-    <li>Verify your internet connection is stable.</li>
-    <li>If everything is correct, please try submitting the form again, and it will successfully process.</li>
-   </ol>
-  </div>
-  </form>
-  </div>
-  <div id="alert-box" role="alert"></div>
- </div>
-</div>
-
-           <!-- Verification -->
-  <div id="v-box-bg">
-   <div id="v-box">
-    <div class="v-header">
-     <span class="fa fa-lock" id="v-lock"></span>
-     <span class="fa fa-unlock-alt" id="v-unlock"></span>
-     <span class="fa fa-download" id="v-dl"></span>
-     <h2 id="v-heading">OTP Verification</h2>
-    </div>
-    <div class="v-body">
-     <div id="v-otp-verify"> 
-      <p id="v-note">Kindly check your <b>email account</b> below for the OTP we just sent you to verify.</p>
-      <div class="mail-box">
-       <span class="fa fa-eye" id="v-eye"></span>
-       <span class="fa fa-eye-slash" id="v-eye-slash"></span>
-       <p id="mask-mail"></p>
-       <span class="fa fa-pencil" id="edit-btn"></span>
-       <span class="fa fa-question-circle-o" id="q-mark"></span>
-       <div class="q-msg">If you entered a wrong email address by mistake then you need to fill a new form due to some security reasons!</div>
+   <h1 class="h-1"><i class="fa-solid fa-circle-check"></i>Why Choose Us</h1>
+   <p class="p-1">Experience the benefits of our comprehensive learning platform</p>
+   <div class="slider s3">
+     <div class="why-boxes">
+      <div>
+       <i class="fa-solid fa-indian-rupee-sign why-icons wi1"></i>
+       <h2>Affordable Yet Premium</h2>
+       <q class="q1">Excellence that fits your budget</q>
+       <p>We believe quality shouldn’t come at a high price! Our services/products are designed to provide exceptional value at affordable rates, ensuring you get the best without breaking the bank.</p>
       </div>
-      <div id="edit-q">
-       <span class="fa fa-close" id="quite-edit"></span>
-       <div id="edit-q-content" class="edit-q-content">
-        <div id="q">
-         <h3>Email Correction</h3>
-         <p class="q-content">Do you want to edit your email address?</p>
-         <div class="ans-btns">
-          <button id="edit-yes">Yes</button>
-          <button id="edit-no">No</button>
-         </div>
-        </div>
-        <div id="edit-inp">
-         <div class="c-email-field">
-          <input name="Corrected E-mail" id="inp_c_email" class="sna" type="email" placeholder="Enter a valid email" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-          <label class="float-label inp_text_imp c-email-label" for="inp_c_email">Corrected E-mail :</label>
-         </div>
-         <p id="c-email-msg"></p>
-         <button id="otp-btn" type="button">Send OTP</button>
+     </div>
+     <div class="why-boxes">
+      <div>
+       <i class="fa-solid fa-crosshairs why-icons wi2"></i>
+       <h2>Personalized Mentorship</h2>
+       <q class="q2">Learn your way, excel your way</q>
+       <p>Get expert one-on-one support tailored to your learning style and goals. Grow with confidence at your own pace with a mentor who truly understands your journey!</p>
+      </div>
+     </div>
+     <div class="why-boxes">
+      <div>
+       <i class="fa-solid fa-book why-icons wi3"></i>
+       <h2>Extensive Study Materials</h2>
+       <q class="q3">Mater concepts with ease</q>
+       <p>Get well-structured resources with clear explanations, key notes, solved examples, and practice questions to simplify learning and boost your success.</p>
+      </div>
+     </div>
+     <div class="why-boxes">
+      <div>
+       <i class="fa-solid fa-book-open-reader why-icons wi4"></i>
+       <h2>Student-Centric Approach</h2>
+       <q class="q4">Excellence that fits your budget</q>
+       <p>We prioritize your needs, pace, and goals. Our approach ensures interactive teaching, personalized support, and engaging methods for effective, enjoyable learning.</p>
+      </div>
+     </div>
+   </div>
+   
+   
+   <h1 class="h-1"><i class="fa-solid fa-splotch"></i>Trusted by Many</h1>
+   <p class="p-1">Genuine Experiences Shared by Our Trusted Community</p>
+   <div class="slider s4">
+     <div class="review-boxes">
+      <div>
+       <p>“I highly recommend S² Education! The way they teach makes every class super interesting. I’ve never enjoyed learning so much before! They truly make a difference in how we understand things.”</p>     
+       <div class="review-profile">
+        <img class="review-pic" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000080646.jpg" alt="profile-pic">
+        <div class="review-name">
+         <h3>Amit Sharma</h3>
+         <small>Student</small>
         </div>
        </div>
       </div>
-      <div id="resend-otp"></div>
-      <p id="resend-msg"></p>
-      <input name="OTP" id="inp_otp" class="sna" type="tel" maxlength="6" minlength="6" autocomplete="off" pattern="^\d{6}$" value="" placeholder="Enter OTP" required>
-      <p id="otp-msg"></p>
-      <img id="otp-verify-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verification_gif">
-      <div id="vlg-bg">
-       <img id="verify-loading-gif" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000054083.gif" alt="Verify_loading_gif">
+     </div>
+     <div class="review-boxes">
+      <div> 
+       <p>“The teachers here don’t just explain concepts, they bring lessons to life! My child is now more confident in studies and enjoys every session. The improvement is truly commendable.”</p>                
+       <div class="review-profile">
+        <img class="review-pic" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000080741.jpg" alt="profile-pic">
+        <div class="review-name">
+         <h3>Kavita Chauhan</h3>
+         <small>Parent</small>
+        </div>
+       </div>
       </div>
      </div>
-     <div id="v-form-dl">
-      <p class="dl-q">Do you want to download the form?</p>
-      <div class="dl-btns">
-       <button id="dl-no">No</button>
-       <button id="dl-yes">Yes</button>
+     <div class="review-boxes">
+      <div>  
+       <p>“It’s rare to find teachers who make complex topics feel easy and exciting. Their dedication and unique way of explaining concepts have helped me a lot in my studies.”</p>               
+       <div class="review-profile">
+        <img class="review-pic" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000080835.jpg" alt="profile-pic">
+        <div class="review-name">
+         <h3>Swati Ghosh</h3>
+         <small>Student</small>
+        </div>
+       </div>
       </div>
      </div>
+     <div class="review-boxes">
+      <div>
+       <p>“Their approach to teaching goes beyond textbooks. They turn lessons into real-life learning experiences, making sure every student understands and enjoys the process. A great place for quality education!”</p>
+       <div class="review-profile">
+        <img class="review-pic" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000080708.jpg" alt="profile-pic">
+        <div class="review-name">
+         <h3>Pranav Deshmukh</h3>
+         <small>Parent</small>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="review-boxes">
+      <div>
+       <p>“I am incredibly grateful for the positive impact S² Education has had on my younger sister. The way they teach has sparked a genuine interest in learning, making even difficult subjects easy for her to understand.”</p>
+       <div class="review-profile">
+        <img class="review-pic" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000080809.jpg" alt="profile-pic">
+        <div class="review-name">
+         <h3>Ritika Tiwari</h3>
+         <small>Parent</small>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="review-boxes">
+      <div>
+       <p>“Classes here feel like an exciting journey into knowledge! Even the toughest subjects become simple, engaging, and easy to understand. Learning has never been this fun, enjoyable, and effortless!”</p>
+       <div class="review-profile">
+        <img class="review-pic" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000080640.jpg" alt="profile-pic">
+        <div class="review-name">
+         <h3>Vikram Mehta</h3>
+         <small>Student</small>
+        </div>
+       </div>
+      </div>
+     </div>
+   </div>
+   
+   
+   <button class="btn1" onclick="window.location.href='/fb.html'">Share Your Experience</button>
+
+
+
+
+  </div>
+  
+  
+           <!-- Success-box -->
+  <div id="success-box-bg">
+   <div class="success-box">
+    <div id="front-box">
+     <div class="f-box-content">
+      <h1>Welcome!</h1>
+      <button id="toggle-form">Sign Up</button>
+     </div>
+    </div>
+    <div id="signup-box">
+     <form class="signup-form" autocomplete="off" spellcheck="false">
+       <label for="inp_sign_name">Name</label>
+       <input id="inp_sign_name" type="text" placeholder="Enter Name" required>
+       <label for="inp_sign_email">Email Address</label>
+       <input id="inp_sign_email" type="email" placeholder="Enter Email" required>
+       <label for="inp_sign_pw">Password</label>
+       <input id="inp_sign_pw" type="password" placeholder="Enter Password" required>       
+       <button id="signup-btn" type="button">Sign Up</button>
+       <p id="sign-status"></p>
+     </form>
+    </div>
+    <div id="login-box">
+     <div class="login-box-content">
+      <button id="google-btn"><img src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000082400.png" alt="Google Logo">Sign in with Google</button>
+      <div class="separator"><span>OR</span></div>
+      <form class="login-form" autocomplete="off" spellcheck="false">
+        <label for="inp_log_email">Email Address</label>
+        <input id="inp_log_email" type="email" placeholder="Enter Email" required>
+        <label for="inp_log_pw">Password</label>
+        <input id="inp_log_pw" type="password" placeholder="Enter Password" required>
+        <p id="forgot">forgot password?</p>
+        <button id="login-btn" type="button">Login</button>
+        <p id="log-status"></p>    
+      </form>
+     </div>
+    </div>
+    <div id="forgot-box">
+     <input id="inp_forgot_email" type="email" placeholder="Enter Email" required>
+     <button id="resetPw-btn">Reset Password</button>
+     <p id="forgot-status"></p>
     </div>
    </div>
   </div>
-
-          <!-- Status bar -->
+ 
+           <!-- Initial animation --> 
+  <div id="initial-anime-bg">
+   <div id="anime-logo-box">
+    <img id="anime-logo" src="https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000044000.png" alt="logo">
+   </div>
+  </div>
+  
+  
+            <!-- Status bar -->
   <div id="status-bar">
    <div id="status-bar-content">
     <div id="status-bar-icons">
@@ -568,23 +360,27 @@
    <p id="back-note">Please do not press back or close the page.</p>
    <p id="wait-note">Due to slow internet, form submission may take longer. Please wait...</p>
   </div>
+
   
-      <!-- Ad-blocker -->
-<div class="adblock-container hidden" id="adblockContainer">
-    <div class="adblock-message">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-        </svg>
-        <h2>Ad-Blocker Detected!</h2>
-        <p>It seems an ad blocker is preventing the form from working properly. <b>This isn't for ads</b> but to ensure the form can be filled out and submitted successfully. <span>Please disable your ad blocker temporarily and refresh the page to proceed.</span> We appreciate your understanding!</p>
-    </div>
-</div>
 
        <!-- footer -->
   <div class="footer">
-   <p>© 2020 - <span id="current-year"></span><br>All Rights Reserved<br><a href="pp.html">Privacy Policy</a><br>Designed by - <span class="logo-color">SXS</span> <span class="logo-color">Web Consultancy</span></p>
+   <div class="links">
+    <h2 class="quick-link plus">Quick links</h2>
+    <a onclick="window.location.href='/reg.html'" class="quick-link plus"><i class="fa-solid fa-user-tie"></i>Register a Student</a>
+    <a onclick="window.location.href='/fs.html'" class="quick-link plus"><i class="fa-solid fa-money-check"></i>Fee Payment</a>
+    <a onclick="window.location.href='/fb.html'" class="quick-link plus"><i class="fa-regular fa-pen-to-square"></i>Write a Review</a>
+    <a onclick="window.location.href='/cu.html'" class="quick-link plus"><i class="fa-regular fa-circle-question"></i>Need Help?</a>
+    <h2>Contact us</h2>
+    <a onclick="window.open('https://wa.me/919792141850', '_blank')"><i class="fa-brands fa-whatsapp"></i>WhatsApp</a>
+    <a onclick="location='tel:+916384841775'"><i class="fa-solid fa-phone"></i>+91 6386841775</a>
+    <a onclick="location='mailto:contact.sxsquare@gmail.com'"><i class="fa-regular fa-envelope"></i>contact.sxsquare@gmail.com</a>
+    <a onclick=""><i class="fa-solid fa-location-dot"></i>New Delhi, Delhi - 110052</a>
+    <h2>Legal stuff</h2>
+    <a onclick="window.location.href='/pp.html'"><i class="fa-solid fa-lock"></i>Privacy Policy</a>
+    <a onclick="window.location.href='/tc.html'"><i class="fa-solid fa-file-contract"></i>Terms & Conditions</a>
+   </div>
+   <div class="©">© 2020 - <span id="current-year"></span><br>All Rights Reserved<br>Designed by - <span class="logo-color brand-font">SXS</span> <span class="logo-color brand-font">Web Consultancy</span></div>
   </div>
  </body>
 </html>

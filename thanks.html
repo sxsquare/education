@@ -268,7 +268,7 @@ body {
    
    <script type="module">
               /*---- Porting ----*/
-//import { showNotification } from './script.js';
+import { showNotification } from "./script.js";
   
              /*---- OnPageLoad ----*/
 function getFormRequest() {
@@ -291,7 +291,7 @@ function getFormRequest() {
   const data = atob(eData);
   const [id, name, time] = data.split('-');
   const update = `Registration ID: ${id}<br>Student Registration for ${name} has been successfully submitted. The details will be verified, and you will be notified upon completion.`;
-//  showNotification(update, time);
+  showNotification(update, time);
   ref.textContent = id;
   
   if (ref.textContent) {
