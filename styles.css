@@ -1497,6 +1497,9 @@ input:focus {
 .links a:hover {
     color: #9b84e1;
 }
+.links a:not(:has(i)) {
+    display: none;
+}
 .© {
     color: #0ef;
     width: 100%;

@@ -55,7 +55,7 @@ export function showNotification(message, timestamp) {
   toggleBellDot();
 }
 
-const correctPath = window.location.pathname.includes("education/index.html") || window.location.pathname.endsWith("education/");
+const correctPath = window.location.pathname.includes("index.html") || window.location.pathname.endsWith("education/");
 
 if (correctPath) {
 
@@ -745,7 +745,7 @@ function handleAuthError(error) {
             logStatus.textContent = 'Email not verified! Please check your inbox and verify.';
             signOut(auth);
         } else {
-            alert(userCredential.user);
+            //alert(userCredential.user);
             console.log("Login successful");
             logStatus.style.display = 'none';
         }
