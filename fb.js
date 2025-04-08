@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   fbText.addEventListener('input', function () {
-    fbLength = this.value.length;
+    let fbLength = this.value.length;
     fbChar.textContent = `${fbLength} / 250`;
    
     if (this.value.startsWith(" ")) {

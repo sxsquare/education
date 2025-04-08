@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   msgText.addEventListener('input', function () {
-    msgLength = this.value.length;
+    let msgLength = this.value.length;
     msgChar.textContent = `${msgLength} / 500`;
    
     if (this.value.startsWith(" ")) {
