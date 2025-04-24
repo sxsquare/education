@@ -69,6 +69,9 @@ body {
   left: 0; 
   right: 0; 
 }
+.navbar.show {
+  transform: translateY(0);
+} 
 #bell-box {
   display: none;
   position: relative;
@@ -402,7 +405,7 @@ body {
   gap: 1rem;
   align-items: center;
 }
-#dp {
+#dp, #pf-pic {
   display: block;
   border-radius: 50%; 
   overflow: hidden; 
@@ -437,42 +440,8 @@ body {
   color: #fff;
   margin: 0;
 } 
-#edit {
-  display: grid;
-  place-items: center;
-  background-color: #262626; 
-  border: .01rem solid white; 
-  height: 3.5rem; 
-  width: 3.5rem; 
-  border-radius: 50%; 
-  font-size: 2rem; 
-  margin-right: .9rem; 
-  float: right; 
-  color: white; 
-}
-#edit:active {
-  border: .1rem solid white;
-}
-#save {
-  display: grid;
-  place-items: center;
-  background-color: #262626; 
-  border: .01rem solid white; 
-  border-radius: 50%; 
-  height: 3.5rem; 
-  width: 3.5rem; 
-  font-size: 2rem; 
-  margin-right: .9rem; 
-  float: right; 
-  display: none; 
-  color: white; 
-}
-#save:active {
-  border: .1rem solid white;
-}
 #open-profile {
   font-size: 1.2rem;
-  transform: rotate(45deg);
 }
 #error-msg {
   position: absolute;
@@ -951,7 +920,7 @@ h3 {
 
 
 
-#success-box-bg {
+#acc-box-bg {
   display: grid;
   position: fixed;
   z-index: 100000;
@@ -967,10 +936,10 @@ h3 {
   transform: translateX(100vw);
   background-color: rgba(42, 48, 58, 0.8);
 }
-#success-box-bg.show {
+#acc-box-bg.show {
   transform: translateX(0);
 }
-.success-box {
+#acc-box {
   display: flex;
   position: relative;
   background: transparent;
@@ -1006,7 +975,7 @@ h3 {
   left: calc(100% - 20rem);
   border-radius: 5rem 0 0 5rem;
 }
-.success-box:has(#front-box.move) {
+#acc-box:has(#front-box.move) {
   border-right: none;
   border-left: .08rem solid #fff;
 }
@@ -1111,14 +1080,14 @@ h3 {
 form {
   display: grid;
 }
-label {
+#acc-box label {
   color: lightgrey;
   font-weight: bold;
   margin-left: .5rem;
   margin-bottom: .5rem;
   font-family: 'Rubik', sans-serif;
 }
-input {
+#acc-box input {
   width: 18rem;
   padding: .8rem;
   color: #ffffff;
@@ -1127,7 +1096,7 @@ input {
   margin-bottom: 2rem;
   border: .1rem solid #0ef;
 }
-input:focus {
+#acc-box input:focus {
   outline: none;
 }
 #forgot {
@@ -1199,7 +1168,7 @@ input:focus {
   background: transparent;
 }
 @media (max-width: 768px) {
-  .success-box {
+  #acc-box {
       height: 45rem;
       border-top: none;
       align-items: stretch;
@@ -1243,6 +1212,167 @@ input:focus {
 }
 
 
+#profile-box {
+    display: none;
+    position: relative;
+    backround: white;
+    margin: 0;
+    padding: 2rem;
+    padding-bottom: 8rem;
+    overflow: hidden;
+    border-radius: .8rem;
+    background:
+      radial-gradient(27% 29% at right, #0000 83%,#ebebeb 85% 99%,#0000 101%) calc(20px/2) 20px,
+      radial-gradient(27% 29% at left, #0000 83%,#ebebeb 85% 99%,#0000 101%) calc(20px/-2) 20px,
+      radial-gradient(29% 27% at top, #0000 83%,#ebebeb 85% 99%,#0000 101%) 0 calc(20px/2),
+      radial-gradient(29% 27% at bottom, #0000 83%,#ebebeb 85% 99%,#0000 101%) 0 calc(20px/-2)
+      #f5f5f5;
+    place-items: center;
+    box-sizing: border-box;
+    background-size: 3.3rem 3.3rem;
+    box-shadow: 0 0 1rem .2rem #cccccc;
+}
+#close-pf-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    padding: .5rem 1rem;
+    background: #0ef;
+    border-radius: 0 0 .8rem 0;
+}
+#pic-btns {
+    display: flex;
+    position: absolute;
+    top: 0;
+    gap: 2rem;
+    right: -5rem;
+    font-size: 1.2rem;
+    align-items: center;
+    padding: 1.5rem;
+    flex-direction: column;
+    border: .05rem solid #8367da;
+    border-top: none;
+    box-sizing: border-box;
+    border-radius: .4rem 0 0 .4rem;
+    transform: scale(.5);
+    background-color: #f2f2f2;
+    transition: all .5s ease;
+    box-shadow: 0 0 2rem 1rem rgba(0,0,0,0.1);
+}
+#pic-btns.show {
+    right: 0; 
+    transform: scale(1);
+}
+#upload-btn {
+    color: green;
+}
+#pic-del-btn {
+    color: maroon;
+}
+#pf-pic-box {
+    display: grid;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 50%;
+    place-items: center;
+    margin-bottom: 2rem;
+    border: .1rem double #ccc;    
+}
+#pf-pic {
+    width: 6rem;
+    height: 6rem;
+}
+#inp_pf_photo {
+    display: none;
+}
+#close-pic {
+    display: grid;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    color: #bfbfbf;
+    visibility: hidden;
+    font-size: 2.5rem;
+    position: absolute;
+    place-items: center;
+    box-sizing: border-box;
+    transition: all .5s ease;
+    background: rgba(255,255,255,0.8);
+}
+#close-pic.visible {
+    opacity: 1;
+    visibility: visible;
+}
+#profile-box input {
+    width: 20rem;
+    color: grey;
+    background: #f2f2f2;
+    border: .1rem solid #ccc;
+    padding: .8rem;
+    border-radius: .4rem;
+    margin-bottom: 1rem;
+}
+#logout-btn {
+    width: 17rem;
+    padding: .6rem;
+    color: maroon;
+    margin-top: 3rem;
+    background: #ffffff;
+    border-radius: .6rem;
+    border: .05rem solid maroon;
+}
+.pf-btn-box {
+    display: grid;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem;
+    place-items: center;
+    background: #f2f2f2;
+    box-sizing: border-box;
+    box-shadow: 0 -.1rem 2rem .3rem #ccc;
+}
+#pf-btn {
+    display: flex;
+    position: relative;
+    background: #ccc; 
+    border: .05rem solid #fff; 
+    height: 3.5rem; 
+    width: 20rem; 
+    padding: 1rem;
+    color: #fff;
+    scale: 1;
+    overflow: hidden;
+    border-radius: .8rem;
+    justify-content: space-around;
+}
+#pf-btn:active {
+    transform: scale(.985);
+}
+#pf-btn span {
+    z-index: 99;
+}
+#pf-btn-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+    width: 11rem;
+    background: #8367da;
+    border-radius: .8rem;
+    transition: left .5s ease;
+}
+#pf-btn-slider.slide {
+    left: calc(100% - 11rem);
+}
+
 
 
 
@@ -1250,7 +1380,7 @@ input:focus {
 
          /*---- Initial animation ----*/
 #initial-anime-bg {
-  display: none;
+  display: grid;
   position: fixed;
   width: 100%;
   height: 100%;

@@ -1,6 +1,6 @@
               /*---- Porting ----*/
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-  import { 
+  import {
     getAuth,
     updateProfile,
     applyActionCode,
@@ -10,10 +10,18 @@
     sendPasswordResetEmail,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signInWithCredential,
     sendEmailVerification,
     signOut,
     signInWithPhoneNumber,
     RecaptchaVerifier } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    getDocs,
+    collection } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
 export function showNotification(message, timestamp) {
   const panel = document.getElementById('my_sidebar');
@@ -62,18 +70,27 @@ if (correctPath) {
 document.addEventListener('DOMContentLoaded', () => {
   
               /*---- initial content loading ----*/
-   const navbar = document.getElementById('my_navbar');  
-   navbar.style.transform = 'translateY(0)';
-  
    const animeBg = document.getElementById('initial-anime-bg')
    const animeLogo = document.getElementById('anime-logo-box');
- 
+   const navbar = document.getElementById('my_navbar');  
+   const noAnime = sessionStorage.getItem('no-anime');
+   
+   if (noAnime) {
+       animeBg.style.display = 'none';
+       navbar.classList.add('show');
+       sessionStorage.removeItem('no-anime');
+   }
+   
    animeLogo.addEventListener('animationend', function () {
      setTimeout(() => { 
        this.classList.add('hide');
        animeBg.classList.add('hide');
      }, 1000);
    });
+   
+   setTimeout(() => {
+     navbar.classList.add('show');
+   }, 4200);
 
               /*---- notification-system ----*/
   const sidebar = document.getElementById("my_sidebar");
@@ -180,6 +197,9 @@ function markAllNotificationsAsSeen() {
   const menubar = document.getElementById("my_menubar");
   const menuBtn = document.getElementById("menu-btn");
   const menuIcon = document.getElementById("menu-icon");
+  const openPf = document.getElementById('open-profile');
+  const signPopup = document.getElementById('acc-box-bg'); 
+  const closePopup = document.getElementById('close-pf-popup');
 
   menuBtn.addEventListener('click', function() {
     const transformValue = window.getComputedStyle(menuIcon).transform;
@@ -194,104 +214,15 @@ function markAllNotificationsAsSeen() {
       menuIcon.style.transform = "rotate(0deg)";
     }
   });
-
-
-/*
-document.getElementById('inp_dp').addEventListener('change', () => {
-  var preview = document.getElementById('choose-profile-pic'); 
-  var file    = document.querySelector('input[type=file]').files[0]; 
-  var reader  = new FileReader(); 
-  reader.addEventListener("load", function () { 
-    preview.src = reader.result;
-    localStorage.setItem('profilePicture', reader.result);
-    document.getElementById('default-profile-pic').src = reader.result;
-  }, false); 
-    if (file) {
-      reader.readAsDataURL(file); 
-    } 
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const savedImage = localStorage.getItem('profilePicture');
-    if (savedImage) {
-      document.getElementById('default-profile-pic').src = savedImage;
-      document.getElementById('choose-profile-pic').src = savedImage;
-    }
-});
-*/
-/*document.getElementById('edit').addEventListener('click', () => {
-  document.getElementById("name").style.pointerEvents = "auto"; 
-  document.getElementById("name").style.borderBottom = ".2rem solid green"; 
-  document.getElementById("name").style.fontStyle = "normal"; 
-  document.getElementById("edit").style.display = "none"; 
-  document.getElementById("save").style.display = "block"; 
-  document.getElementById("circle").style.pointerEvents = "auto";
-  document.getElementById("circle").style.border = ".2rem solid green";
-  document.getElementById("default-profile-pic").style.display = "none";
-  document.getElementById("choose-profile-pic").style.display = "block";
-  document.getElementById("success-msg").style.display = "none";
-});
-
-document.getElementById('save').addEventListener('click', () => {
-  const inputFields = document.getElementById("name");
-  const editBtn = document.getElementById("edit");
-  const saveBtn = document.getElementById("save");
-  const imgCircle = document.getElementById("circle");
-  const picInput = document.querySelector(".file-upload").value;
-  const defaultPic = document.getElementById("default-profile-pic");
-  const choosePic = document.getElementById("choose-profile-pic");
-  const nameInput = document.getElementById('name').value;
-  const errorMsg = document.getElementById('error-msg');
-  const successMsg = document.getElementById('success-msg');
-
-    if (nameInput === '') {
-        errorMsg.textContent = 'Please fill out this field.';
-        errorMsg.style.display = 'block';
-        errorMsg.style.animation = "hang 1s linear infinite";
-    } else {
-        errorMsg.style.display = 'none';
-        inputFields.style.pointerEvents = "none"; 
-        inputFields.style.borderBottom = ".1rem solid #262626"; 
-        inputFields.style.fontStyle = "italic"; 
-        editBtn.style.display = "block"; 
-        saveBtn.style.display = "none"; 
-        imgCircle.style.pointerEvents = "none";
-        imgCircle.style.border = ".2rem solid #262626";
-        successMsg.style.display = "block";
-    }
-    
-    if (picInput === '') {
-        choosePic.style.display = "none";
-        defaultPic.style.display = "block";
-    } else {
-        defaultPic.style.display = "none";
-        choosePic.style.display = "block";
-    }
-    
-  setTimeout(() => {
-        successMsg.style.display = "none"; 
-    }, 1500); 
-
-});
-*//*
-     // save inputs in local storage
-document.addEventListener('DOMContentLoaded', (event) => {
-    const inputFields = document.querySelectorAll('.input-saved');
-    
-    inputFields.forEach(input => {
-        const key = input.dataset.key;
-        const savedValue = localStorage.getItem(key);
-        if (savedValue) {
-            input.value = savedValue;
-        }
-
-        input.addEventListener('input', () => {
-            const value = input.value;
-            localStorage.setItem(key, value);
-        });
-    });
-});
-*/
+  
+  openPf.addEventListener('click', () => {
+    signPopup.classList.add('show');
+  });
+  
+  closePopup.addEventListener('click', () => {
+    signPopup.classList.remove('show');
+  });
+  
             
             /*---- page-navigation ----*/
   const home = document.getElementById('home');
@@ -317,7 +248,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const logIcon = document.getElementById('login-icon');
   const logText = logIcon.nextElementSibling;
   const logTextContent = logText.textContent;
-  const signPopup = document.getElementById('success-box-bg'); 
   
   login.addEventListener('click', () => {
     const logState = logIcon.classList.contains('fa-user-large');
@@ -343,6 +273,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   */
             /*---- account-manager ----*/
   //  localStorage.setItem('test', 'hello');
+  const accBox = document.getElementById('acc-box');
+  const pfBox = document.getElementById('profile-box');
   const frontBox = document.getElementById('front-box');
   const toggleBtn = document.getElementById('toggle-form');
   const signBox = document.getElementById('signup-box');
@@ -368,7 +300,11 @@ document.addEventListener('DOMContentLoaded', (event) => {
   const signPw = document.getElementById("inp_sign_pw");
   const name = document.getElementById('pro-name');
   const email = document.getElementById('pro-email');
-  const image = document.querySelectorAll('#dp, #pc-dp');
+  const image = document.querySelectorAll('#dp, #pc-dp, #pf-pic');
+  const pfName = document.getElementById('inp_pf_name');
+  const pfEmail = document.getElementById('inp_pf_email');
+  const pfPhone = document.getElementById('inp_pf_phone');
+
   
   const firebaseConfig = {
     apiKey: "AIzaSyDjcYwQSstXZPf3ratDeYHJvgYiLdpc4JU",
@@ -382,7 +318,24 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const provider = new GoogleAuthProvider()  
+
+/*
+async function fetchAllUsers(userId) {
+  const key = 'abc123'
+  
+  if ('abc12' === key) {
+    const items = await getDocs(collection(db, "users"));
+    items.forEach((item) => {
+      console.log(item.id, " => ", JSON.stringify(item.data(), null, 2));
+    });
+  } else {
+    const item = await getDoc(doc(db, "users", userId));
+    console.log(item.id, " => ", JSON.stringify(item.data(), null, 2));
+  }
+}
+*/
    
   auth.useDeviceLanguage();
   provider.setCustomParameters({ hl: "en" });
@@ -473,9 +426,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
    onAuthStateChanged(auth, (user) => {
      if (user) {
+        accBox.style.display = 'none';
+        pfBox.style.display = 'grid';
         login.style.display = 'none';
         name.textContent = user.displayName;                                                            
         email.textContent = user.email;
+        pfName.value = user.displayName;                                                            
+        pfEmail.value = user.email;
+        pfPhone.value = user.phoneNumber || '';
         image.forEach((img) => {
           img.src = user.photoURL
           img.onerror = function() {
@@ -501,12 +459,44 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }        
      } else {
          console.log('No user logged in!!');
-         plusEls.forEach((el) => el.style.display = 'none');    
+         pfBox.style.display = 'none';
+         accBox.style.display = 'flex';
+         plusEls.forEach((el) => el.style.display = 'none');             
          if (mode !== "login") {
+           initGoogleSign();
            login.style.display = 'flex';
          }
      }
    });
+
+
+  function initGoogleSign() {
+    setTimeout(() => {
+      google.accounts.id.initialize({
+        client_id: "688203518667-utbl049mcr3rapqfsdnid8qml7cpm77t.apps.googleusercontent.com",  // Same as Firebase Google sign-in
+        callback: handleCredentialResponse,
+        auto_select: true, // or true for instant selection
+        cancel_on_tap_outside: true,
+      });
+      
+      google.accounts.id.prompt(); // Shows the One Tap prompt
+    }, 3000);
+  }
+
+  function handleCredentialResponse(response) {
+    const credential = GoogleAuthProvider.credential(response.credential);
+    signInWithCredential(auth, credential)
+    .then((result) => {
+      console.log(result);
+      location.reload();
+    })
+    .catch((error) => {
+      console.log("Sign in failed:", error);
+      google.accounts.id.prompt();
+    });
+    
+    
+  }
       
   forgot.addEventListener('click', () => {
       fgEmail.value = logEmail.value.trim();
@@ -565,34 +555,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 
 
-function updateFirebaseProfile(imageUrl) {
-  
-    if (auth.currentUser) {
-        updateProfile(auth.currentUser, {
-            photoURL: imageUrl
-        }).then(() => {
-            alert("Profile picture updated successfully!");
-        }).catch(error => {
-            console.error("Error updating profile:", error);
-        });
-    } else {
-        console.log("User not signed in.");
-    }
-}
+
 */
-  
-  /*
-  const savedName = localStorage.getItem('name');
-  const savedEmail = localStorage.getItem('email');
-  const savedImage = localStorage.getItem('photo');
-  
-  if (savedName && savedEmail && savedImage) {
-      name.textContent = savedName;
-      email.textContent = savedEmail;
-      image.src = savedImage;
-  }
-  */
-  
+ 
   document.getElementById("google-btn").addEventListener("click", (e) => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -612,14 +577,6 @@ function updateFirebaseProfile(imageUrl) {
    //     } else {
           //  updateUserProfileWithNewImage(user, user.photoURL);
     //    }
-        
-        
-    /*              
-        localStorage.setItem('name', name.textContent);
-        localStorage.setItem('email', email.textContent);
-        localStorage.setItem('photo', user.photoURL);
-    */ 
-        
       })
       .catch((error) => {
         console.error(error);
@@ -629,55 +586,7 @@ function updateFirebaseProfile(imageUrl) {
 
 // Function to upload image to Imgbb
 /*
-async function uploadToImgbb(imageUrl) {
- 
-    alert(imageUrl);
-    if (!imageUrl) {
-        alert('image url not found in imgbb function');
-    }
-  try {
-    const urlRes = await fetch(imageUrl);
-    const apiKey = "d8e4ccd142ddf84767dac0474af959ea";  // Replace with your Imgbb API key
-    const blob = await urlRes.blob();
-    alert(blob);
-    const formData = new FormData();
-    formData.append("image", blob);
-    const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
-        method: "POST",
-        body: formData
-    });
-    alert('after append image');
-    const data = await response.json();
-    if (data.success) {
-        alert('success to get perma url');
-        return data.data.url;  // Permanent image URL
-    } else {
-        console.error("Image upload failed:", data.error);
-        return null;
-    }
-  } catch (error) {
-      alert(error);
-  }
-}
-   
-async function updateUserProfileWithNewImage(user, photoUrl) {
-  try {
-    if (user && photoUrl) {
-    alert(photoUrl);
-        const permanentUrl = await uploadToImgbb(photoUrl);
-        if (permanentUrl) {
-            await updateProfile(user, { photoURL: permanentUrl });
-            alert("Profile updated successfully!");
-        }
-    } else {
-        alert('photourl not found');
-    }
-    
-   // location.reload();
-  } catch (error) {
-      alert(error);
-  }
-}
+
 */  
        
 
@@ -760,11 +669,6 @@ function handleAuthError(error) {
   
   
   
- /* 
-    const logBtn = document.getElementById("login-btn");
-    const logEmail = document.getElementById("inp_log_email");
-    const logPw = document.getElementById("inp_log_pw");
- */
     logBtn.addEventListener("click", (event) => {
       event.preventDefault();
       const email = logEmail.value;
@@ -789,11 +693,7 @@ function handleAuthError(error) {
         signStatus.textContent = handleAuthError(error);
     }
   }
- /*
-    const signBtn = document.getElementById("signup-btn");
-    const signEmail = document.getElementById("inp_sign_email");
-    const signPw = document.getElementById("inp_sign_pw");
-  */   
+
     signBtn.addEventListener("click", (event) => {
       event.preventDefault();
       const email = signEmail.value;
@@ -801,7 +701,7 @@ function handleAuthError(error) {
       signUpUser(email, password)      
     });
     
-    const logOutBtn = document.getElementById('open-profile');    
+    const logOutBtn = document.getElementById('logout-btn');    
     logOutBtn.addEventListener("click", () => {
       signOut(auth)
       .then(() => {
@@ -812,7 +712,206 @@ function handleAuthError(error) {
       });
     });
 
-         /*-- Online/Offline status --*/
+            /*---- profile management ----*/
+  const pfBtn = document.getElementById('pf-btn');
+  const pfBtnSlider = document.getElementById('pf-btn-slider');
+  const pfPicBox = document.getElementById('pf-pic-box');
+  const pfPic = document.getElementById('pf-pic'); 
+  const picClose = document.getElementById('close-pic');
+  const pfDefPic = 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg';
+  const picBtnBox = document.getElementById('pic-btns');
+  const photoUploadBtn = document.getElementById('upload-btn');
+  const picDelBtn = document.getElementById('pic-del-btn');
+  const fileInput = document.getElementById('inp_pf_photo');
+  const pfInputs = document.querySelectorAll('#profile-box input');
+  
+  let canEdit = false;
+ 
+async function uploadToImgbb(imageUrl) {
+
+    if (!imageUrl) {
+        console.error('image url not found in imgbb function');
+    }
+
+    const urlRes = await fetch(imageUrl);
+    const apiKey = "d8e4ccd142ddf84767dac0474af959ea";  // Replace with your Imgbb API key
+    const blob = await urlRes.blob();
+   // alert(blob);    
+    const formData = new FormData();
+    formData.append("image", blob);
+    const response = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+        method: "POST",
+        body: formData
+    });
+  //  alert('after append image');
+    const data = await response.json();
+    if (data.success) {
+    //    alert('success to get perma url');
+        return data.data.url;  // Permanent image URL
+    } else {
+        console.error("Image upload failed:", data.error);
+        return null;
+    }
+}
+   
+async function updateUserProfileWithNewImage(user, photoUrl) {
+  try {
+    if (user && photoUrl) {
+   // alert(photoUrl);
+        const permanentUrl = await uploadToImgbb(photoUrl);
+        if (permanentUrl) {
+            await updateProfile(user, { photoURL: permanentUrl });
+       //     alert("Profile updated successfully!");
+        }
+    } else {
+    //    alert('photourl not found');
+    }
+    
+   // location.reload();
+  } catch (error) {
+      alert(error);
+  }
+}
+ 
+ 
+  pfBtn.addEventListener('click', () => {
+    pfBtnSlider.classList.toggle('slide');
+    const editable = pfBtnSlider.classList.contains('slide');
+  
+    if (editable) {
+        pfInputs.forEach((inp) => {
+            inp.disabled = false;
+        });
+        canEdit = true;
+    } else {
+        pfInputs.forEach((inp) => {
+            inp.disabled = true;
+        });
+        
+        const profileData = {
+            displayName: pfName.value.trim(),
+            email: pfEmail.value.trim(),
+            phoneNumber: pfPhone.value.trim()
+        };
+        
+        updateUserPf(profileData);
+        canEdit = false;
+        
+        location.reload();
+    }
+ 
+  }); 
+  
+  pfPicBox.addEventListener('click', () => {
+    if (canEdit) {
+      picBtnBox.classList.toggle('show');
+      picClose.classList.toggle('visible');
+    }
+  });
+  
+
+
+  photoUploadBtn.addEventListener('click', () => {
+      fileInput.click();
+  });
+  
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0]; 
+    
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        pfPic.src = e.target.result;
+        //localStorage.setItem('profilePicture', reader.result);
+        //document.getElementById('default-profile-pic').src = reader.result;
+      };
+      reader.readAsDataURL(file); 
+    } 
+  });
+  
+  picDelBtn.addEventListener('click', () => {
+    fileInput.value = '';
+    pfPic.src = pfDefPic;
+  });
+
+
+  function updateUserPf(data) { 
+    if (auth.currentUser) {
+        updateProfile(auth.currentUser, data)
+        .then(() => {
+            console.log("Profile picture updated successfully!");
+        }).catch(error => {
+            console.error("Error updating profile:", error);
+        });
+    } else {
+        console.log("User not signed in.");
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+  updateStatusBar();
+
+
+         /*---- chatbase.co ----*/
+  window.embeddedChatbotConfig = {
+    chatbotId: "9YRSDWYGQFngIG3W6Ahqp",
+    domain: "www.chatbase.co"
+  }
+  
+/*
+  setTimeout(() => {
+   const userName = "SSS";  
+   if (userName && window.chatbase && window.chatbase.setInitialMessages) {
+     window.chatbase.setInitialMessages([
+       `Hello ${userName}, how can I help!`
+     ]);
+   } else {
+       console.error('something wrong');
+   }
+  }, 3000);
+*/
+
+        /*---- © current year ----*/
+  const year = document.getElementById('current-year');
+  const currentYear = new Date().getFullYear();
+  year.textContent = currentYear;
+  
+  
+}); // Dom content loaded listener ends here.
+
+               /*---- page-refreshment ----*/
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted) {
+        sessionStorage.setItem('no-anime', 'true');
+        location.reload(); // Reload page if loaded from bfcache
+    }
+});
+
+               /*---- sliders-alignment ----*/
+window.addEventListener("load", () => {
+    const sliders = document.querySelectorAll(".slider");
+    const boxes = document.querySelector(".boxes");
+    
+    sliders.forEach((slider) => {
+    // Check if the total width of boxes is smaller than the slider width
+      if (slider.scrollWidth <= slider.clientWidth) {
+          slider.style.justifyContent = "center";  // Center when not overflowing
+      }
+    });  // else {
+   //     boxes.style.justifyContent = "flex-start"; // Normal scrolling
+  //  }
+});
+
+              /*-- Online/Offline status --*/
 function updateStatusBar() {
   const statusBar = document.getElementById('status-bar');
   const statusBarIcons = document.getElementById('status-bar-icons');
@@ -823,13 +922,11 @@ function updateStatusBar() {
   const menubar = document.getElementById("my_menubar");
   const bellBox = document.getElementById('bell-box');
   const menuBtn = document.getElementById("menu-btn");
-  const adblockContainer = document.getElementById('adblockContainer');
 
   if (navigator.onLine) {
     setTimeout(() => {
       statusBar.style.display = 'none';
       document.body.style.overflowY = 'scroll';
-      adblockContainer.style.opacity = '1';
     }, 1900);
     setTimeout(() => {
       statusBar.style.opacity = '0';
@@ -859,7 +956,6 @@ function updateStatusBar() {
     menubar.style.opacity = '0';
     bellBox.style.opacity = '0';
     menuBtn.style.opacity = '0';
-    adblockContainer.style.opacity = '0';
     setTimeout(() => {
       menubar.style.display = 'none';
       bellBox.style.display = 'none';
@@ -867,59 +963,7 @@ function updateStatusBar() {
     }, 500);
   }
 }
-
-  updateStatusBar();
-
-
-         /*---- chatbase.co ----*/
-window.embeddedChatbotConfig = {
-  chatbotId: "9YRSDWYGQFngIG3W6Ahqp",
-  domain: "www.chatbase.co"
-}
-
- setTimeout(() => {
-  const userName = "SSS";  
-  if (userName && window.chatbase && window.chatbase.setInitialMessages) {
-    window.chatbase.setInitialMessages([
-      `Hello ${userName}, how can I help!`
-    ]);
-  } else {
-      console.error('something wrong');
-  }
- }, 3000);
-
-
-        /*---- © current year ----*/
-  const year = document.getElementById('current-year');
-  const currentYear = new Date().getFullYear();
-  year.textContent = currentYear;
-  
-  
-});
-
-               /*---- page-refreshment ----*/
-window.addEventListener("pageshow", (event) => {
-    if (event.persisted) {
-        location.reload(); // Reload page if loaded from bfcache
-    }
-});
-
-               /*---- sliders-alignment ----*/
-window.addEventListener("load", () => {
-    const sliders = document.querySelectorAll(".slider");
-    const boxes = document.querySelector(".boxes");
-    
-    sliders.forEach((slider) => {
-    // Check if the total width of boxes is smaller than the slider width
-      if (slider.scrollWidth <= slider.clientWidth) {
-          slider.style.justifyContent = "center";  // Center when not overflowing
-      }
-    });  // else {
-   //     boxes.style.justifyContent = "flex-start"; // Normal scrolling
-  //  }
-});
-
-                /*---- status checker ----*/
+                
 window.addEventListener('online', updateStatusBar);
 window.addEventListener('offline', updateStatusBar);
 
