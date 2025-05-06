@@ -202,25 +202,24 @@ function markAllNotificationsAsSeen() {
   const closePopup = document.getElementById('close-pf-popup');
 
   menuBtn.addEventListener('click', function() {
-    const transformValue = window.getComputedStyle(menuIcon).transform;
-
-    if (transformValue === "none" || transformValue === "matrix(1, 0, 0, 1, 0, 0)") {
+    const active = this.classList.contains('active');
+    const closePf = this.classList.contains('close-pf');
+    
+    if (!active && !closePf) {
       menubar.classList.add('open-menu');
       this.classList.add('active');
-      menuIcon.style.transform = "rotate(-540deg)";
+    } else if (closePf) {
+        signPopup.classList.remove('show');
+        menuBtn.classList.replace('close-pf', 'active');
     } else {
-      menubar.classList.remove('open-menu');
-      this.classList.remove('active');
-      menuIcon.style.transform = "rotate(0deg)";
+        menubar.classList.remove('open-menu');
+        this.classList.remove('active');
     }
   });
   
   openPf.addEventListener('click', () => {
     signPopup.classList.add('show');
-  });
-  
-  closePopup.addEventListener('click', () => {
-    signPopup.classList.remove('show');
+    menuBtn.classList.replace('active', 'close-pf');
   });
   
             
@@ -264,13 +263,19 @@ function markAllNotificationsAsSeen() {
     }
   });
   
-             /*---- reg-navigation ----
-  const regBtn = document.getElementById('reg-btn');
+             /*---- reg-navigation ----*/
+  const regSlide = document.getElementById('slider-box-2');
   
-  regBtn.addEventListener('click', () => {
-      
+  regSlide.addEventListener('click', () => {
+    if (isUser) {
+        window.location.href = 'reg.html';
+    } else {
+        signPopup.classList.add('show');
+        logIcon.classList.replace('fa-user-large', 'fa-chevron-right');
+        logText.textContent = 'Close';
+    }
   });
-  */
+  
             /*---- account-manager ----*/
   //  localStorage.setItem('test', 'hello');
   const accBox = document.getElementById('acc-box');
@@ -305,6 +310,7 @@ function markAllNotificationsAsSeen() {
   const pfEmail = document.getElementById('inp_pf_email');
   const pfPhone = document.getElementById('inp_pf_phone');
 
+  let isUser = false;
   
   const firebaseConfig = {
     apiKey: "AIzaSyDjcYwQSstXZPf3ratDeYHJvgYiLdpc4JU",
@@ -426,6 +432,8 @@ async function fetchAllUsers(userId) {
   
    onAuthStateChanged(auth, (user) => {
      if (user) {
+        isUser = true;
+        console.log(JSON.stringify(user));
         accBox.style.display = 'none';
         pfBox.style.display = 'grid';
         login.style.display = 'none';
@@ -458,6 +466,7 @@ async function fetchAllUsers(userId) {
             pcDp.style.display = 'none';
         }        
      } else {
+         isUser = false;
          console.log('No user logged in!!');
          pfBox.style.display = 'none';
          accBox.style.display = 'flex';
@@ -773,8 +782,34 @@ async function updateUserProfileWithNewImage(user, photoUrl) {
   }
 }
  
+  async function getPhotoUrl(file) {
+    const formData = new FormData();
+    formData.append("key", "d8e4ccd142ddf84767dac0474af959ea"); // Replace with your Imgbb API Key
+    formData.append("image", file);
+
+    try {
+        const response = await fetch("https://api.imgbb.com/1/upload", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.data.url) {
+            const imageUrl = data.data.url;
+            console.log("Uploaded Image URL:", imageUrl);
+            return imageUrl;
+        //    updateFirebaseProfile(imageUrl); Send URL to Firebase
+        } else {
+            console.error("Upload Failed:", data);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+  }
  
-  pfBtn.addEventListener('click', () => {
+ 
+  pfBtn.addEventListener('click', async () => {
     pfBtnSlider.classList.toggle('slide');
     const editable = pfBtnSlider.classList.contains('slide');
   
@@ -788,16 +823,16 @@ async function updateUserProfileWithNewImage(user, photoUrl) {
             inp.disabled = true;
         });
         
+        const photo = fileInput.files[0];        
         const profileData = {
             displayName: pfName.value.trim(),
-            email: pfEmail.value.trim(),
-            phoneNumber: pfPhone.value.trim()
+            photoURL: await getPhotoUrl(photo)
         };
         
         updateUserPf(profileData);
         canEdit = false;
         
-        location.reload();
+    //    location.reload();
     }
  
   }); 
@@ -839,9 +874,10 @@ async function updateUserProfileWithNewImage(user, photoUrl) {
     if (auth.currentUser) {
         updateProfile(auth.currentUser, data)
         .then(() => {
-            console.log("Profile picture updated successfully!");
-        }).catch(error => {
-            console.error("Error updating profile:", error);
+            console.log("Profile updated successfully!");
+        })
+        .catch((error) => {
+            console.error("Error updating profile: ", error);
         });
     } else {
         console.log("User not signed in.");
