@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-            window.location.href = 'index.html?mode=login';
+            const currentPage = window.location.pathname.split('/').filter(Boolean).pop();
+            window.location.href = `index.html?mode=login&ref=${encodeURIComponent(btoa(currentPage))}`;
         } else {
             document.body.style.display = 'flex';
         }
@@ -591,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const uploadError = document.getElementById('upload-error');
   const preview = document.getElementById('default_image_photo');
   const errorMsg = document.getElementById('photo-error');
-  const defaultPhotoImageSrc = 'https://assets.onecompiler.app/42fkuwhzd/42rfnf4fh/1000038208.png';
+  const defaultPhotoImageSrc = 'https://uploads.onecompiler.io/42fkuwhzd/42rfnf4fh/1000038208.png';
   const maxSize = 2 * 1024 * 1024;
 
   const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];

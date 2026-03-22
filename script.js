@@ -276,6 +276,12 @@ function markAllNotificationsAsSeen() {
     }
   });
   
+  //const testurl = 'reg.html';
+ // console.log(btoa(lastPart));
+  
+  //window.location.href = `/login/?next=${encodeURIComponent(lastPart)}`;
+  
+  
             /*---- account-manager ----*/
   //  localStorage.setItem('test', 'hello');
   const accBox = document.getElementById('acc-box');
@@ -394,6 +400,7 @@ async function fetchAllUsers(userId) {
   const urlParams = new URLSearchParams(window.location.search);
   const mode = urlParams.get('mode');
   //alert(mode);
+  const refPage = urlParams.get('ref');
   const oobCode = urlParams.get('oobCode');
   //alert(oobCode);
 
@@ -425,7 +432,7 @@ async function fetchAllUsers(userId) {
 */
 
 
-  if (mode === 'login') {
+  if (mode && mode === 'login') {
       signPopup.classList.add('show');
   }
       
@@ -579,7 +586,12 @@ async function fetchAllUsers(userId) {
         
      //   const photoUrl = user.photoURL;
       //  console.log(photoUrl);
-        window.location.replace('index.html');
+        if (refPage) {
+            const drp = atob(decodeURIComponent(refPage));
+            window.location.replace(drp);
+        } else {
+            window.location.replace('index.html');
+        }
      //   if (photoUrl && photoUrl.includes("i.ibb.co")) {
    //         console.log('already stored in imgbb');
     //        location.reload();

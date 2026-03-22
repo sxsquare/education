@@ -951,7 +951,7 @@ select:focus {
   padding: 0;
 }
 #captcha_container {
-  background-image: url('https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000042472.jpg');
+  background-image: url('https://uploads.onecompiler.io/42fkuwhzd/42u3dq83t/1000042472.jpg');
   background-size: cover;
   background-position: center;
   box-shadow: 0 .3rem 1rem rgba(0 0 0 / 0.2);
@@ -1818,7 +1818,7 @@ select:focus {
   border: .01rem solid white; 
   border-radius: 50%;
   position: fixed;
-  background-image: url('https://assets.onecompiler.app/42fkuwhzd/42u3dq83t/1000025857.gif');
+  background-image: url('https://uploads.onecompiler.io/42fkuwhzd/42u3dq83t/1000025857.gif');
   background-size: cover;
   background-position: center;
   pointer-events: none;

@@ -3,7 +3,6 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
-
               /*---- Home navigation & account checkup ----*/
 document.addEventListener('DOMContentLoaded', () => {
  // const home = document.getElementById('home');
@@ -200,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const eSrc = "aHR0cHM6Ly9xdWlja2NoYXJ0LmlvL3FyP3NpemU9MjAwJnRleHQ9dXBpJTNBJTJGJTJGcGF5JTNGcGElM0RzYXVyYWJoc3JpdmFzdGF2YWJpbm5pJTQwb2tpY2ljaSUyNnBuJTNEU1hTJTIwRURVQ0FUSU9OJTI2dG4lM0RUaGFua3MlMjBmb3IlMjB0cnVzdGluZyUyMHVzISUyNmN1JTNESU5SJTI2YW0lM0QK";
       const dSrc = atob(eSrc);
       const qrSrc = `${dSrc}${am}`;
-  
+
       inputSlide.style.opacity = '0';
       loading.style.display = 'grid';
     
