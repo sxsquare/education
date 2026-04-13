@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   validateOnInput();
-  
+ /* 
   const names = [sName, pName];
   
   names.forEach((name) => {
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       this.value = capitalizedWords.join(' ');
     });
   });
-  
+  */
   fbText.addEventListener('input', function () {
     let fbLength = this.value.length;
     fbChar.textContent = `${fbLength} / 250`;
@@ -249,12 +249,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function sendFeedback() {
     const fullSName = sName.value.trim();
-    const finSname = fullSName.split(' ')[0] || 'User';
+ //   const finSname = fullSName.split(' ')[0] || 'User';  
     const fullPName = pName.value.trim();
-    const finPname = fullPName.split(' ')[0] || 'User';
+  //  const finPname = fullPName.split(' ')[0] || 'User';
     const fullTName = tName.value.trim();
-    const finTname = fullTName.split(' ')[0] || 'User';
-    const allNames = `${finSname}-${finPname}-${finTname}`;
+  //  const finTname = fullTName.split(' ')[0] || 'User';
+    const allNames = `${fullSName}-${fullPName}-${fullTName}`;
     const mob = mobInput.value.trim() || 'N/A';
     const email = emailInput.value.trim() || 'N/A';
     const mobMail = `${mob}-${email}`;
