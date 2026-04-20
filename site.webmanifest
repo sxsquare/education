@@ -18,6 +18,6 @@
   "theme_color": "#000000",
   "background_color": "#000000",
   "display": "standalone",
-  "start_url": "/education/",
-  "scope": "/education/"
+  "start_url": "/edu/",
+  "scope": "/edu/"
 }

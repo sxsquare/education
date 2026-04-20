@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const textWidth = doc.getTextWidth(linkText);
     const linkX = (pageWidth - textWidth) / 2;
     const linkY = footerEndY - 10;
-    doc.textWithLink(linkText, linkX, linkY, { url: 'https://sxsquare.github.io/education/' });
+    doc.textWithLink(linkText, linkX, linkY, { url: 'https://sxsco.github.io/edu/' });
     doc.setLineWidth(0.2);
     doc.setDrawColor(40, 60, 90);
     doc.line(linkX, linkY + 1, linkX + textWidth, linkY + 1);

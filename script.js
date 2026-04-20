@@ -63,7 +63,7 @@ export function showNotification(message, timestamp) {
   toggleBellDot();
 }
 
-const correctPath = window.location.pathname.includes("index.html") || window.location.pathname.endsWith("education/");
+const correctPath = window.location.pathname.includes("index.html") || window.location.pathname.endsWith("edu/");
 
 if (correctPath) {
 
@@ -263,9 +263,27 @@ function markAllNotificationsAsSeen() {
     }
   });
   
-             /*---- reg-navigation ----*/
-  const regSlide = document.getElementById('slider-box-2');
+             /*---- slide-2 scripts ----*/ 
+  function updateSession() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const twoDigYear = year.toString().slice(-2);
+    const startOfYear = new Date(year, 3, 1);
+    const session = document.getElementById('slide-session');
+    let sessionText;
+
+    if (today < startOfYear) {
+        sessionText = (year - 1) + " - " + twoDigYear;
+    } else {
+        sessionText = year + " - " + (Number(twoDigYear) + 1);
+    }
+
+    session.textContent = sessionText;
+  }
   
+  updateSession();
+
+  const regSlide = document.getElementById('slider-box-2');
   regSlide.addEventListener('click', () => {
     if (isUser) {
         window.location.href = 'reg.html';
