@@ -75,9 +75,39 @@ document.addEventListener('DOMContentLoaded', () => {
    const navbar = document.getElementById('my_navbar');  
    const noAnime = sessionStorage.getItem('no-anime');
    
+   const swiper = new Swiper('.swiper', {
+       loop: true,
+       loopedSlides: 4,
+
+       slidesPerView: 'auto',
+       spaceBetween: 25,
+       centeredSlides: true,
+       grabCursor: true,
+
+       effect: 'coverflow',
+       coverflowEffect: {
+         rotate: 30,
+         depth: 120,
+         modifier: 1,
+         slideShadows: false
+       },
+    
+       speed: 4000,
+
+       autoplay: {
+         delay: 2000,
+         disableOnInteraction: false
+       },
+
+       allowTouchMove: true    
+   });
+   
+   swiper.autoplay.stop();
+   
    if (noAnime) {
        animeBg.style.display = 'none';
        navbar.classList.add('show');
+       swiper.autoplay.start();
        sessionStorage.removeItem('no-anime');
    }
    
@@ -85,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
      setTimeout(() => { 
        this.classList.add('hide');
        animeBg.classList.add('hide');
+       swiper.autoplay.start();
      }, 1000);
    });
    
