@@ -228,9 +228,9 @@ function markAllNotificationsAsSeen() {
   const menubar = document.getElementById("my_menubar");
   const menuBtn = document.getElementById("menu-btn");
   const menuIcon = document.getElementById("menu-icon");
+  const pcDp = document.getElementById('pc-dp-box');
   const openPf = document.getElementById('open-profile');
-  const signPopup = document.getElementById('acc-box-bg'); 
-  const closePopup = document.getElementById('close-pf-popup');
+  const account = document.getElementById('acc-box-bg'); 
 
   menuBtn.addEventListener('click', function() {
     const active = this.classList.contains('active');
@@ -240,8 +240,13 @@ function markAllNotificationsAsSeen() {
       menubar.classList.add('open-menu');
       this.classList.add('active');
     } else if (closePf) {
-        signPopup.classList.remove('show');
-        menuBtn.classList.replace('close-pf', 'active');
+        account.classList.remove('show');
+        if (window.matchMedia("(min-width: 768px)").matches) {      
+          menuBtn.classList.replace('close-pf', 'hide');     
+          pcDp.style.display = 'grid';
+        } else {
+            menuBtn.classList.replace('close-pf', 'active');  
+        }
     } else {
         menubar.classList.remove('open-menu');
         this.classList.remove('active');
@@ -249,10 +254,16 @@ function markAllNotificationsAsSeen() {
   });
   
   openPf.addEventListener('click', () => {
-    signPopup.classList.add('show');
+    account.classList.add('show');
     menuBtn.classList.replace('active', 'close-pf');
   });
   
+  pcDp.addEventListener('click', () => {
+    account.classList.add('show');
+   // pcDp.classList.add('hide');
+    pcDp.style.display = 'none';
+    menuBtn.classList.replace('hide', 'close-pf');
+  }); 
             
             /*---- page-navigation ----*/
   const home = document.getElementById('home');
@@ -284,11 +295,11 @@ function markAllNotificationsAsSeen() {
     const closeState = logIcon.classList.contains('fa-chevron-right');
     
     if (logState) {
-        signPopup.classList.add('show');
+        account.classList.add('show');
         logIcon.classList.replace('fa-user-large', 'fa-chevron-right');
         logText.textContent = 'Close';
     } else {
-        signPopup.classList.remove('show');
+        account.classList.remove('show');
         logIcon.classList.replace('fa-chevron-right', 'fa-user-large');
         logText.textContent = logTextContent;
     }
@@ -319,7 +330,7 @@ function markAllNotificationsAsSeen() {
     if (isUser) {
         window.location.href = 'reg.html';
     } else {
-        signPopup.classList.add('show');
+        account.classList.add('show');
         logIcon.classList.replace('fa-user-large', 'fa-chevron-right');
         logText.textContent = 'Close';
     }
@@ -341,7 +352,6 @@ function markAllNotificationsAsSeen() {
   const signStatus = document.getElementById('sign-status');
   const logBox = document.getElementById('login-box');
   const pcMenu = document.getElementById('pc_menubar');
-  const pcDp = document.getElementById('pc-dp');
   const bellBox = document.getElementById('bell-box');
   const qlinks = document.querySelectorAll(".quick-link");
   const plusEls = document.querySelectorAll(".plus");
@@ -482,7 +492,7 @@ async function fetchAllUsers(userId) {
 
 
   if (mode && mode === 'login') {
-      signPopup.classList.add('show');
+      account.classList.add('show');
   }
       
   
@@ -505,6 +515,7 @@ async function fetchAllUsers(userId) {
           };
         });
         bellBox.style.display = 'inline-block';
+        menuBtn.style.display = 'block';
         menubar.style.display = 'block';
         qlinks.forEach((link) => link.classList.remove('quick-link'));
       //  alert(user.photoURL);
@@ -512,12 +523,11 @@ async function fetchAllUsers(userId) {
         
         if (window.matchMedia("(min-width: 768px)").matches) {
             pcMenu.style.display = 'flex';
-            pcDp.style.display = 'block';
+            pcDp.style.display = 'grid';
             menubar.style.display = 'none';
-            menuBtn.style.display = 'none';
+            menuBtn.classList.add('hide');
         } else {
             menubar.style.display = 'block';
-            menuBtn.style.display = 'block';
             pcMenu.style.display = 'none';
             pcDp.style.display = 'none';
         }        
@@ -1027,18 +1037,15 @@ function updateStatusBar() {
     }, 1900);
     setTimeout(() => {
       statusBar.style.opacity = '0';
-      menubar.style.opacity = '1';
-      bellBox.style.opacity = '1';
-      menuBtn.style.opacity = '1';
     }, 1000);
     statusBarIcons.style.borderColor = '#0ef';
     internet.style.opacity = '1';
     noInternet.style.opacity = '0';
     msg.style.color = '#00cc00';
     msg.textContent = 'Back Online';
-    menubar.style.display = 'block';
-  //  bellBox.style.display = 'block';
-  //  menuBtn.style.display = 'block';
+    menubar.classList.remove('hide');
+    bellBox.classList.remove('hide');
+    menuBtn.classList.remove('hide');
   } else {
     setTimeout(() => {
       statusBar.style.opacity = '0.5';
@@ -1050,14 +1057,9 @@ function updateStatusBar() {
     noInternet.style.opacity = '1';
     msg.style.color = 'red';
     msg.textContent = 'No Internet Connection!';
-    menubar.style.opacity = '0';
-    bellBox.style.opacity = '0';
-    menuBtn.style.opacity = '0';
-    setTimeout(() => {
-      menubar.style.display = 'none';
-      bellBox.style.display = 'none';
-      menuBtn.style.display = 'none';
-    }, 500);
+    menubar.classList.add('hide');
+    bellBox.classList.add('hide');
+    menuBtn.classList.add('hide');
   }
 }
                 
