@@ -67,12 +67,12 @@ export function showNotification(message, timestamp) {
   toggleBellDot();
 }
 
-const correctPath = window.location.pathname.includes("index.html") || window.location.pathname.endsWith("edu/") || window.location.pathname.includes("sxsedu.vercel.app");
+const correctPath = window.location.pathname.includes("index.html") || window.location.pathname.endsWith("edu/") || window.location.href.endsWith("sxsedu.vercel.app/");
 
 if (correctPath) {
 
 document.addEventListener('DOMContentLoaded', () => {
-  
+
               /*---- initial content loading ----*/
    const animeBg = document.getElementById('initial-anime-bg')
    const animeLogo = document.getElementById('anime-logo-box');
@@ -492,6 +492,8 @@ complexQuery();
         toggleBtn.textContent = toggleBtn.textContent === 'Sign Up' ? 'Login' : 'Sign Up';
     }
   });
+  
+  
 /*  
   fetch("https://sxsedu.vercel.app/api/getLink.js")
   .then(res => res.json())
@@ -502,7 +504,9 @@ complexQuery();
   .catch((error) => {
       alert(error);
   });
- */
+*/
+ 
+ 
   // Getting params from url ↓
   
   const urlParams = new URLSearchParams(window.location.search);
