@@ -67,7 +67,7 @@ export function showNotification(message, timestamp) {
   toggleBellDot();
 }
 
-const correctPath = window.location.pathname.includes("index.html") || window.location.pathname.endsWith("edu/");
+const correctPath = window.location.pathname.includes("index.html") || window.location.pathname.endsWith("edu/") || window.location.pathname.includes("sxsedu.vercel.app");
 
 if (correctPath) {
 
@@ -492,9 +492,17 @@ complexQuery();
         toggleBtn.textContent = toggleBtn.textContent === 'Sign Up' ? 'Login' : 'Sign Up';
     }
   });
-  
-  
- 
+/*  
+  fetch("https://sxsedu.vercel.app/api/getLink.js")
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+    alert(data.message);
+  })
+  .catch((error) => {
+      alert(error);
+  });
+ */
   // Getting params from url ↓
   
   const urlParams = new URLSearchParams(window.location.search);
