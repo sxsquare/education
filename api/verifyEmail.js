@@ -1,4 +1,5 @@
 import admin from "firebase-admin";
+import emailjs from "@emailjs/nodejs"
 
 if (!admin.apps.length) {
   admin.initializeApp({
@@ -20,7 +21,18 @@ export default async function handler(req, res) {
 
     const link = await admin.auth().generateEmailVerificationLink(email);
 
-    res.status(200).json({ link });
+    await emailjs.send('service_mscgy1w', 'template_93hkrns',
+      {
+        userEmail: email,
+        verifyLink: link,
+      },
+      {
+        publicKey: process.env.EMAILJS_PBL_KEY_SS3,
+        privateKey: process.env.EMAILJS_PRV_KEY_SS3,
+      }
+    );
+
+    res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
