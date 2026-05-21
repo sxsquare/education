@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import emailjs from "@emailjs/nodejs"
+import emailjs from "@emailjs/nodejs";
 
 if (!admin.apps.length) {
   admin.initializeApp({
